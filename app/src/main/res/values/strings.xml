@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Skopje Movie Schedule</string>
+    <string name="title_activity_main_movies_view">MainMoviesView</string>
+    <string name="title_latest_movies">Latest Movies</string>
+    <string name="title_reservations">Reservations</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
