@@ -21,6 +21,8 @@ import mk.ukim.finki.skopjemovieschedule.data.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter {
     private static final String TAG = "MovieAdapter";
+    private static final int POSTER_WIDTH = 272;
+    private static final int POSTER_HEIGHT = 403;
 
     private List<Movie> mDataset;
 
@@ -40,9 +42,10 @@ public class MovieAdapter extends RecyclerView.Adapter {
         }
 
         public void setText(Movie movie){
-            movieTitle.setText(movie.mMovieTitle);
+            movieTitle.setText(movie.mMovieDisplayTitle);
             Picasso.get()
                     .load(movie.mPosterURL)
+                    .resize(POSTER_WIDTH, POSTER_HEIGHT)
                     .into(moviePoster);
         }
     }

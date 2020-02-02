@@ -1,11 +1,9 @@
-package mk.ukim.finki.skopjemovieschedule.ui.latestmovies;
+package mk.ukim.finki.skopjemovieschedule.ui.intheaters;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
@@ -13,11 +11,11 @@ import mk.ukim.finki.skopjemovieschedule.asynctask.jsoupAsynctask;
 import mk.ukim.finki.skopjemovieschedule.data.Movie;
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
 
-public class LatestMoviesViewModel extends AndroidViewModel {
+public class InTheatersViewModel extends AndroidViewModel {
 
     public MovieRepository mMovieRepository;
 
-    public LatestMoviesViewModel(Application application) {
+    public InTheatersViewModel(Application application) {
         super(application);
         mMovieRepository = new MovieRepository(application);
     }

@@ -19,6 +19,9 @@ public class Movie {
     @ColumnInfo(name = "movie_title_mkd")
     public String mMovieTitleMKD;
 
+    @ColumnInfo(name = "movie_display_title")
+    public String mMovieDisplayTitle;
+
     @ColumnInfo(name = "genres")
     public String mGenres;
 
@@ -38,9 +41,10 @@ public class Movie {
 //    private HashMap<String, List<String>> mMovieProjections; // <Day, List<>>
 
 
-    public Movie(@NonNull String mMovieTitle, String mMovieTitleMKD, String mGenres, String mCineplexxURL) {
+    public Movie(@NonNull String mMovieTitle, String mMovieTitleMKD, String mGenres, String mCineplexxURL, String mMovieDisplayTitle) {
         this.mMovieTitle = mMovieTitle;
         this.mMovieTitleMKD = mMovieTitleMKD;
+        this.mMovieDisplayTitle = mMovieDisplayTitle;
         this.mGenres = mGenres;
         this.mCineplexxURL = mCineplexxURL;
     }

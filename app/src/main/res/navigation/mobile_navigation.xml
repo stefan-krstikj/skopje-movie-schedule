@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="mk.ukim.finki.skopjemovieschedule.ui.latestmovies.LatestMoviesFragment"
-        android:label="@string/title_latest_movies"
-        tools:layout="@layout/fragment_latest_movies" />
+        android:name="mk.ukim.finki.skopjemovieschedule.ui.intheaters.InTheatersFragment"
+        android:label="@string/title_in_theaters"
+        tools:layout="@layout/fragment_in_theaters" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

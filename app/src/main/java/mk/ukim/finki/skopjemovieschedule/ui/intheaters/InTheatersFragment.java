@@ -1,39 +1,30 @@
-package mk.ukim.finki.skopjemovieschedule.ui.latestmovies;
+package mk.ukim.finki.skopjemovieschedule.ui.intheaters;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.R;
 import mk.ukim.finki.skopjemovieschedule.adapters.MovieAdapter;
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
 
-public class LatestMoviesFragment extends Fragment {
-    private static final String TAG = "LatestMoviesFragment";
+public class InTheatersFragment extends Fragment {
+    private static final String TAG = "InTheatersFragment";
 
-    private LatestMoviesViewModel latestMoviesViewModel;
+    private InTheatersViewModel inTheatersViewModel;
     MovieAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        latestMoviesViewModel =
-                ViewModelProviders.of(this).get(LatestMoviesViewModel.class);
+        inTheatersViewModel =
+                ViewModelProviders.of(this).get(InTheatersViewModel.class);
         View root = inflater.inflate(R.layout.fragment_latest_movies, container, false);
 
         return root;
@@ -57,8 +48,8 @@ public class LatestMoviesFragment extends Fragment {
     }
 
     private void initData(){
-        latestMoviesViewModel = ViewModelProviders.of(this).get(LatestMoviesViewModel.class);
-        latestMoviesViewModel.getAll().observe(getViewLifecycleOwner(), data -> {
+        inTheatersViewModel = ViewModelProviders.of(this).get(InTheatersViewModel.class);
+        inTheatersViewModel.getAll().observe(getViewLifecycleOwner(), data -> {
             adapter.updateDataset(data);
         });
     }

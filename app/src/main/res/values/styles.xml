@@ -8,4 +8,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Base.Theme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#2857c4</item>
+        <item name="colorPrimaryDark">#002f93</item>
+        <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="android:colorBackground">#2857c4</item>-->
+        <item name="android:titleTextColor">@android:color/white</item>
+        <item name="subtitleTextColor">@android:color/white</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SkopjeMovieSchedule" parent="Base.Theme.SkopjeMovieSchedule" />
+
+    <style name="Theme.SkopjeMovieSchedule.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SkopjeMovieSchedule.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+
+    <style name="TextAppearance.SkopjeMovieSchedule.Toolbar.Text" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
 </resources>
