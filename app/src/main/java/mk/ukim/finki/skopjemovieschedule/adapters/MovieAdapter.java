@@ -69,7 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        Log.v(TAG, "ItemCount: " + mDataset.size());
+      //  Log.v(TAG, "ItemCount: " + mDataset.size());
         return mDataset.size();
     }
 

@@ -54,7 +54,7 @@ public class jsoupUtils {
 
     private Movie getHighResPoster(Movie m) throws IOException {
         String URL = "https://" + m.mCineplexxURL;
-        Log.v(TAG, "URL: " + URL);
+      //  Log.v(TAG, "URL: " + URL);
         Document doc = Jsoup.connect(URL).get();
         Elements address =  doc.getElementsByClass("pull-left");
         String img = "https://www.cineplexx.mk/" + address.get(0).getElementsByTag("img").get(0).attr("src");
