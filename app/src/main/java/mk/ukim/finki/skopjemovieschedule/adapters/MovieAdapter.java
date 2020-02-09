@@ -1,12 +1,12 @@
 package mk.ukim.finki.skopjemovieschedule.adapters;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +18,7 @@ import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.R;
 import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
 public class MovieAdapter extends RecyclerView.Adapter {
     private static final String TAG = "MovieAdapter";
@@ -25,23 +26,26 @@ public class MovieAdapter extends RecyclerView.Adapter {
     private static final int POSTER_HEIGHT = 403;
 
     private List<Movie> mDataset;
+    OnMoviePosterClickListener listener;
 
-    public static class MovieHolder extends RecyclerView.ViewHolder{
+    public class MovieHolder extends RecyclerView.ViewHolder{
 
         private TextView movieTitle;
-        private TextView movieGenres;
         private ImageView moviePoster;
 
-
-        public MovieHolder(@NonNull View itemView) {
+        MovieHolder(@NonNull View itemView) {
             super(itemView);
             movieTitle = itemView.findViewById(R.id.movieTitle);
             moviePoster = itemView.findViewById(R.id.moviePoster);
-            // todo: what does this do? useless?
-            itemView.setTag(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onMovieClick(mDataset.get(getAdapterPosition()), moviePoster);
+                }
+            });
         }
 
-        public void setText(Movie movie){
+        void setText(Movie movie, final OnMoviePosterClickListener listener){
             movieTitle.setText(movie.mMovieDisplayTitle);
             Picasso.get()
                     .load(movie.mPosterURL)
@@ -50,8 +54,9 @@ public class MovieAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public MovieAdapter() {
+    public MovieAdapter(OnMoviePosterClickListener listener) {
         this.mDataset = new ArrayList<>();
+        this.listener = listener;
     }
 
     @NonNull
@@ -64,15 +69,15 @@ public class MovieAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((MovieHolder) holder).setText(mDataset.get(position));
+        ((MovieHolder) holder).setText(mDataset.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-      //  Log.v(TAG, "ItemCount: " + mDataset.size());
         return mDataset.size();
     }
 
+    // todo: Do i need 2 different movie adapters?
     public void updateDataset(List<Movie> newDataset){
         this.mDataset = newDataset;
         notifyDataSetChanged();

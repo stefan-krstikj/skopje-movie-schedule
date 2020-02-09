@@ -36,7 +36,8 @@ public class omdbApiClient {
 
     public static omdbMovie getMovie(String title) throws IOException {
         omdbAPIInterface omdbAPIInterface = getRetroFit().create(omdbAPIInterface.class);
-        Call<omdbMovie> call = omdbAPIInterface.getMovieByTitle("434c6b1f", title);
+
+        Call<omdbMovie> call = omdbAPIInterface.getMovieByTitle(APIKeys.OMDB_API_KEY, title);
         omdbMovie movie = call.execute().body();
         Log.v(TAG + " getMovie()", "Received: " + movie.toString());
         return movie;

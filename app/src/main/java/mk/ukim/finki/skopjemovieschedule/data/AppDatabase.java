@@ -9,21 +9,23 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities =  {Movie.class}, version = 1, exportSchema = false)
+@Database(entities =  {Movie.class, MovieSchedule.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
+    public abstract MovieScheduleDao movieScheduleDao();
 
-    public static volatile AppDatabase INSTANCE;
-    public static final int NUMBER_OF_THREADS = 4;
+    private static volatile AppDatabase INSTANCE;
+    private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static AppDatabase getDatabase(final Context context) {
+    public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "movie_database")
+                    // todo: remove fallbacktodestruct
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "movie_database")
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

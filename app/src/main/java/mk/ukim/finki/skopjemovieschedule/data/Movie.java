@@ -7,11 +7,12 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
 @Entity(tableName = "movie")
-public class Movie {
+public class Movie implements Serializable {
     // todo: make private
     @PrimaryKey
     @NonNull
@@ -69,6 +70,12 @@ public class Movie {
     @ColumnInfo(name = "country")
     public String mCountry;
 
+    @ColumnInfo(name = "status") // true = in theaters, false = coming soon
+    public int mStatus;
+
+    @ColumnInfo(name = "theater_name")
+    public String mTheaterName;
+
 //    public String Writer;
 //    public String Actors;
 //    public String Plot;
@@ -96,7 +103,8 @@ public class Movie {
     }
 
     public void fillOmdbInfo(String mYear, String mRuntime, String mRated, String mDirector, String mGenre,
-                             String mWriter, String mActors, String mPlot, String mLanguage, String mCountry){
+                             String mWriter, String mActors, String mPlot, String mLanguage, String mCountry, String mPosterURL,
+                             String mTheaterName){
         this.mYear = mYear;
         this.mRuntime = mRuntime;
         this.mRated = mRated;
@@ -107,6 +115,13 @@ public class Movie {
         this.mPlot = mPlot;
         this.mLanguage = mLanguage;
         this.mCountry = mCountry;
+        //todo: fix mPosterURL
+//        this.mPosterURL = mPosterURL;
+        this.mTheaterName = mTheaterName;
+    }
+
+    public void setStatus(int status){
+        this.mStatus = status;
     }
 
     @NonNull

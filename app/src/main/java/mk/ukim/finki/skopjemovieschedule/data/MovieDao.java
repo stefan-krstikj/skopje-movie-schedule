@@ -11,12 +11,15 @@ import java.util.List;
 @Dao
 public interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert (Movie movie);
 
     @Query("DELETE FROM movie")
     void deleteAll();
 
-    @Query("SELECT * FROM movie")
+    @Query("SELECT * FROM movie WHERE movie.status = 1")
     LiveData<List<Movie>> getAllMovies();
+
+    @Query("SELECT * FROM movie WHERE movie.status = 0")
+    LiveData<List<Movie>> getAllComingSoonMovies();
 }

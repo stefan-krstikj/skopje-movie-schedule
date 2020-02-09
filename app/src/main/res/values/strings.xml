@@ -4,4 +4,9 @@
     <string name="title_in_theaters">In Theaters</string>
     <string name="title_reservations">Reservations</string>
     <string name="title_notifications">Notifications</string>
+    <string name="in_theaters_tab_text_1">In Theaters</string>
+    <string name="in_theaters_tab_text_2">Coming Soon</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
 </resources>
