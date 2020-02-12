@@ -26,11 +26,9 @@ public class JsoupCineplexxComingSoonAsynctask extends JsoupCineplexxAsyncTask {
         JsoupCineplexxComingSoon jsoupUtils = new JsoupCineplexxComingSoon();
         try {
             Pair<List<Movie>, List<MovieSchedule>> pair = jsoupUtils.getPairMovieAndSchedule();
-//            List<Movie> allMovies = jsoupUtils.getMovies();
-//            List<MovieSchedule> allMovieSchedules = jsoupUtils.getMovieSchedules();
-            joinMovies(pair.first);
-            Log.v(TAG, "doInBackground() Received movies: " + pair.first.toString());
-            Log.v(TAG, "doInBackground() Received schedules: " + pair.second.toString());
+//            joinMovies(pair.first);
+//            Log.v(TAG, "doInBackground() Received movies: " + pair.first.toString());
+//            Log.v(TAG, "doInBackground() Received schedules: " + pair.second.toString());
             return pair;
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,24 +36,4 @@ public class JsoupCineplexxComingSoonAsynctask extends JsoupCineplexxAsyncTask {
 
         return null;
     }
-
-
-//    @Override
-//    protected List<Movie> doInBackground(String... strings) {
-//        JsoupCineplexxComingSoon jsoupUtils = new JsoupCineplexxComingSoon();
-//        try {
-//            List<Movie> allMovies = jsoupUtils.getMovies();
-//            allMovies = joinMovies(allMovies);
-//            Log.v(TAG, "doInBackground() Received movies: " + allMovies.toString());
-//            return allMovies;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        return null;
-//    }
-
-
-
 }

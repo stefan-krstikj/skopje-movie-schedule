@@ -29,7 +29,6 @@ public class MovieScheduleRepository {
     }
 
     public void insert(MovieSchedule movieSchedule){
-        Log.v(TAG, "insert(MovieSchedule): " + movieSchedule.toString());
         AppDatabase.databaseWriteExecutor.execute(() -> mMovieScheduleDao.insert(movieSchedule));
     }
 
@@ -38,7 +37,6 @@ public class MovieScheduleRepository {
     }
 
     public LiveData<List<MovieSchedule>> getAllMovieSchedules(){
-        Log.v(TAG, "getAllMovieSchedules(): " + mMovieScheduleDao.getAllMovieSchedules());
         return mMovieScheduleDao.getAllMovieSchedules();
     }
 

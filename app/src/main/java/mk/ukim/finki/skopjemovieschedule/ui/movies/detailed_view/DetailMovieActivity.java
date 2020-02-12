@@ -42,6 +42,8 @@ public class DetailMovieActivity extends AppCompatActivity {
     private TextView textViewPlot;
     private TextView textViewRating;
     private TextView textViewDirector;
+    private TextView textViewActors;
+    private TextView textViewRuntime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,9 @@ public class DetailMovieActivity extends AppCompatActivity {
         textViewYear = findViewById(R.id.textView_year);
         textViewPlot = findViewById(R.id.textView_plot);
         textViewGenre = findViewById(R.id.textView_genre);
-
+        textViewDirector = findViewById(R.id.textView_Director);
+        textViewActors = findViewById(R.id.textView_Actors);
+        textViewRuntime = findViewById(R.id.textView_runtime);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_movie_schedules);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -87,6 +91,9 @@ public class DetailMovieActivity extends AppCompatActivity {
         textViewYear.setText(mMovie.mYear);
         textViewPlot.setText(mMovie.mPlot);
         textViewGenre.setText(mMovie.mGenre);
+        textViewDirector.setText(mMovie.mDirector);
+        textViewActors.setText(mMovie.mActors);
+        textViewRuntime.setText(mMovie.mRuntime);
     }
 
     private void initViewModel(){

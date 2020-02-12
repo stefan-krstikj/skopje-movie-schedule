@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
         indices = {
             @Index(name = "index_movie_id", value = {"movie_id"})
         },
-        primaryKeys = {"movie_id", "day", "time", "movie_hall"})
+        primaryKeys = {"movie_id","theater_name", "day", "time", "movie_hall"})
 public class MovieSchedule {
 
 //    @PrimaryKey(autoGenerate = true)
@@ -30,8 +30,15 @@ public class MovieSchedule {
     public String mMovieName;
 
     @NotNull
+    @ColumnInfo(name = "theater_name")
+    public String mTheaterName;
+
+    @NotNull
     @ColumnInfo(name = "day")
     public String mDay;
+
+    @ColumnInfo(name = "date")
+    public String mDate;
 
     @NotNull
     @ColumnInfo(name = "time")
@@ -44,16 +51,30 @@ public class MovieSchedule {
     @ColumnInfo(name = "3d_status")
     public String m3D;
 
-    public MovieSchedule(@NotNull String mMovieName) {
+    @ColumnInfo(name = "reservation_status")
+    public int mReservationStatus;
+
+    @ColumnInfo(name = "reservation_url")
+    public String reservationURL;
+
+    public MovieSchedule(@NotNull String mMovieName, @NotNull String mTheaterName, @NotNull String mDay, String mDate,
+                         @NotNull String mTime, @NotNull String mMovieHall, String m3D, String reservationURL) {
         this.mMovieName = mMovieName;
+        this.mTheaterName = mTheaterName;
+        this.mDay = mDay;
+        this.mDate = mDate;
+        this.mTime = mTime;
+        this.mMovieHall = mMovieHall;
+        this.m3D = m3D;
+        this.reservationURL = reservationURL;
     }
 
-    public void insertScreening(String day, String time, String movieHall, String m3D){
-        this.mDay = day;
-        this.mTime = time;
-        this.mMovieHall = movieHall;
-        this.m3D = m3D;
-    }
+    //    public void insertScreening(String day, String time, String movieHall, String m3D){
+//        this.mDay = day;
+//        this.mTime = time;
+//        this.mMovieHall = movieHall;
+//        this.m3D = m3D;
+//    }
 
     @NonNull
     @Override

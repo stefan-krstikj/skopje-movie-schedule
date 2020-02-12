@@ -27,9 +27,7 @@ public class JsoupCineplexxInTheatersAsynctask extends JsoupCineplexxAsyncTask {
         JsoupCineplexxInTheaters jsoupUtils = new JsoupCineplexxInTheaters();
         try {
             Pair<List<Movie>, List<MovieSchedule>> pair = jsoupUtils.getPairMovieAndSchedule();
-            joinMovies(pair.first);
-            Log.v(TAG, "doInBackground() Received movies: " + pair.first.toString());
-            Log.v(TAG, "doInBackground() Received schedules: " + pair.second.toString());
+//            joinMovies(pair.first);
             return pair;
         } catch (IOException e) {
             e.printStackTrace();

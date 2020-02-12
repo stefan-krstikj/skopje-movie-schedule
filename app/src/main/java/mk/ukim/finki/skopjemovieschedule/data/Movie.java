@@ -36,23 +36,18 @@ public class Movie implements Serializable {
     public String mPosterURL;
 
     @ColumnInfo(name = "year")
-    @SerializedName("Year")
     public String mYear;
 
     @ColumnInfo(name = "rated")
-    @SerializedName("Rated")
     public String mRated;
 
     @ColumnInfo(name = "runtime")
-    @SerializedName("Runtime")
     public String mRuntime;
 
     @ColumnInfo(name = "genres")
-    @SerializedName("Genre")
     public String mGenre;
 
     @ColumnInfo(name = "director")
-    @SerializedName("Director")
     public String mDirector;
 
     @ColumnInfo(name = "writers")
@@ -76,35 +71,26 @@ public class Movie implements Serializable {
     @ColumnInfo(name = "theater_name")
     public String mTheaterName;
 
-//    public String Writer;
-//    public String Actors;
-//    public String Plot;
-//    public String Language;
-//    public String Country;
-//    public String Awards;
-//    public String Poster;
+    @ColumnInfo(name = "projection_start")
+    public String mProjectionStart;
 
-//    @ColumnInfo
-//    public String mMovieId;
-
-//    private String mRuntime;
-//    private String mTicketCost;
-
-//    private Boolean mIs3D;
-//    private HashMap<String, List<String>> mMovieProjections; // <Day, List<>>
-
-
-    public Movie(@NonNull String mMovieTitle, String mMovieTitleMKD, String mGenresMKD, String mCineplexxURL, String mMovieDisplayTitle) {
+    public Movie(@NonNull String mMovieTitle, String mMovieTitleMKD, String mGenresMKD, String mCineplexxURL, String mMovieDisplayTitle, String mProjectionStart) {
         this.mMovieTitle = mMovieTitle;
         this.mMovieTitleMKD = mMovieTitleMKD;
         this.mMovieDisplayTitle = mMovieDisplayTitle;
         this.mGenresMKD = mGenresMKD;
         this.mCineplexxURL = mCineplexxURL;
+        this.mProjectionStart = mProjectionStart;
     }
 
-    public void fillOmdbInfo(String mYear, String mRuntime, String mRated, String mDirector, String mGenre,
-                             String mWriter, String mActors, String mPlot, String mLanguage, String mCountry, String mPosterURL,
+//    public Movie(@NonNull String mMovieTitle) {
+//        this.mMovieTitle = mMovieTitle;
+//    }
+
+    public void fillOmdbInfo(String mMovieTitle, String mYear, String mRuntime, String mRated, String mDirector, String mGenre,
+                             String mWriter, String mActors, String mPlot, String mLanguage, String mCountry,
                              String mTheaterName){
+        this.mMovieTitle = mMovieTitle;
         this.mYear = mYear;
         this.mRuntime = mRuntime;
         this.mRated = mRated;

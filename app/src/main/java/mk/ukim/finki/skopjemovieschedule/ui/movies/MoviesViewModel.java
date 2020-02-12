@@ -9,9 +9,11 @@ import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupCineplexxComingSoonAsynctask;
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupCineplexxInTheatersAsynctask;
+import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupMileniumAsyncTask;
 import mk.ukim.finki.skopjemovieschedule.data.Movie;
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
 import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
+import mk.ukim.finki.skopjemovieschedule.utils.jsoup.JsoupMilenium;
 
 public class MoviesViewModel extends ViewModel {
     private static String TAG = "MoviesViewModel";
@@ -41,7 +43,11 @@ public class MoviesViewModel extends ViewModel {
     private void fetchDataMovieList(){
         JsoupCineplexxInTheatersAsynctask jsoupCineplexxInTheatersAsynctask =
                 new JsoupCineplexxInTheatersAsynctask(mMovieRepository, mMovieScheduleRepository);
+        JsoupMileniumAsyncTask jsoupMileniumAsyncTask =
+                new JsoupMileniumAsyncTask(mMovieRepository, mMovieScheduleRepository);
+
         jsoupCineplexxInTheatersAsynctask.execute();
+        jsoupMileniumAsyncTask.execute();
     }
 
     private void fetchDataMovieListComingSoon(){

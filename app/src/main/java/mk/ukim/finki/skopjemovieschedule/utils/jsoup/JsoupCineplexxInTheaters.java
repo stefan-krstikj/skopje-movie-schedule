@@ -1,5 +1,6 @@
 package mk.ukim.finki.skopjemovieschedule.utils.jsoup;
 
+import android.util.Log;
 import android.util.Pair;
 
 import org.jsoup.Jsoup;
@@ -8,23 +9,19 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import mk.ukim.finki.skopjemovieschedule.data.Movie;
 import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.omdb.omdbApiClient;
+import mk.ukim.finki.skopjemovieschedule.omdb.omdbMovie;
 import mk.ukim.finki.skopjemovieschedule.utils.URLList;
 
-public class JsoupCineplexxInTheaters extends JsoupUtilsAbstract {
-
+public class JsoupCineplexxInTheaters extends JsoupCineplexxAbstract {
+    private static String TAG = "JsoupCineplexxInTheaters";
     private static String URL = URLList.URLCineplexxInTheaters;
 
-    @Override
     protected Movie parseMovie(Element element, List<MovieSchedule> movieSchedules) throws IOException {
         Elements a = element.getElementsByTag("a");
         Elements p = element.getElementsByTag("p");
@@ -33,22 +30,18 @@ public class JsoupCineplexxInTheaters extends JsoupUtilsAbstract {
         cineplexxURL = cineplexxURL.substring(2);
         String title = p.get(1).text();
         String displayTitle = title;
-        if(title.length() >= MAX_CHARACTERS){
-            displayTitle = title.substring(0, MAX_CHARACTERS-3) + "...";
-        }
 
         String[] genres = p.get(2).text().split(GENRE_SEPERATOR);
-        Movie movie = new Movie(title, titleMKD, genres[0], cineplexxURL, displayTitle);
-        movie = getHighResPoster(movie);
+        String mProjectionStart = p.get(3).text().split(":")[1].substring(1);
+        Movie movie = new Movie(title, titleMKD, genres[0], cineplexxURL, displayTitle, mProjectionStart);
         movie.setStatus(1);
 
-
-        addSchedule(movieSchedules, title, p);
+        getOMDBInfo(movie);
+        getDetailedInfo(movie, movieSchedules);
 
         return movie;
     }
 
-    @Override
     public Pair<List<Movie>, List<MovieSchedule>> getPairMovieAndSchedule() throws IOException {
         List<Movie> movies = new ArrayList<>();
         List<MovieSchedule> movieSchedules = new ArrayList<>();
@@ -59,7 +52,4 @@ public class JsoupCineplexxInTheaters extends JsoupUtilsAbstract {
         }
         return new Pair<>(movies, movieSchedules);
     }
-
-
-
 }

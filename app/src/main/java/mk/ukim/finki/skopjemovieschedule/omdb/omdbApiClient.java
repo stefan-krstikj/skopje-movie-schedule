@@ -34,12 +34,19 @@ public class omdbApiClient {
         return retroFit;
     }
 
+    public static omdbMovie getMovieForYear(String title, String year) throws IOException {
+        omdbAPIInterface omdbAPIInterface = getRetroFit().create(omdbAPIInterface.class);
+        Call<omdbMovie> call = omdbAPIInterface.getMovieByTitleAndYear(APIKeys.OMDB_API_KEY, title, year, "full");
+        omdbMovie m = call.execute().body();
+        Log.v(TAG + " getMovie()", "Received: " + m.toString());
+        return m;
+    }
+
     public static omdbMovie getMovie(String title) throws IOException {
         omdbAPIInterface omdbAPIInterface = getRetroFit().create(omdbAPIInterface.class);
-
-        Call<omdbMovie> call = omdbAPIInterface.getMovieByTitle(APIKeys.OMDB_API_KEY, title);
-        omdbMovie movie = call.execute().body();
-        Log.v(TAG + " getMovie()", "Received: " + movie.toString());
-        return movie;
+        Call<omdbMovie> call = omdbAPIInterface.getMovieByTitle(APIKeys.OMDB_API_KEY, title, "full");
+        omdbMovie m = call.execute().body();
+        Log.v(TAG + " getMovie()", "Received: " + m.toString());
+        return m;
     }
 }

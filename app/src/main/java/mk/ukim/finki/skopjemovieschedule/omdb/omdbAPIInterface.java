@@ -8,8 +8,18 @@ import retrofit2.http.Query;
 public interface omdbAPIInterface {
 
     @GET("?")
+    Call<omdbMovie> getMovieByTitleAndYear(
+            @Query("apikey") String apiKey,
+            @Query("t") String title,
+            @Query("y") String year,
+            @Query("plot") String plot
+    );
+
+    @GET("?")
     Call<omdbMovie> getMovieByTitle(
             @Query("apikey") String apiKey,
-            @Query("t") String title
+            @Query("t") String title,
+            @Query("plot") String plot
     );
+
 }
