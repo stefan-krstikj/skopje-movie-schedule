@@ -9,17 +9,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 
 public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
     private static String TAG = "JsoupCineplexxAbstract";
@@ -39,8 +32,10 @@ public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
         String URL = "https://" + m.mCineplexxURL;
         Document doc = Jsoup.connect(URL).get();
         setPoster(m, doc);
-        if(m.mStatus == 1)
+        if(m.mStatus == 1) {
+            Log.v(TAG, "Setting schedule for URL: " + m.mCineplexxURL);
             setMovieSchedules(movieSchedules, doc, m);
+        }
         else
             setDetailsComingSoon(m, doc);
         setDisplayTitle(m);
@@ -52,8 +47,13 @@ public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
     }
 
     void setMovieSchedules(List<MovieSchedule> movieSchedules, Document doc, Movie movie) throws IOException {
+        Log.v(TAG, "Setting movie schedule: " + movie.mMovieTitle);
         Elements perDay =  doc.getElementsByClass("row-fluid separator time-row");
-        String theaterName = doc.getElementsByClass("date-desc-label").get(0).text();
+
+        // todo: fix crash when calling date-desc-label
+        // System.out.println(doc);
+//        String theaterName = doc.getElementsByClass("date-desc-label").get(0).text();
+        String theaterName = "CINEPLEXX SKOPJE CITY MALL";
         for(Element e : perDay){
             String day = getEnglishDay(e.getElementsByTag("span").get(0).text());
             String date = e.getElementsByTag("time").get(0).text();

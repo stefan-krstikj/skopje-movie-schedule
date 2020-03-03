@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import mk.ukim.finki.skopjemovieschedule.R;
 import mk.ukim.finki.skopjemovieschedule.adapters.MovieAdapter;
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view.DetailMovieActivity;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModel;

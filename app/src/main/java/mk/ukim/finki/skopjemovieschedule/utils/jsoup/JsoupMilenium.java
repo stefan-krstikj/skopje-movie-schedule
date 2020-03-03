@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.util.Pair;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,15 +13,12 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbApiClient;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbMovie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.utils.URLList;
 
 public class JsoupMilenium extends JsoupAbstract {
@@ -33,18 +31,23 @@ public class JsoupMilenium extends JsoupAbstract {
     public Pair<List<Movie>, List<MovieSchedule>> getPairMovieAndSchedule() throws IOException {
         List<Movie> movies = new ArrayList<>();
         List<MovieSchedule> movieSchedules = new ArrayList<>();
-        Document doc = Jsoup.connect(URLList.URLMilenium).get();
-        Element element = doc.getElementsByClass("tt_timetable small  ").get(0);
-        Elements li = element.getElementsByTag("li");
-        this.doc = doc;
-        this.tt_timetable = element;
-//        Log.v(TAG + "li: ", li.toString());
-
-        for (Element e : li) {
-            Movie parsed = parseMovie(e, movieSchedules);
-            movies.add(parsed);
+        try{
+            Document doc = Jsoup.connect(URLList.URLMilenium).get();
+            Element element = doc.getElementsByClass("tt_timetable small  ").get(0);
+            Elements li = element.getElementsByTag("li");
+            this.doc = doc;
+            this.tt_timetable = element;
+            for (Element e : li) {
+                Movie parsed = parseMovie(e, movieSchedules);
+                movies.add(parsed);
+            }
+            getMovieSchedules(movieSchedules, movies);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new Pair<>(movies, movieSchedules);
         }
-        getMovieSchedules(movieSchedules, movies);
+
+
 
         return new Pair<>(movies, movieSchedules);
     }
@@ -87,22 +90,41 @@ public class JsoupMilenium extends JsoupAbstract {
 
     @SuppressLint("LongLogTag")
     public void getDetailedInfo(Movie movie, List<MovieSchedule> movieSchedules) throws IOException {
-//        Log.v(TAG + " getDetailedInfo(): ", movie.mMovieTitle);
-        Document doc = Jsoup.connect(movie.mCineplexxURL)
-                .timeout(300000).get();
+        Log.v(TAG + " getDetailedInfo(): ", movie.mMovieTitle);
+        Log.v(TAG, "mCineplexxURL: " + movie.mCineplexxURL);
+
+        // buffer overload for kinomilenium
+        Connection.Response response = Jsoup.connect(movie.mCineplexxURL).timeout(20 * 1000)
+                .execute();
+        final Document doc = Jsoup.parse(response.body());
+
+
+//        Document doc = Jsoup.connect(movie.mCineplexxURL)
+//                .timeout(20* 1000).get();
 
         String title = doc.getElementsByTag("h2").get(0).text();
-//        Log.v(TAG + " getDetailedInfo() english: ", title);
+        Log.v(TAG + " getDetailedInfo() english: ", title);
         Element el = doc.getElementsByClass("wpb_column vc_column_container vc_col-sm-8").get(0);
         Elements strong = el.getElementsByTag("strong");
         String Director = strong.get(0).text().substring(1);
         String Actors = strong.get(1).text().substring(1);
-        String projectionStart = strong.get(2).text().substring(1);
+        String projectionStart;
+        String runtime;
+        String country;
+        String genre;
+        if(strong.get(2).text().length() == 0 || strong.get(2).text().length() == 1){
+            projectionStart = strong.get(3).text().substring(1);
+            runtime = strong.get(4).text();
+            country = strong.get(5).text();
+            genre = strong.get(6).text() ;
+        }
+        else{
+            projectionStart = strong.get(2).text().substring(1);
+            runtime = strong.get(3).text();
+            country = strong.get(4).text();
+            genre = strong.get(5).text() ;
+        }
         String year = projectionStart.split("\\.")[2];
-        String runtime = strong.get(3).text();
-        String country = strong.get(4).text();
-        String genre = strong.get(5).text() ;
-
         movie.setStatus(1);
         movie.mMovieTitle = title;
         movie.mDirector = Director;
@@ -127,6 +149,7 @@ public class JsoupMilenium extends JsoupAbstract {
         getDetailedInfo(movie, movieSchedules);
 
         // fixes title to english
+        Log.v(TAG, "Calling getOMDBInfo for " + movie.mMovieTitle);
         getOMDBInfo(movie);
 
         setDisplayTitle(movie);

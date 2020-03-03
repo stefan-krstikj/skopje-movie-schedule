@@ -13,14 +13,16 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import mk.ukim.finki.skopjemovieschedule.R;
 import mk.ukim.finki.skopjemovieschedule.adapters.MovieAdapter;
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view.DetailMovieActivity;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModel;
@@ -32,6 +34,7 @@ public class InTheatersTabFragment extends Fragment implements OnMoviePosterClic
     private MoviesViewModel moviesViewModel;
     MovieAdapter adapter;
     private static String TAG = "InTheatersTabFragment";
+    private SwipeRefreshLayout swipeContainer;
 
 
     @Nullable
@@ -41,11 +44,14 @@ public class InTheatersTabFragment extends Fragment implements OnMoviePosterClic
         return root;
     }
 
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initListView();
         initData();
+        initSwipeContainer();
     }
 
     private void initListView(){
@@ -62,6 +68,28 @@ public class InTheatersTabFragment extends Fragment implements OnMoviePosterClic
             adapter.updateDataset(data);
         });
     }
+
+    private void initSwipeContainer(){
+        swipeContainer = getActivity().findViewById(R.id.in_theaters_swipe);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchMoviesAsync();
+            }
+        });
+        swipeContainer.setColorSchemeColors(
+                ContextCompat.getColor(getContext(),android.R.color.holo_blue_dark),
+                ContextCompat.getColor(getContext(),android.R.color.holo_green_light),
+                ContextCompat.getColor(getContext(),android.R.color.holo_orange_light),
+                ContextCompat.getColor(getContext(),android.R.color.holo_red_light)
+        );
+    }
+
+    private void fetchMoviesAsync(){
+        moviesViewModel.refreshData();
+        swipeContainer.setRefreshing(false);
+    }
+
 
     @Override
     public void onMovieClick(Movie movie, ImageView imageView) {

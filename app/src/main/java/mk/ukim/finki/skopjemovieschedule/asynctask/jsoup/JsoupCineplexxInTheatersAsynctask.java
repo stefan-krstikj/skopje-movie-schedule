@@ -1,15 +1,14 @@
 package mk.ukim.finki.skopjemovieschedule.asynctask.jsoup;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.util.Pair;
 
 import java.io.IOException;
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
 import mk.ukim.finki.skopjemovieschedule.utils.jsoup.JsoupCineplexxInTheaters;
 
@@ -27,7 +26,6 @@ public class JsoupCineplexxInTheatersAsynctask extends JsoupCineplexxAsyncTask {
         JsoupCineplexxInTheaters jsoupUtils = new JsoupCineplexxInTheaters();
         try {
             Pair<List<Movie>, List<MovieSchedule>> pair = jsoupUtils.getPairMovieAndSchedule();
-//            joinMovies(pair.first);
             return pair;
         } catch (IOException e) {
             e.printStackTrace();

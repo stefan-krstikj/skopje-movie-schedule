@@ -1,4 +1,6 @@
-package mk.ukim.finki.skopjemovieschedule.data;
+package mk.ukim.finki.skopjemovieschedule.models;
+
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Entity(tableName = "movie")
 public class Movie implements Serializable {
+    private static String TAG = "Movie";
+
     // todo: make private
     @PrimaryKey
     @NonNull
@@ -94,7 +98,25 @@ public class Movie implements Serializable {
         this.mYear = mYear;
         this.mRuntime = mRuntime;
         this.mRated = mRated;
-        this.mDirector = mDirector;
+
+        if(mDirector != null){
+            String[] split = mDirector.split(", ");
+            if(split.length > 2){
+                this.mDirector = split[0] + ", " +split[1];
+            }else
+                this.mDirector = mDirector;
+        }
+        if(mGenre != null){
+            String[] split = mGenre.split(", ");
+            Log.v(TAG, "mGenre: " + mGenre);
+            if(split.length > 2){
+                this.mGenre = split[0] + ", " + split[1];
+                Log.v(TAG, "Split: " + this.mGenre);
+            }else{
+                this.mGenre = mGenre;
+            }
+        }
+
         this.mGenre = mGenre;
         this.mWriter = mWriter;
         this.mActors = mActors;

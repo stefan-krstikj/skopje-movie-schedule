@@ -12,10 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbApiClient;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbMovie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.utils.URLList;
 
 public class JsoupCineplexxInTheaters extends JsoupCineplexxAbstract {
@@ -32,11 +30,19 @@ public class JsoupCineplexxInTheaters extends JsoupCineplexxAbstract {
         String displayTitle = title;
 
         String[] genres = p.get(2).text().split(GENRE_SEPERATOR);
+        String genre = "";
+        if(genres.length > 2){
+            genre = genres[0] + ", " + genres[1];
+        }else{
+            genre = genres[0];
+        }
         String mProjectionStart = p.get(3).text().split(":")[1].substring(1);
-        Movie movie = new Movie(title, titleMKD, genres[0], cineplexxURL, displayTitle, mProjectionStart);
+        Movie movie = new Movie(title, titleMKD, genre, cineplexxURL, displayTitle, mProjectionStart);
         movie.setStatus(1);
 
+        Log.v(TAG, "Calling getOMDBInfo for " + movie.mMovieTitle);
         getOMDBInfo(movie);
+
         getDetailedInfo(movie, movieSchedules);
 
         return movie;

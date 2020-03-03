@@ -1,17 +1,12 @@
 package mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view;
 
-import android.app.Application;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
 
 public class DetailMovieViewModel extends ViewModel {

@@ -1,10 +1,10 @@
 package mk.ukim.finki.skopjemovieschedule.data;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 
 public class MovieScheduleRepository {
     private static String TAG = "MovieScheduleRepository";
@@ -32,8 +32,13 @@ public class MovieScheduleRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> mMovieScheduleDao.insert(movieSchedule));
     }
 
-    public void deleteAllMovieSchedules(){
-        mMovieScheduleDao.deleteAllMovieSchedules();
+    public void deleteAll(){
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mMovieScheduleDao.deleteAllMovieSchedules();
+            }
+        });
     }
 
     public LiveData<List<MovieSchedule>> getAllMovieSchedules(){

@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="mk.ukim.finki.skopjemovieschedule.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="mk.ukim.finki.skopjemovieschedule.ui.maps.MapsFragment"
+        android:label="@string/title_maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>

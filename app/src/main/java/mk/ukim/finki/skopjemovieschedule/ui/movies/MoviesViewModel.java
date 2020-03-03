@@ -1,7 +1,5 @@
 package mk.ukim.finki.skopjemovieschedule.ui.movies;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,10 +8,10 @@ import java.util.List;
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupCineplexxComingSoonAsynctask;
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupCineplexxInTheatersAsynctask;
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupMileniumAsyncTask;
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
 import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
-import mk.ukim.finki.skopjemovieschedule.utils.jsoup.JsoupMilenium;
+import mk.ukim.finki.skopjemovieschedule.ui.movies.tablayout.InTheatersTabFragment;
 
 public class MoviesViewModel extends ViewModel {
     private static String TAG = "MoviesViewModel";
@@ -40,6 +38,13 @@ public class MoviesViewModel extends ViewModel {
         return mMovieRepository.getAllComingSoonMovies();
     }
 
+    public void refreshData(){
+        mMovieScheduleRepository.deleteAll();
+        mMovieRepository.deleteAll();
+        fetchDataMovieList();
+        fetchDataMovieListComingSoon();
+    }
+
     private void fetchDataMovieList(){
         JsoupCineplexxInTheatersAsynctask jsoupCineplexxInTheatersAsynctask =
                 new JsoupCineplexxInTheatersAsynctask(mMovieRepository, mMovieScheduleRepository);
@@ -48,6 +53,8 @@ public class MoviesViewModel extends ViewModel {
 
         jsoupCineplexxInTheatersAsynctask.execute();
         jsoupMileniumAsyncTask.execute();
+
+
     }
 
     private void fetchDataMovieListComingSoon(){

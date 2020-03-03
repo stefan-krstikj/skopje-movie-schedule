@@ -1,13 +1,14 @@
-package mk.ukim.finki.skopjemovieschedule.data;
+package mk.ukim.finki.skopjemovieschedule.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
+
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 
 @Entity(tableName = "movie_schedule",
         foreignKeys = {

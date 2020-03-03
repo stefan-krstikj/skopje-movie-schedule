@@ -8,6 +8,8 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
+
 @Dao
 public interface MovieScheduleDao {
 

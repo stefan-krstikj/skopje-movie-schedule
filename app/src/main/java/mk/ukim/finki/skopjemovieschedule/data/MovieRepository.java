@@ -1,19 +1,16 @@
 package mk.ukim.finki.skopjemovieschedule.data;
 
-import android.app.Application;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 
 public class MovieRepository {
     private static String TAG = "MovieRepository";
 
     private MovieDao mMovieDao;
     private static volatile MovieRepository instance;
-    private LiveData<List<Movie>> mAllMovies;
-    private LiveData<List<Movie>> mAllComingSoonMovies;
 
     MovieRepository(MovieDao movieDao){
         this.mMovieDao = movieDao;
@@ -49,5 +46,14 @@ public class MovieRepository {
                     mMovieDao.insert(movie);
                 }
             });
+    }
+
+    public void deleteAll(){
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mMovieDao.deleteAll();
+            }
+        });
     }
 }

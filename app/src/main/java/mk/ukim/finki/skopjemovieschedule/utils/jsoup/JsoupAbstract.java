@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.omdb.omdbApiClient;
 import mk.ukim.finki.skopjemovieschedule.omdb.omdbMovie;
 
@@ -45,10 +45,15 @@ public abstract class JsoupAbstract {
     }
 
     public void setDisplayTitle(Movie movie){
+
+        // todo: fix crash
         movie.mMovieDisplayTitle = movie.mMovieTitle;
-        if(movie.mMovieTitle.length() >= MAX_CHARACTERS){
-            movie.mMovieDisplayTitle = movie.mMovieTitle.substring(0, MAX_CHARACTERS-3) + "...";
+        if(movie.mMovieTitle != null){
+            if(movie.mMovieTitle.length() >= MAX_CHARACTERS){
+                movie.mMovieDisplayTitle = movie.mMovieTitle.substring(0, MAX_CHARACTERS-3) + "...";
+            }
         }
+
     }
 
     protected void getOMDBInfo(Movie movie) throws IOException {
@@ -64,7 +69,14 @@ public abstract class JsoupAbstract {
 
             mo = omdbApiClient.getMovie(shortTitle);
         }
-        movie.fillOmdbInfo(mo.Title, mo.Year, mo.Runtime,
-                mo.Rated, mo.Director, mo.Genre, mo.Writer, mo.Actors, mo.Plot, mo.Language, mo.Country, "Cineplexx");
+
+        if(mo.Title == null)
+            Log.v(TAG, "Found NULL OMDB for: " + movie.mMovieTitle);
+
+        if(mo.Title != null){
+            movie.fillOmdbInfo(mo.Title, mo.Year, mo.Runtime,
+                    mo.Rated, mo.Director, mo.Genre, mo.Writer, mo.Actors, mo.Plot, mo.Language, mo.Country, "Cineplexx");
+        }
+
     }
 }

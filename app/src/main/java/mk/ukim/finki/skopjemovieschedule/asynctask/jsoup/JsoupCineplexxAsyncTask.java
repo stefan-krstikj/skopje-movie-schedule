@@ -4,15 +4,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
-import java.io.IOException;
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbApiClient;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbMovie;
+import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModel;
 
 
 // todo: change to Void, Void, Pair

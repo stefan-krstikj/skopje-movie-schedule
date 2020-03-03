@@ -1,12 +1,10 @@
 package mk.ukim.finki.skopjemovieschedule.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.R;
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
 public class MovieAdapter extends RecyclerView.Adapter {

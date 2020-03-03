@@ -1,6 +1,5 @@
 package mk.ukim.finki.skopjemovieschedule.omdb;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

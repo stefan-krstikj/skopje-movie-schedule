@@ -14,10 +14,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:colorBackground">#EEEEEE</item>
 
-
         <!-- specify enter and exit transitions -->
 <!--        <item name="android:windowEnterTrn">@android:transition/explode</item>-->
-
     </style>
 
     <style name="Theme.SkopjeMovieSchedule" parent="Base.Theme.SkopjeMovieSchedule" />

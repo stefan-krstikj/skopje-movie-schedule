@@ -3,8 +3,11 @@ package mk.ukim.finki.skopjemovieschedule.utils;
 import android.content.Context;
 
 import mk.ukim.finki.skopjemovieschedule.data.AppDatabase;
+import mk.ukim.finki.skopjemovieschedule.data.MapLocationRepository;
 import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
 import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
+import mk.ukim.finki.skopjemovieschedule.models.MapLocation;
+import mk.ukim.finki.skopjemovieschedule.ui.maps.MapsViewModelFactory;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view.DetailMovieViewModel;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view.DetailMovieViewModelFactory;
@@ -19,6 +22,10 @@ public class InjectorUtils {
         return MovieScheduleRepository.getInstance(AppDatabase.getDatabase(context).movieScheduleDao());
     }
 
+    private static MapLocationRepository getMapLocationRepository(Context context){
+        return MapLocationRepository.getInstance(AppDatabase.getDatabase(context).mapLocationDao());
+    }
+
     public static DetailMovieViewModelFactory provideDetailMovieViewFactory(Context context){
         MovieRepository movieRepository = getMovieRepository(context);
         MovieScheduleRepository movieScheduleRepository = getMovieScheduleRepository(context);
@@ -31,5 +38,9 @@ public class InjectorUtils {
         return new MoviesViewModelFactory(movieRepository, movieScheduleRepository);
     }
 
+    public static MapsViewModelFactory provideMapsViewModelFactory(Context context){
+        MapLocationRepository mapLocationRepository = getMapLocationRepository(context);
+        return new MapsViewModelFactory(mapLocationRepository);
+    }
 
 }

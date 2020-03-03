@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.R;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 
 public class MovieScheduleAdapter extends RecyclerView.Adapter {
     private static String TAG = "MovieScheduleAdapter";

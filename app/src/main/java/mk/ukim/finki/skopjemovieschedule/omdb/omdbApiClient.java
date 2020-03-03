@@ -4,9 +4,7 @@ package mk.ukim.finki.skopjemovieschedule.omdb;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;

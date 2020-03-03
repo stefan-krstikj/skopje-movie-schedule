@@ -12,10 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieSchedule;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbApiClient;
-import mk.ukim.finki.skopjemovieschedule.omdb.omdbMovie;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
 import mk.ukim.finki.skopjemovieschedule.utils.URLList;
 
 public class JsoupCineplexxComingSoon extends JsoupCineplexxAbstract {
@@ -35,6 +33,8 @@ public class JsoupCineplexxComingSoon extends JsoupCineplexxAbstract {
         Movie movie = new Movie(title, title, genres[0], cineplexxURL, displayTitle, mProjectionStart);
 
         movie.setStatus(0);
+
+        Log.v(TAG, "Calling getOMDBInfo for " + movie.mMovieTitle);
         getOMDBInfo(movie);
 
         getDetailedInfo(movie, movieSchedules);

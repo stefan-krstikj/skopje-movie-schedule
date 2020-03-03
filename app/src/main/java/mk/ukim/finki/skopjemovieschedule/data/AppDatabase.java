@@ -9,10 +9,15 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities =  {Movie.class, MovieSchedule.class}, version = 1, exportSchema = false)
+import mk.ukim.finki.skopjemovieschedule.models.MapLocation;
+import mk.ukim.finki.skopjemovieschedule.models.Movie;
+import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
+
+@Database(entities =  {Movie.class, MovieSchedule.class, MapLocation.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
     public abstract MovieScheduleDao movieScheduleDao();
+    public abstract MapLocationDao mapLocationDao();
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
