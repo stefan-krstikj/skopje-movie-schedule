@@ -16,7 +16,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp">
+            android:layout_margin="0dp"
+            android:theme="@style/MovieCardTheme"
+
+            >
 
             <ImageView
                 android:id="@+id/moviePoster"
@@ -32,10 +35,11 @@
                 android:id="@+id/movieTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
                 android:text="The Revenent"
-                android:textSize="10sp"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
                 android:transitionName="textMain"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

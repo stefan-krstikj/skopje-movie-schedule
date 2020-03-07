@@ -3,19 +3,16 @@
     <!-- Base application theme. -->
 
     <style name="Base.Theme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#2857c4</item>
-        <item name="colorPrimaryDark">#002f93</item>
+        <item name="colorPrimary">@color/movies_blue_800</item>
+        <item name="colorPrimaryDark">@color/movies_blue_800_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--        <item name="android:colorBackground">#2857c4</item>-->
         <item name="android:titleTextColor">@android:color/white</item>
         <item name="subtitleTextColor">@android:color/white</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:colorBackground">#EEEEEE</item>
-
-        <!-- specify enter and exit transitions -->
-<!--        <item name="android:windowEnterTrn">@android:transition/explode</item>-->
+        <item name="android:colorBackground">@color/movies_blue_background</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="Theme.SkopjeMovieSchedule" parent="Base.Theme.SkopjeMovieSchedule" />
@@ -25,5 +22,37 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="android:background">@color/movies_blue_800_dark</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@color/movies_blue_800_dark</item>
+    </style>
+
+    <style name="MovieCardTheme" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/movies_blue_background</item>
+    </style>
+
+    <style name="MovieTheaterTheme">
+        <item name="android:background">@color/movies_blue_800</item>
+        <item name="android:color">@android:color/white</item>
+    </style>
+
+
+<!--    <style name="Base.DarkTheme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--        <item name="colorPrimary">#002f93</item>-->
+<!--        <item name="colorPrimaryDark">#002f93</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        <item name="android:colorBackground">#2857c4</item>-->
+<!--        <item name="android:titleTextColor">@android:color/white</item>-->
+<!--        <item name="subtitleTextColor">@android:color/white</item>-->
+<!--        <item name="windowActionBar">true</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="android:windowContentTransitions">true</item>-->
+<!--&lt;!&ndash;        <item name="android:colorBackground">#EEEEEE</item>&ndash;&gt;-->
+<!--    </style>-->
 
 </resources>

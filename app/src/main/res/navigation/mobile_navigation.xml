@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="mk.ukim.finki.skopjemovieschedule.ui.maps.MapsFragment"
-        android:label="@string/title_maps"
+        android:label="@string/title_theaters"
         tools:layout="@layout/fragment_maps" />
 </navigation>

@@ -3,4 +3,14 @@
     <color name="colorAccent">#D81B60</color>
     <color name="openNowTrue">#0CB33B</color>
     <color name="openNowFalse">#FF413A</color>
+
+    <color name="movies_blue_background">#1A2C40</color>
+    <color name="movies_blue_800">#1565c0</color>
+    <color name="movies_blue_800_dark">#003c8f</color>
+    <color name="movies_blue_800_light">#5e92f3</color>
+
+
+    <!--    <color name="movies_blue_500">#2857C4</color>-->
+<!--    <color name="movies_blue_700">#0B2F83</color>-->
+
 </resources>

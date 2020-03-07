@@ -5,7 +5,6 @@
     android:id="@+id/activity_main_movies_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -13,29 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        >
 
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?attr/actionBarSize"
             android:fitsSystemWindows="true"
-            android:minHeight="?attr/actionBarSize"
-            app:layout_collapseMode="parallax">
+            app:layout_collapseMode="parallax"
+            >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:text="In Theaters A"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                android:textColor="@android:color/white">
-
-            </TextView>
         </androidx.appcompat.widget.Toolbar>
 
 
@@ -46,7 +35,7 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:background="?android:attr/windowBackground"
+            android:theme="@style/BottomNavigationTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
