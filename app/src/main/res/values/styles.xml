@@ -30,6 +30,9 @@
 
     <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">
         <item name="tabBackground">@color/movies_blue_800_dark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="tabTextColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="MovieCardTheme" parent="Theme.AppCompat.Light">
@@ -37,10 +40,24 @@
     </style>
 
     <style name="MovieTheaterTheme">
-        <item name="android:background">@color/movies_blue_800</item>
-        <item name="android:color">@android:color/white</item>
+        <item name="android:background">@color/movies_item_color</item>
+        <item name="android:color">@android:color/black</item>
     </style>
 
+    <style name="TextCategoryTitle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextCategorySubtitle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="ToolbarTextTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
 
 <!--    <style name="Base.DarkTheme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">-->
 <!--        <item name="colorPrimary">#002f93</item>-->

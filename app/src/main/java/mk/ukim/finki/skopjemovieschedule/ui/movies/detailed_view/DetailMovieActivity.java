@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,10 +71,25 @@ public class DetailMovieActivity extends AppCompatActivity {
         textViewActors = findViewById(R.id.textView_Actors);
         textViewRuntime = findViewById(R.id.textView_runtime);
 
+
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView_movie_schedules);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        int spacing = 8;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(gridLayoutManager);
+//        recyclerView.setPadding(spacing, spacing, spacing, spacing);
+//        recyclerView.setClipToPadding(false);
+//        recyclerView.setClipChildren(false);
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.set(spacing, spacing, spacing, spacing*2);
+            }
+
+        });
         adapter = new MovieScheduleAdapter();
         recyclerView.setAdapter(adapter);
+
     }
 
 

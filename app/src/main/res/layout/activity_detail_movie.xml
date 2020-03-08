@@ -34,6 +34,8 @@
         android:autoSizeTextType="uniform"
         android:text="Honeyland"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/color_text_subtitle_light"
+        android:textStyle="bold"
         android:transitionName="textMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -46,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="2019"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        style="@style/TextCategorySubtitle"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/textView_title_movie"
         app:layout_constraintTop_toBottomOf="@+id/textView_title_movie" />
@@ -57,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="96min"
+        style="@style/TextCategorySubtitle"
         app:layout_constraintBottom_toBottomOf="@+id/textView_year"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView_year" />
@@ -67,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="|"
+        style="@style/TextCategoryTitle"
         app:layout_constraintBottom_toBottomOf="@+id/textView_year"
         app:layout_constraintStart_toEndOf="@+id/textView_year"
         app:layout_constraintTop_toTopOf="@+id/textView_year" />
@@ -77,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Genre:"
+        style="@style/TextCategoryTitle"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:layout_constraintStart_toStartOf="@+id/textView_year"
         app:layout_constraintTop_toBottomOf="@+id/textView_year" />
@@ -91,6 +96,7 @@
         android:autoSizeStepGranularity="1sp"
         android:autoSizeTextType="uniform"
         android:text="Documentary, Drama"
+        style="@style/TextCategorySubtitle"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="@+id/textView9" />
@@ -101,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Director:"
+        style="@style/TextCategoryTitle"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView_genre" />
@@ -109,8 +116,7 @@
         android:id="@+id/textView_Director"
         android:layout_width="205dp"
         android:layout_height="wrap_content"
-
-
+        style="@style/TextCategorySubtitle"
         android:layout_marginStart="8dp"
         android:text="Wes Anderson, Stanley Kubrick"
         android:textAlignment="textStart"
@@ -126,6 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Actors:"
+        style="@style/TextCategoryTitle"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -137,7 +144,7 @@
 
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-
+        style="@style/TextCategorySubtitle"
         android:autoSizeMaxTextSize="14sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeStepGranularity="1sp"
@@ -160,6 +167,7 @@
         android:autoSizeMinTextSize="10sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
+        style="@style/TextCategorySubtitle"
         android:text="The last female bee-hunter in Europe must save the bees and return the natural balance in Honeyland"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,6 +181,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="106dp"
         android:text="Movie Schedule:"
+        style="@style/TextCategoryTitle"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -183,10 +192,10 @@
         android:id="@+id/recyclerView_movie_schedules"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-
+        android:layout_marginStart="8dp"
         android:paddingBottom="158dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_movie_schedule_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
