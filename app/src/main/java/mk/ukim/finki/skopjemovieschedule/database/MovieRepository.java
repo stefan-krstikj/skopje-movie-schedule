@@ -1,4 +1,4 @@
-package mk.ukim.finki.skopjemovieschedule.data;
+package mk.ukim.finki.skopjemovieschedule.database;
 
 import androidx.lifecycle.LiveData;
 
@@ -14,11 +14,6 @@ public class MovieRepository {
 
     MovieRepository(MovieDao movieDao){
         this.mMovieDao = movieDao;
-//        AppDatabase db = AppDatabase.getDatabase(application);
-//        mMovieDao = db.movieDao();
-//        mAllMovies = mMovieDao.getAllMovies();
-//        mAllComingSoonMovies = mMovieDao.getAllComingSoonMovies();
-      //  Log.v(TAG, "comingMovies: " + mAllComingSoonMovies.getValue().toString());
     }
 
     public static MovieRepository getInstance(MovieDao movieDao){

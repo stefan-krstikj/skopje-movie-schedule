@@ -8,8 +8,6 @@ import androidx.room.Index;
 
 import org.jetbrains.annotations.NotNull;
 
-import mk.ukim.finki.skopjemovieschedule.models.Movie;
-
 @Entity(tableName = "movie_schedule",
         foreignKeys = {
             @ForeignKey(entity = Movie.class,
@@ -56,7 +54,7 @@ public class MovieSchedule {
     public int mReservationStatus;
 
     @ColumnInfo(name = "reservation_url")
-    public String reservationURL;
+    public String mReservationURL;
 
     public MovieSchedule(@NotNull String mMovieName, @NotNull String mTheaterName, @NotNull String mDay, String mDate,
                          @NotNull String mTime, @NotNull String mMovieHall, String m3D, String reservationURL) {
@@ -67,15 +65,9 @@ public class MovieSchedule {
         this.mTime = mTime;
         this.mMovieHall = mMovieHall;
         this.m3D = m3D;
-        this.reservationURL = reservationURL;
+        this.mReservationURL = reservationURL;
     }
 
-    //    public void insertScreening(String day, String time, String movieHall, String m3D){
-//        this.mDay = day;
-//        this.mTime = time;
-//        this.mMovieHall = movieHall;
-//        this.m3D = m3D;
-//    }
 
     @NonNull
     @Override

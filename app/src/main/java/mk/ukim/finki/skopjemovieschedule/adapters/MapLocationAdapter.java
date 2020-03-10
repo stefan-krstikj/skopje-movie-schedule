@@ -1,6 +1,5 @@
 package mk.ukim.finki.skopjemovieschedule.adapters;
 
-import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ import mk.ukim.finki.skopjemovieschedule.ui.maps.OnMapLocationClickListener;
 public class MapLocationAdapter extends RecyclerView.Adapter {
     private static String TAG = "MapLocationAdapter";
     private List<MapLocation> mDataset;
-    private OnMapLocationClickListener listener;
+    private OnMapLocationClickListener mListener;
 
     public class MapLocationHolder extends RecyclerView.ViewHolder{
         private TextView mTheaterName;
@@ -39,7 +38,7 @@ public class MapLocationAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onMapLocationClick(mDataset.get(getAdapterPosition()));
+                    mListener.onMapLocationClick(mDataset.get(getAdapterPosition()));
                 }
             });
             initViews(itemView);
@@ -89,7 +88,7 @@ public class MapLocationAdapter extends RecyclerView.Adapter {
 
     public MapLocationAdapter(OnMapLocationClickListener listener){
         this.mDataset = new ArrayList<>();
-        this.listener = listener;
+        this.mListener = listener;
     }
 
 

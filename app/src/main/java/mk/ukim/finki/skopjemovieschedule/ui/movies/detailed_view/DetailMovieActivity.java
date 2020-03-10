@@ -77,9 +77,6 @@ public class DetailMovieActivity extends AppCompatActivity {
         int spacing = 8;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-//        recyclerView.setPadding(spacing, spacing, spacing, spacing);
-//        recyclerView.setClipToPadding(false);
-//        recyclerView.setClipChildren(false);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -94,21 +91,21 @@ public class DetailMovieActivity extends AppCompatActivity {
 
 
     private void initData(){
-        textViewTitle.setText(mMovie.mMovieTitle);
+        textViewTitle.setText(mMovie.getMovieTitle());
         imageViewPoster.setImageBitmap(mMoviePoster);
-        textViewYear.setText(mMovie.mYear);
-        textViewPlot.setText(mMovie.mPlot);
-        textViewGenre.setText(mMovie.mGenre);
-        textViewDirector.setText(mMovie.mDirector);
-        textViewActors.setText(mMovie.mActors);
-        textViewRuntime.setText(mMovie.mRuntime);
+        textViewYear.setText(mMovie.getYear());
+        textViewPlot.setText(mMovie.getPlot());
+        textViewGenre.setText(mMovie.getGenre());
+        textViewDirector.setText(mMovie.getDirector());
+        textViewActors.setText(mMovie.getActors());
+        textViewRuntime.setText(mMovie.getRuntime());
     }
 
     private void initViewModel(){
         DetailMovieViewModelFactory factory = InjectorUtils.provideDetailMovieViewFactory(this);
         detailMovieViewModel = ViewModelProviders.of(this, factory).get(DetailMovieViewModel.class);
-        Log.v(TAG, "Getting movie schedules for: " + mMovie.mMovieTitle);
-        detailMovieViewModel.getMovieScheduleForMovie(mMovie.mMovieTitle)
+        Log.v(TAG, "Getting movie schedules for: " + mMovie.getMovieTitle());
+        detailMovieViewModel.getMovieScheduleForMovie(mMovie.getMovieTitle())
                 .observe(this, movieSchedules -> adapter.updateDataset(movieSchedules));
     }
 }

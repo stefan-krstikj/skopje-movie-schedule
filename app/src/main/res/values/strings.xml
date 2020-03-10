@@ -6,7 +6,24 @@
     <string name="title_theaters">Theaters</string>
     <string name="in_theaters_tab_text_1">In Theaters</string>
     <string name="in_theaters_tab_text_2">Coming Soon</string>
+    <string name="theater_list_theater_name">CINEPLEXX SKOPJE CITY MALL</string>
+    <string name="theater_list_theater_address">bul. Partizanski Odredi</string>
+    <string name="theater_list_theater_distance">1.2km</string>
+    <string name="theater_list_theater_opennow">open</string>
+    <string name="theater_list_theater_opennow_false">CLOSED</string>
+    <string name="detail_movie_title">Honeyland</string>
+    <string name="detail_movie_year">2019</string>
+    <string name="detail_movie_runtime">96min</string>
+    <string name="detail_movie_divider">|</string>
+    <string name="detail_movie_genre_title">Genre:</string>
+    <string name="detail_movie_genre_subtitle">Documentary, Drama</string>
+    <string name="detail_movie_director_title">Director:</string>
+    <string name="detail_movie_director_subtitle">Wes Anderson, Stanley Kubrick</string>
+    <string name="detail_movie_actors_title">Actors:</string>
+    <string name="detail_movie_actors_subtitle">Harrison Ford, Rutger Hauer, Sean Young, Edward James Olmos</string>
+    <string name="detail_movie_description">The last female bee-hunter in Europe must save the bees and return the natural balance in Honeyland</string>
+    <string name="detail_movie_schedule_title">Movie Schedule:</string>
+    <string name="reservations_signin">Sign In</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

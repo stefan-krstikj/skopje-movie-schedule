@@ -40,7 +40,7 @@ public class JsoupCineplexxInTheaters extends JsoupCineplexxAbstract {
         Movie movie = new Movie(title, titleMKD, genre, cineplexxURL, displayTitle, mProjectionStart);
         movie.setStatus(1);
 
-        Log.v(TAG, "Calling getOMDBInfo for " + movie.mMovieTitle);
+        Log.v(TAG, "Calling getOMDBInfo for " + movie.getMovieTitle());
         getOMDBInfo(movie);
 
         getDetailedInfo(movie, movieSchedules);

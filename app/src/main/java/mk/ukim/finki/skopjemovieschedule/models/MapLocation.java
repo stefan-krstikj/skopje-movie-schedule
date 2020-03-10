@@ -19,133 +19,133 @@ public class MapLocation {
 
     @PrimaryKey
     @NotNull
-    @ColumnInfo(name = "id")
-    private String id;
+    @ColumnInfo(name = "mId")
+    private String mId;
 
-    @ColumnInfo(name = "name")
-    private String name;
+    @ColumnInfo(name = "mName")
+    private String mName;
 
     @ColumnInfo(name = "places_id")
-    private String placesId;
+    private String mPlacesId;
 
-    @ColumnInfo(name = "rating")
-    private String rating;
+    @ColumnInfo(name = "mRating")
+    private String mRating;
 
-    @ColumnInfo(name = "latitude")
-    private String latitude;
+    @ColumnInfo(name = "mLatitude")
+    private String mLatitude;
 
-    @ColumnInfo(name = "longitude")
-    private String longitude;
+    @ColumnInfo(name = "mLongitude")
+    private String mLongitude;
 
     @ColumnInfo(name = "photo_url")
-    private String photoURL;
+    private String mPhotoURL;
 
     @ColumnInfo(name = "user_ratings_total")
-    private String userRatingsTotal;
+    private String mUserRatingsTotal;
 
     @ColumnInfo(name = "open_now")
-    private int openNow;
+    private int mOpenNow;
 
-    @ColumnInfo(name = "vicinity")
-    private String vicinity;
+    @ColumnInfo(name = "mVicinity")
+    private String mVicinity;
 
     @ColumnInfo(name = "maps_url")
-    private String mapsURL;
+    private String mMapsURL;
 
 
     public MapLocation(@NotNull String id, String name,
                        String placesId, String rating, String latitude, String longitude,
                        String photoURL, String userRatingsTotal, int openNow, String vicinity) {
-        this.id = id;
-        this.name = name;
-        this.placesId = placesId;
-        this.rating = rating;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.photoURL = photoURL;
-        this.userRatingsTotal = userRatingsTotal;
-        this.openNow = openNow;
-        this.vicinity = vicinity;
-        this.mapsURL = createMapsURL();
+        this.mId = id;
+        this.mName = name;
+        this.mPlacesId = placesId;
+        this.mRating = rating;
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
+        this.mPhotoURL = photoURL;
+        this.mUserRatingsTotal = userRatingsTotal;
+        this.mOpenNow = openNow;
+        this.mVicinity = vicinity;
+        this.mMapsURL = createMapsURL();
     }
 
     private String createMapsURL(){
-        String mapsURL = "https://www.google.com/maps/search/?api=1&query=" + this.name.replace(" ", "") +"&query_place_id=" + this.placesId;
-        Log.v(TAG, "mapsURL " +name +": " + mapsURL + "\n");
+        String mapsURL = "https://www.google.com/maps/search/?api=1&query=" + this.mName.replace(" ", "") +"&query_place_id=" + this.mPlacesId;
+        Log.v(TAG, "mMapsURL " + mName +": " + mapsURL + "\n");
         return mapsURL;
     }
 
     @NotNull
     public String getId() {
-        return id;
+        return mId;
     }
 
     public void setId(@NotNull String id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
     public String getPlacesId() {
-        return placesId;
+        return mPlacesId;
     }
 
     public void setPlacesId(String placesId) {
-        this.placesId = placesId;
+        this.mPlacesId = placesId;
     }
 
     public String getRating() {
-        return rating;
+        return mRating;
     }
 
     public void setRating(String rating) {
-        this.rating = rating;
+        this.mRating = rating;
     }
 
     public String getLatitude() {
-        return latitude;
+        return mLatitude;
     }
 
     public void setLatitude(String latitude) {
-        this.latitude = latitude;
+        this.mLatitude = latitude;
     }
 
     public String getLongitude() {
-        return longitude;
+        return mLongitude;
     }
 
     public void setLongitude(String longitude) {
-        this.longitude = longitude;
+        this.mLongitude = longitude;
     }
 
     public String getPhotoURL() {
-        return photoURL;
+        return mPhotoURL;
     }
 
     public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
+        this.mPhotoURL = photoURL;
     }
 
     public String getUserRatingsTotal() {
-        return userRatingsTotal;
+        return mUserRatingsTotal;
     }
 
     public void setUserRatingsTotal(String userRatingsTotal) {
-        this.userRatingsTotal = userRatingsTotal;
+        this.mUserRatingsTotal = userRatingsTotal;
     }
 
     public int getOpenNow() {
-        return openNow;
+        return mOpenNow;
     }
 
     public void setOpenNow(int openNow) {
-        this.openNow = openNow;
+        this.mOpenNow = openNow;
     }
 
     public static String getTAG() {
@@ -157,34 +157,34 @@ public class MapLocation {
     }
 
     public String getVicinity() {
-        return vicinity;
+        return mVicinity;
     }
 
     public void setVicinity(String vicinity) {
-        this.vicinity = vicinity;
+        this.mVicinity = vicinity;
     }
 
     public String getMapsURL() {
-        return mapsURL;
+        return mMapsURL;
     }
 
     public void setMapsURL(String mapsURL) {
-        this.mapsURL = mapsURL;
+        this.mMapsURL = mapsURL;
     }
 
     private LatLng getmLatLng() {
-        return new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+        return new LatLng(Double.parseDouble(mLatitude), Double.parseDouble(mLongitude));
     }
 
     public MarkerOptions getMarker(){
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(this.getmLatLng());markerOptions.title(this.name);
+        markerOptions.position(this.getmLatLng());markerOptions.title(this.mName);
         return  markerOptions;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return name + ", " + placesId + ", " + rating + "\n";
+        return mName + ", " + mPlacesId + ", " + mRating + "\n";
     }
 }

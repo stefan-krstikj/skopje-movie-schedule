@@ -34,7 +34,7 @@ public class JsoupCineplexxComingSoon extends JsoupCineplexxAbstract {
 
         movie.setStatus(0);
 
-        Log.v(TAG, "Calling getOMDBInfo for " + movie.mMovieTitle);
+        Log.v(TAG, "Calling getOMDBInfo for " + movie.getMovieTitle());
         getOMDBInfo(movie);
 
         getDetailedInfo(movie, movieSchedules);

@@ -1,4 +1,4 @@
-package mk.ukim.finki.skopjemovieschedule.data;
+package mk.ukim.finki.skopjemovieschedule.database;
 
 import androidx.lifecycle.LiveData;
 

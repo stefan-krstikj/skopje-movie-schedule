@@ -1,12 +1,11 @@
 package mk.ukim.finki.skopjemovieschedule.asynctask;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.MapLocationRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MapLocationRepository;
 import mk.ukim.finki.skopjemovieschedule.models.MapLocation;
 import mk.ukim.finki.skopjemovieschedule.utils.TheaterUtils;
 

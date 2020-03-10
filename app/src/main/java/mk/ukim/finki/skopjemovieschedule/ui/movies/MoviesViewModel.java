@@ -9,9 +9,8 @@ import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupCineplexxComingSoo
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupCineplexxInTheatersAsynctask;
 import mk.ukim.finki.skopjemovieschedule.asynctask.jsoup.JsoupMileniumAsyncTask;
 import mk.ukim.finki.skopjemovieschedule.models.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
-import mk.ukim.finki.skopjemovieschedule.ui.movies.tablayout.InTheatersTabFragment;
+import mk.ukim.finki.skopjemovieschedule.database.MovieRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieScheduleRepository;
 
 public class MoviesViewModel extends ViewModel {
     private static String TAG = "MoviesViewModel";

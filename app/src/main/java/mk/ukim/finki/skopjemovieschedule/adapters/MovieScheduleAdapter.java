@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.R;
@@ -20,24 +22,24 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter {
 
     public class MovieScheduleHolder extends RecyclerView.ViewHolder{
 
-        private TextView day;
-        private TextView movieHall;
+        private TextView mDay;
+        private TextView mMovieHall;
         private TextView m3D;
-        private TextView hour;
+        private TextView mHour;
 
         MovieScheduleHolder(@NonNull View itemView) {
             super(itemView);
-            this.day = itemView.findViewById(R.id.textView_day);
-            this.movieHall = itemView.findViewById(R.id.textView_hall);
+            this.mDay = itemView.findViewById(R.id.textView_day);
+            this.mMovieHall = itemView.findViewById(R.id.textView_hall);
             this.m3D = itemView.findViewById(R.id.textView_3d);
-            this.hour = itemView.findViewById(R.id.textView_Hour);
+            this.mHour = itemView.findViewById(R.id.textView_Hour);
         }
 
         void setText(MovieSchedule movieSchedule){
-            this.day.setText(movieSchedule.mDay);
-            this.movieHall.setText(movieSchedule.mMovieHall);
+            this.mDay.setText(movieSchedule.mDay);
+            this.mMovieHall.setText(movieSchedule.mMovieHall);
             this.m3D.setText(movieSchedule.m3D + "");
-            this.hour.setText(movieSchedule.mTime);
+            this.mHour.setText(movieSchedule.mTime);
         }
     }
 
@@ -47,6 +49,15 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter {
 
     public void updateDataset(List<MovieSchedule> newDataset){
         this.mDataset = newDataset;
+        this.mDataset.sort(new Comparator<MovieSchedule>() {
+            @Override
+            public int compare(MovieSchedule o1, MovieSchedule o2) {
+                DayOfWeek dayOfWeek1 = DayOfWeek.valueOf(o1.mDay.toUpperCase());
+                DayOfWeek dayOfWeek2 = DayOfWeek.valueOf(o2.mDay.toUpperCase());
+                return dayOfWeek1.compareTo(dayOfWeek2);
+            }
+        });
+        notifyDataSetChanged();
     }
 
     @NonNull

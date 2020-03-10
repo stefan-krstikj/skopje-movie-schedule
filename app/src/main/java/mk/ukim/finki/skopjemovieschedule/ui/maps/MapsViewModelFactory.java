@@ -4,8 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import mk.ukim.finki.skopjemovieschedule.data.MapLocationRepository;
-import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModel;
+import mk.ukim.finki.skopjemovieschedule.database.MapLocationRepository;
 
 public class MapsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private MapLocationRepository mMapLocationRepository;

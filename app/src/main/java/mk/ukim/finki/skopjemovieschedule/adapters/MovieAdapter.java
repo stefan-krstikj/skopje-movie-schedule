@@ -24,7 +24,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
     private static final int POSTER_HEIGHT = 403;
 
     private List<Movie> mDataset;
-    OnMoviePosterClickListener listener;
+    OnMoviePosterClickListener mListener;
 
     public class MovieHolder extends RecyclerView.ViewHolder{
 
@@ -38,15 +38,15 @@ public class MovieAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onMovieClick(mDataset.get(getAdapterPosition()), moviePoster);
+                    mListener.onMovieClick(mDataset.get(getAdapterPosition()), moviePoster);
                 }
             });
         }
 
         void setText(Movie movie, final OnMoviePosterClickListener listener){
-            movieTitle.setText(movie.mMovieDisplayTitle);
+            movieTitle.setText(movie.getMovieDisplayTitle());
             Picasso.get()
-                    .load(movie.mPosterURL)
+                    .load(movie.getPosterURL())
                     .resize(POSTER_WIDTH, POSTER_HEIGHT)
                     .into(moviePoster);
         }
@@ -54,7 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
 
     public MovieAdapter(OnMoviePosterClickListener listener) {
         this.mDataset = new ArrayList<>();
-        this.listener = listener;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -67,7 +67,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((MovieHolder) holder).setText(mDataset.get(position), listener);
+        ((MovieHolder) holder).setText(mDataset.get(position), mListener);
     }
 
     @Override
@@ -75,7 +75,6 @@ public class MovieAdapter extends RecyclerView.Adapter {
         return mDataset.size();
     }
 
-    // todo: Do i need 2 different movie adapters?
     public void updateDataset(List<Movie> newDataset){
         this.mDataset = newDataset;
         notifyDataSetChanged();

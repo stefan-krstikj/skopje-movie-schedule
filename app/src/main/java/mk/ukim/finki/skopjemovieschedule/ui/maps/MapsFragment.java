@@ -7,14 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,15 +28,12 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
@@ -55,11 +50,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
 
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     public static String GOOGLE_MAPS_API_KEY;
-    private Boolean foundPlaces = false;
+    private Boolean mFoundPlaces = false;
 
-    private MapsViewModel mapsViewModel;
+    private MapsViewModel mMapsViewModel;
     private MapLocationAdapter adapter;
-    private String request;
+    private String mRequest;
 
     private GoogleMap mMap;
     private MapView mMapView;
@@ -144,13 +139,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
                 //move map camera
 //                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
 
-                request = URLList.REQUEST_URL_MAPLOCATIONS + latLng.latitude +","+latLng.longitude
+                mRequest = URLList.REQUEST_URL_MAPLOCATIONS + latLng.latitude +","+latLng.longitude
                     + "&key=" + getResources().getString(R.string.google_maps_key)
                     + "&type=movie_theater&rankby=distance";
 
-                if(!foundPlaces) {
+                if(!mFoundPlaces) {
                     initData();
-                    foundPlaces = true;
+                    mFoundPlaces = true;
                 }
             }
         }
@@ -167,7 +162,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+                // sees the explanation, try again to mRequest the permission.
                 new AlertDialog.Builder(getContext())
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
@@ -185,7 +180,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
 
 
             } else {
-                // No explanation needed, we can request the permission.
+                // No explanation needed, we can mRequest the permission.
                 ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION );
@@ -210,8 +205,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
 
     private void initData(){
         MapsViewModelFactory factory = InjectorUtils.provideMapsViewModelFactory(getContext());
-        mapsViewModel =  ViewModelProviders.of(this, factory).get(MapsViewModel.class);
-        mapsViewModel.getAll(request).observe(getViewLifecycleOwner(), data -> {
+        mMapsViewModel =  ViewModelProviders.of(this, factory).get(MapsViewModel.class);
+        mMapsViewModel.getAll(mRequest).observe(getViewLifecycleOwner(), data -> {
             adapter.updateDataset(data);
             updateMap(data);
         });

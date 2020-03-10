@@ -3,13 +3,12 @@ package mk.ukim.finki.skopjemovieschedule.ui.maps;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.asynctask.TheatersAsyncTask;
-import mk.ukim.finki.skopjemovieschedule.data.MapLocationRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MapLocationRepository;
 import mk.ukim.finki.skopjemovieschedule.models.MapLocation;
 
 public class MapsViewModel extends ViewModel {

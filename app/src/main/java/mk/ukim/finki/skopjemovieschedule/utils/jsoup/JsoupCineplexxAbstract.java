@@ -29,11 +29,11 @@ public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
     public abstract Pair<List<Movie>, List<MovieSchedule>> getPairMovieAndSchedule() throws IOException;
 
     public void getDetailedInfo(Movie m, List<MovieSchedule> movieSchedules) throws IOException{
-        String URL = "https://" + m.mCineplexxURL;
+        String URL = "https://" + m.getDetailsURL();
         Document doc = Jsoup.connect(URL).get();
         setPoster(m, doc);
-        if(m.mStatus == 1) {
-            Log.v(TAG, "Setting schedule for URL: " + m.mCineplexxURL);
+        if(m.getStatus() == 1) {
+            Log.v(TAG, "Setting schedule for URL: " + m.getDetailsURL());
             setMovieSchedules(movieSchedules, doc, m);
         }
         else
@@ -43,11 +43,11 @@ public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
 
     void setPoster(Movie m, Document doc){
         Elements imgElements = doc.getElementsByClass("pull-left");
-        m.mPosterURL = "https://www.cineplexx.mk/" + imgElements.get(0).getElementsByTag("img").get(0).attr("src");
+        m.setPosterURL("https://www.cineplexx.mk/" + imgElements.get(0).getElementsByTag("img").get(0).attr("src"));
     }
 
     void setMovieSchedules(List<MovieSchedule> movieSchedules, Document doc, Movie movie) throws IOException {
-        Log.v(TAG, "Setting movie schedule: " + movie.mMovieTitle);
+        Log.v(TAG, "Setting movie schedule: " + movie.getMovieTitle());
         Elements perDay =  doc.getElementsByClass("row-fluid separator time-row");
 
         // todo: fix crash when calling date-desc-label
@@ -65,7 +65,7 @@ public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
                 String theaterHall = p.get(1).text();
                 String m3D = p.get(2).text();
                 MovieSchedule movieSchedule = new MovieSchedule
-                        (movie.mMovieTitle, theaterName, day, date, time, theaterHall, m3D, reservationURL);
+                        (movie.getMovieTitle(), theaterName, day, date, time, theaterHall, m3D, reservationURL);
                 movieSchedules.add(movieSchedule);
             }
         }
@@ -77,7 +77,7 @@ public abstract class JsoupCineplexxAbstract extends JsoupAbstract{
         Elements tr = element.getElementsByTag("tr");
         String titleEnglish = tr.get(0).getElementsByTag("td").get(1).text();
         Log.v(TAG, "TitleEnglish: " + titleEnglish);
-        movie.mMovieTitle = titleEnglish;
+        movie.setMovieTitle(titleEnglish);
     }
 
 

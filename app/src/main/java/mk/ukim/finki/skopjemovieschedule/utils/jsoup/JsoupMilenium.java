@@ -57,7 +57,7 @@ public class JsoupMilenium extends JsoupAbstract {
     void setPoster(Movie m, Document doc) {
         Element imgClass = doc.getElementsByClass("vc_single_image-img attachment-full").get(0);
         String imgURL = imgClass.getElementsByTag("img").get(0).attr("srcset").split(" ")[0];
-        m.mPosterURL = imgURL;
+        m.setPosterURL(imgURL);
     }
 
     private void getMovieSchedules(List<MovieSchedule> movieSchedules, List<Movie> movies){
@@ -70,8 +70,8 @@ public class JsoupMilenium extends JsoupAbstract {
                 String dayEng = dayTranslations.get(day.trim());
                 String titleEng = "";
                 for(Movie m : movies){
-                    if(m.mMovieTitleMKD.equals(movieMkd)){
-                        titleEng = m.mMovieTitle;
+                    if(m.getMovieTitleMKD().equals(movieMkd)){
+                        titleEng = m.getMovieTitle();
                         break;
                     }
                 }
@@ -90,11 +90,11 @@ public class JsoupMilenium extends JsoupAbstract {
 
     @SuppressLint("LongLogTag")
     public void getDetailedInfo(Movie movie, List<MovieSchedule> movieSchedules) throws IOException {
-        Log.v(TAG + " getDetailedInfo(): ", movie.mMovieTitle);
-        Log.v(TAG, "mCineplexxURL: " + movie.mCineplexxURL);
+        Log.v(TAG + " getDetailedInfo(): ", movie.getMovieTitle());
+        Log.v(TAG, "mCineplexxURL: " + movie.getDetailsURL());
 
         // buffer overload for kinomilenium
-        Connection.Response response = Jsoup.connect(movie.mCineplexxURL).timeout(20 * 1000)
+        Connection.Response response = Jsoup.connect(movie.getDetailsURL()).timeout(20 * 1000)
                 .execute();
         final Document doc = Jsoup.parse(response.body());
 
@@ -126,12 +126,12 @@ public class JsoupMilenium extends JsoupAbstract {
         }
         String year = projectionStart.split("\\.")[2];
         movie.setStatus(1);
-        movie.mMovieTitle = title;
-        movie.mDirector = Director;
-        movie.mActors = Actors;
-        movie.mYear = year;
-        movie.mRuntime = runtime;
-        movie.mCountry = country;
+        movie.setMovieTitle(title);
+        movie.setDirector(Director);
+        movie.setActors(Actors);
+        movie.setYear(year);
+        movie.setRuntime(runtime);
+        movie.setCountry(country);
         setPoster(movie, doc);
 
     }
@@ -143,13 +143,13 @@ public class JsoupMilenium extends JsoupAbstract {
         String URL = e.getElementsByTag("a").get(0).attr("href");
 
         Movie movie = new Movie(titleMKD, titleMKD, null, null, null, null);
-        movie.mCineplexxURL = URL;
+        movie.setDetailsURL(URL);
 
         // changes title from MKD to English
         getDetailedInfo(movie, movieSchedules);
 
         // fixes title to english
-        Log.v(TAG, "Calling getOMDBInfo for " + movie.mMovieTitle);
+        Log.v(TAG, "Calling getOMDBInfo for " + movie.getMovieTitle());
         getOMDBInfo(movie);
 
         setDisplayTitle(movie);

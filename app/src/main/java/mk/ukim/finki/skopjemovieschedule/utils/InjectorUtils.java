@@ -2,14 +2,12 @@ package mk.ukim.finki.skopjemovieschedule.utils;
 
 import android.content.Context;
 
-import mk.ukim.finki.skopjemovieschedule.data.AppDatabase;
-import mk.ukim.finki.skopjemovieschedule.data.MapLocationRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
-import mk.ukim.finki.skopjemovieschedule.models.MapLocation;
+import mk.ukim.finki.skopjemovieschedule.database.AppDatabase;
+import mk.ukim.finki.skopjemovieschedule.database.MapLocationRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieScheduleRepository;
 import mk.ukim.finki.skopjemovieschedule.ui.maps.MapsViewModelFactory;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
-import mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view.DetailMovieViewModel;
 import mk.ukim.finki.skopjemovieschedule.ui.movies.detailed_view.DetailMovieViewModelFactory;
 
 public class InjectorUtils {

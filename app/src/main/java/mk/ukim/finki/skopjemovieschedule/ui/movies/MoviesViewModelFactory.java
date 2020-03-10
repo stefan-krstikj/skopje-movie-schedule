@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
-import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieScheduleRepository;
 
 public class MoviesViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private MovieRepository mMovieRepository;

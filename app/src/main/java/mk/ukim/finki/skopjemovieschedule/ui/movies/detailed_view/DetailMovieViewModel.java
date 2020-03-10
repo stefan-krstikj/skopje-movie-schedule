@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieRepository;
 import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
-import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieScheduleRepository;
 
 public class DetailMovieViewModel extends ViewModel {
 

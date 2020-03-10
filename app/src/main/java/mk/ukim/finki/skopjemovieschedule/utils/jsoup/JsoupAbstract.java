@@ -22,7 +22,7 @@ public abstract class JsoupAbstract {
     static final int MAX_CHARACTERS = 22;
     static HashMap<String, String> dayTranslations = new HashMap<String, String>();
 
-    public JsoupAbstract() {
+    JsoupAbstract() {
         setTranslations();
     }
 
@@ -30,10 +30,8 @@ public abstract class JsoupAbstract {
     public abstract Pair<List<Movie>, List<MovieSchedule>> getPairMovieAndSchedule() throws IOException;
     public abstract void getDetailedInfo(Movie m, List<MovieSchedule> movieSchedules) throws IOException;
     abstract void setPoster(Movie m, Document doc);
-//    abstract void setMovieSchedules(List<MovieSchedule> movieSchedules, Movie movie);
 
-
-    protected void setTranslations(){
+    void setTranslations(){
         dayTranslations = new HashMap<>();
         dayTranslations.put("Пон", "Monday"); dayTranslations.put("Вто", "Tuesday");
         dayTranslations.put("Сре", "Wednesday"); dayTranslations.put("Чет", "Thursday");
@@ -44,23 +42,23 @@ public abstract class JsoupAbstract {
         dayTranslations.put("петок", "Friday"); dayTranslations.put("сабота", "Saturday"); dayTranslations.put("недела", "Sunday");
     }
 
-    public void setDisplayTitle(Movie movie){
+    void setDisplayTitle(Movie movie){
 
         // todo: fix crash
-        movie.mMovieDisplayTitle = movie.mMovieTitle;
-        if(movie.mMovieTitle != null){
-            if(movie.mMovieTitle.length() >= MAX_CHARACTERS){
-                movie.mMovieDisplayTitle = movie.mMovieTitle.substring(0, MAX_CHARACTERS-3) + "...";
+        movie.setMovieDisplayTitle(movie.getMovieTitle());
+        if(movie.getMovieTitle() != null){
+            if(movie.getMovieTitle().length() >= MAX_CHARACTERS){
+                movie.setMovieDisplayTitle(movie.getMovieTitle().substring(0, MAX_CHARACTERS-3) + "...");
             }
         }
 
     }
 
-    protected void getOMDBInfo(Movie movie) throws IOException {
-        omdbMovie mo = omdbApiClient.getMovie(movie.mMovieTitle.toLowerCase());
+    void getOMDBInfo(Movie movie) throws IOException {
+        omdbMovie mo = omdbApiClient.getMovie(movie.getMovieTitle().toLowerCase());
         if (mo.Title == null){
-            Log.v(TAG, "Received null for: " + movie.mMovieTitle + ", cutting string...");
-            String[] titleSplit = movie.mMovieTitle.split(" " );
+            Log.v(TAG, "Received null for: " + movie.getMovieTitle() + ", cutting string...");
+            String[] titleSplit = movie.getMovieTitle().split(" " );
             String shortTitle  = "";
             if(titleSplit.length >= 3)
                 shortTitle = titleSplit[0] + " " + titleSplit[1] + " " + titleSplit[2];
@@ -71,11 +69,11 @@ public abstract class JsoupAbstract {
         }
 
         if(mo.Title == null)
-            Log.v(TAG, "Found NULL OMDB for: " + movie.mMovieTitle);
+            Log.v(TAG, "Found NULL OMDB for: " + movie.getMovieTitle());
 
         if(mo.Title != null){
             movie.fillOmdbInfo(mo.Title, mo.Year, mo.Runtime,
-                    mo.Rated, mo.Director, mo.Genre, mo.Writer, mo.Actors, mo.Plot, mo.Language, mo.Country, "Cineplexx");
+                    mo.Rated, mo.Director, mo.Genre, mo.Writer, mo.Actors, mo.Plot, mo.Language, mo.Country, "Cineplexx", mo.Poster);
         }
 
     }

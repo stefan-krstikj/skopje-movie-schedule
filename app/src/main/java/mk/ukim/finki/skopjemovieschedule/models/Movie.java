@@ -10,90 +10,83 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
 
 @Entity(tableName = "movie")
 public class Movie implements Serializable {
     private static String TAG = "Movie";
 
-    // todo: make private
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "movie_title")
     @SerializedName("Title")
-    public String mMovieTitle;
+    private String mMovieTitle;
 
     @ColumnInfo(name = "movie_title_mkd")
-    public String mMovieTitleMKD;
+    private String mMovieTitleMKD;
 
     @ColumnInfo(name = "movie_display_title")
-    public String mMovieDisplayTitle;
+    private String mMovieDisplayTitle;
 
     @ColumnInfo(name = "genres_mkd")
-    public String mGenresMKD;
+    private String mGenresMKD;
 
-    @ColumnInfo(name = "cineplexx_url")
-    public String mCineplexxURL;
+    @ColumnInfo(name = "details_url")
+    private String mDetailsURL;
 
     @ColumnInfo(name = "poster")
-    public String mPosterURL;
+    private String mPosterURL;
 
     @ColumnInfo(name = "year")
-    public String mYear;
+    private String mYear;
 
     @ColumnInfo(name = "rated")
-    public String mRated;
+    private String mRated;
 
     @ColumnInfo(name = "runtime")
-    public String mRuntime;
+    private String mRuntime;
 
     @ColumnInfo(name = "genres")
-    public String mGenre;
+    private String mGenre;
 
     @ColumnInfo(name = "director")
-    public String mDirector;
+    private String mDirector;
 
     @ColumnInfo(name = "writers")
-    public String mWriter;
+    private String mWriter;
 
     @ColumnInfo(name = "actors")
-    public String mActors;
+    private String mActors;
 
     @ColumnInfo(name = "plot")
-    public String mPlot;
+    private String mPlot;
 
     @ColumnInfo(name = "language")
-    public String mLanguage;
+    private String mLanguage;
 
     @ColumnInfo(name = "country")
-    public String mCountry;
+    private String mCountry;
 
     @ColumnInfo(name = "status") // true = in theaters, false = coming soon
-    public int mStatus;
+    private int mStatus;
 
     @ColumnInfo(name = "theater_name")
-    public String mTheaterName;
+    private String mTheaterName;
 
     @ColumnInfo(name = "projection_start")
-    public String mProjectionStart;
+    private String mProjectionStart;
 
-    public Movie(@NonNull String mMovieTitle, String mMovieTitleMKD, String mGenresMKD, String mCineplexxURL, String mMovieDisplayTitle, String mProjectionStart) {
+    public Movie(@NonNull String mMovieTitle, String mMovieTitleMKD, String mGenresMKD, String mDetailsURL, String mMovieDisplayTitle, String mProjectionStart) {
         this.mMovieTitle = mMovieTitle;
         this.mMovieTitleMKD = mMovieTitleMKD;
         this.mMovieDisplayTitle = mMovieDisplayTitle;
         this.mGenresMKD = mGenresMKD;
-        this.mCineplexxURL = mCineplexxURL;
+        this.mDetailsURL = mDetailsURL;
         this.mProjectionStart = mProjectionStart;
     }
 
-//    public Movie(@NonNull String mMovieTitle) {
-//        this.mMovieTitle = mMovieTitle;
-//    }
-
     public void fillOmdbInfo(String mMovieTitle, String mYear, String mRuntime, String mRated, String mDirector, String mGenre,
                              String mWriter, String mActors, String mPlot, String mLanguage, String mCountry,
-                             String mTheaterName){
+                             String mTheaterName, String mPosterURL){
         this.mMovieTitle = mMovieTitle;
         this.mYear = mYear;
         this.mRuntime = mRuntime;
@@ -124,12 +117,169 @@ public class Movie implements Serializable {
         this.mLanguage = mLanguage;
         this.mCountry = mCountry;
         //todo: fix mPosterURL
-//        this.mPosterURL = mPosterURL;
+        this.mPosterURL = mPosterURL;
         this.mTheaterName = mTheaterName;
     }
 
     public void setStatus(int status){
         this.mStatus = status;
+    }
+
+    public static String getTAG() {
+        return TAG;
+    }
+
+    public static void setTAG(String TAG) {
+        Movie.TAG = TAG;
+    }
+
+    @NonNull
+    public String getMovieTitle() {
+        return mMovieTitle;
+    }
+
+    public void setMovieTitle(@NonNull String movieTitle) {
+        mMovieTitle = movieTitle;
+    }
+
+    public String getMovieTitleMKD() {
+        return mMovieTitleMKD;
+    }
+
+    public void setMovieTitleMKD(String movieTitleMKD) {
+        mMovieTitleMKD = movieTitleMKD;
+    }
+
+    public String getMovieDisplayTitle() {
+        return mMovieDisplayTitle;
+    }
+
+    public void setMovieDisplayTitle(String movieDisplayTitle) {
+        mMovieDisplayTitle = movieDisplayTitle;
+    }
+
+    public String getGenresMKD() {
+        return mGenresMKD;
+    }
+
+    public void setGenresMKD(String genresMKD) {
+        mGenresMKD = genresMKD;
+    }
+
+    public String getDetailsURL() {
+        return mDetailsURL;
+    }
+
+    public void setDetailsURL(String detailsURL) {
+        mDetailsURL = detailsURL;
+    }
+
+    public String getPosterURL() {
+        return mPosterURL;
+    }
+
+    public void setPosterURL(String posterURL) {
+        mPosterURL = posterURL;
+    }
+
+    public String getYear() {
+        return mYear;
+    }
+
+    public void setYear(String year) {
+        mYear = year;
+    }
+
+    public String getRated() {
+        return mRated;
+    }
+
+    public void setRated(String rated) {
+        mRated = rated;
+    }
+
+    public String getRuntime() {
+        return mRuntime;
+    }
+
+    public void setRuntime(String runtime) {
+        mRuntime = runtime;
+    }
+
+    public String getGenre() {
+        return mGenre;
+    }
+
+    public void setGenre(String genre) {
+        mGenre = genre;
+    }
+
+    public String getDirector() {
+        return mDirector;
+    }
+
+    public void setDirector(String director) {
+        mDirector = director;
+    }
+
+    public String getWriter() {
+        return mWriter;
+    }
+
+    public void setWriter(String writer) {
+        mWriter = writer;
+    }
+
+    public String getActors() {
+        return mActors;
+    }
+
+    public void setActors(String actors) {
+        mActors = actors;
+    }
+
+    public String getPlot() {
+        return mPlot;
+    }
+
+    public void setPlot(String plot) {
+        mPlot = plot;
+    }
+
+    public String getLanguage() {
+        return mLanguage;
+    }
+
+    public void setLanguage(String language) {
+        mLanguage = language;
+    }
+
+    public String getCountry() {
+        return mCountry;
+    }
+
+    public void setCountry(String country) {
+        mCountry = country;
+    }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public String getTheaterName() {
+        return mTheaterName;
+    }
+
+    public void setTheaterName(String theaterName) {
+        mTheaterName = theaterName;
+    }
+
+    public String getProjectionStart() {
+        return mProjectionStart;
+    }
+
+    public void setProjectionStart(String projectionStart) {
+        mProjectionStart = projectionStart;
     }
 
     @NonNull

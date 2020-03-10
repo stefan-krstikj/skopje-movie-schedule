@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import mk.ukim.finki.skopjemovieschedule.R;
 
-// todo: rename
 public class TabLayoutPagerAdapter extends FragmentStatePagerAdapter {
 
     @StringRes

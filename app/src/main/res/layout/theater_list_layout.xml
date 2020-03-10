@@ -9,7 +9,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="3dp"
         app:cardCornerRadius="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +27,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
-                android:text="CINEPLEXX SKOPJE CITY MALL"
+                android:text="@string/theater_list_theater_name"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="bul. Partizanski Odredi"
+                android:text="@string/theater_list_theater_address"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView_theaterName"
                 app:layout_constraintTop_toBottomOf="@+id/textView_theaterName" />
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="1.2km"
+                android:text="@string/theater_list_theater_distance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
-                android:text="open"
+                android:text="@string/theater_list_theater_opennow"
                 android:textAllCaps="true"
                 android:textColor="@color/openNowTrue"
                 android:textStyle="bold"
@@ -73,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
-                android:text="CLOSED"
+                android:text="@string/theater_list_theater_opennow_false"
                 android:textColor="@color/openNowFalse"
                 android:textStyle="bold"
                 android:visibility="invisible"

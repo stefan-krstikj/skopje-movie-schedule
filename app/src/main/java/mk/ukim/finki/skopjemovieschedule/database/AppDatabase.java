@@ -1,4 +1,4 @@
-package mk.ukim.finki.skopjemovieschedule.data;
+package mk.ukim.finki.skopjemovieschedule.database;
 
 import android.content.Context;
 
@@ -28,9 +28,8 @@ public abstract class AppDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    // todo: remove fallbacktodestruct
+                    // to/do: add fallbacktodestruct if there are problems with build version
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "movie_database")
-                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

@@ -7,14 +7,13 @@ import android.util.Pair;
 import java.util.List;
 
 import mk.ukim.finki.skopjemovieschedule.models.Movie;
-import mk.ukim.finki.skopjemovieschedule.data.MovieRepository;
+import mk.ukim.finki.skopjemovieschedule.database.MovieRepository;
 import mk.ukim.finki.skopjemovieschedule.models.MovieSchedule;
-import mk.ukim.finki.skopjemovieschedule.data.MovieScheduleRepository;
-import mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesViewModel;
+import mk.ukim.finki.skopjemovieschedule.database.MovieScheduleRepository;
 
 
 // todo: change to Void, Void, Pair
-public abstract class JsoupCineplexxAsyncTask extends AsyncTask<String, Void, Pair<List<Movie>, List<MovieSchedule>>>{
+public abstract class JsoupCineplexxAsyncTask extends AsyncTask<Void, Void, Pair<List<Movie>, List<MovieSchedule>>>{
     private static String TAG = "JsoupCineplexxAsyncTask";
     private MovieRepository mMovieRepository;
     private MovieScheduleRepository mMovieScheduleRepository;

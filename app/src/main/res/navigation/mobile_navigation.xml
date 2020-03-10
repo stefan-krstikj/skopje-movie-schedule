@@ -15,7 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="mk.ukim.finki.skopjemovieschedule.ui.reservations.ReservationsFragment"
         android:label="@string/title_reservations"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_reservations" />
 
     <fragment
         android:id="@+id/navigation_notifications"
