@@ -14,12 +14,12 @@ import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
 import com.stefankrstikj.skopjemovieschedule.api_response.omdb.OmdbApiClient;
 import com.stefankrstikj.skopjemovieschedule.api_response.omdb.OmdbMovieResult;
+import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 
 public abstract class Jsoup {
     private static String TAG = "JsoupAbstract";
 
     static final String GENRE_SEPERATOR = " \\| ";
-    static final int MAX_CHARACTERS = 22;
     static HashMap<String, String> dayTranslations = new HashMap<String, String>();
 
     Jsoup() {
@@ -43,14 +43,8 @@ public abstract class Jsoup {
     }
 
     void setDisplayTitle(Movie movie){
-
-        // todo: fix crash
-        movie.setMovieDisplayTitle(movie.getMovieTitle());
-        if(movie.getMovieTitle() != null){
-            if(movie.getMovieTitle().length() >= MAX_CHARACTERS){
-                movie.setMovieDisplayTitle(movie.getMovieTitle().substring(0, MAX_CHARACTERS-3) + "...");
-            }
-        }
+        // todo: fix crash (if movie title is null? or movie is null?)
+        movie.setMovieDisplayTitle(MovieUtils.getDisplayTitle(movie));
 
     }
 

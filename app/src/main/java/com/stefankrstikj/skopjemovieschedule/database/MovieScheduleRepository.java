@@ -10,7 +10,6 @@ public class MovieScheduleRepository {
     private static String TAG = "MovieScheduleRepository";
 
     private MovieScheduleDao mMovieScheduleDao;
-    private LiveData<List<MovieSchedule>> mAllMovieSchedules;
     private static volatile MovieScheduleRepository instance;
 
     public static MovieScheduleRepository getInstance(MovieScheduleDao movieScheduleDao){

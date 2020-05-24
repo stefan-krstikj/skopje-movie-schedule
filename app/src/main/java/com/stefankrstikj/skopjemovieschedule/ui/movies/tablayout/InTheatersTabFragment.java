@@ -92,7 +92,8 @@ public class InTheatersTabFragment extends Fragment implements OnMoviePosterClic
 
 
     @Override
-    public void onMovieClick(Movie movie, ImageView imageView) {
+    public void onMovieClick(Object o, ImageView imageView) {
+        Movie movie = (Movie) o;
         Intent intent = new Intent(getContext(), DetailMovieActivity.class);
         Drawable drawable = imageView.getDrawable();
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();

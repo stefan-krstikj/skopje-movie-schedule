@@ -206,7 +206,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
     private void initData(){
         MapsViewModelFactory factory = InjectorUtils.provideMapsViewModelFactory(getContext());
         mMapsViewModel =  ViewModelProviders.of(this, factory).get(MapsViewModel.class);
-        mMapsViewModel. getAll(mRequest).observe(getViewLifecycleOwner(), data -> {
+        mMapsViewModel.getAll(mRequest).observe(getViewLifecycleOwner(), data -> {
             adapter.updateDataset(data);
             updateMap(data);
         });

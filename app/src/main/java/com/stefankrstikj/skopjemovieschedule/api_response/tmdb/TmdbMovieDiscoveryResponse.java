@@ -3,6 +3,7 @@ package com.stefankrstikj.skopjemovieschedule.api_response.tmdb;
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class TmdbMovieDiscoveryResponse {
     private int mTotalPages;
 
     @SerializedName("results")
-    List<TmdbMovieDiscoveryResult> mResults;
+    List<TmdbMovie> mResults;
 
-    public TmdbMovieDiscoveryResponse(int page, int totalResults, int totalPages, List<TmdbMovieDiscoveryResult> results) {
+    public TmdbMovieDiscoveryResponse(int page, int totalResults, int totalPages, List<TmdbMovie> results) {
         mPage = page;
         mTotalResults = totalResults;
         mTotalPages = totalPages;
@@ -31,5 +32,37 @@ public class TmdbMovieDiscoveryResponse {
     @Override
     public String toString() {
         return "page:" + mPage + ", total_results:" + mTotalResults + ", total_pages: " + mTotalPages + ", results: " + mResults.toString();
+    }
+
+    public int getPage() {
+        return mPage;
+    }
+
+    public void setPage(int page) {
+        mPage = page;
+    }
+
+    public int getTotalResults() {
+        return mTotalResults;
+    }
+
+    public void setTotalResults(int totalResults) {
+        mTotalResults = totalResults;
+    }
+
+    public int getTotalPages() {
+        return mTotalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        mTotalPages = totalPages;
+    }
+
+    public List<TmdbMovie> getResults() {
+        return mResults;
+    }
+
+    public void setResults(List<TmdbMovie> results) {
+        mResults = results;
     }
 }

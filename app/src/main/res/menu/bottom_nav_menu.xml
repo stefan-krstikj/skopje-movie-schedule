@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/baseline_local_movies_24"
-        android:title="@string/title_movies" />
-
-    <item
         android:id="@id/navigation_discover"
         android:icon="@drawable/baseline_explore_24"
         android:title="@string/title_discover"
         />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/baseline_restore_24"
-        android:title="@string/title_reservations" />
+        android:id="@+id/navigation_movies"
+        android:icon="@drawable/baseline_local_movies_24"
+        android:title="@string/title_movies" />
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:icon="@drawable/baseline_restore_24"-->
+<!--        android:title="@string/title_reservations" />-->
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_theaters"
         android:icon="@drawable/baseline_map_24"
         android:title="@string/title_theaters" />
 

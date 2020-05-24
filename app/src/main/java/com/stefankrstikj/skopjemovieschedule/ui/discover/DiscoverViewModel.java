@@ -1,35 +1,33 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.stefankrstikj.skopjemovieschedule.api_response.tmdb.TmdbApiClient;
-import com.stefankrstikj.skopjemovieschedule.api_response.tmdb.TmdbMovieDiscoveryResponse;
-import com.stefankrstikj.skopjemovieschedule.api_response.tmdb.TmdbMovieDiscoveryResult;
+import com.stefankrstikj.skopjemovieschedule.asynctask.TmdbAsyncTask;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
 
-import java.io.IOException;
+import java.util.List;
 
-public class DiscoverViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
-    LiveData<TmdbMovieDiscoveryResponse> getAllPopularMovies(){
-        AsyncTask<Void, Void, TmdbMovieDiscoveryResponse> asyncTask = new AsyncTask<Void, Void, TmdbMovieDiscoveryResponse>() {
-            @Override
-            protected TmdbMovieDiscoveryResponse doInBackground(Void... voids) {
-                TmdbApiClient tmdbApiClient = new TmdbApiClient();
+public class DiscoverViewModel extends ViewModel  {
+    private static String TAG = "DiscoverViewModel";
+    private TmdbMovieRepository mTmdbMovieRepository;
 
-                try {
-                    TmdbMovieDiscoveryResponse tmdb = tmdbApiClient.getPopularMovies();
-                    return tmdb;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
-        asyncTask.execute();
-        return null;
+    public DiscoverViewModel(TmdbMovieRepository tmdbMovieRepository) {
+        mTmdbMovieRepository = tmdbMovieRepository;
+    }
+
+    public void insert(TmdbMovie tmdbMovie){
+        this.mTmdbMovieRepository.insert(tmdbMovie);
+    }
+
+    LiveData<List<TmdbMovie>> getAllPopularMovies() {
+        fetchMovieDiscovery();
+        return this.mTmdbMovieRepository.getAll();
+    }
+
+    private void fetchMovieDiscovery(){
+        TmdbAsyncTask tmdbAsyncTask = new TmdbAsyncTask(mTmdbMovieRepository);
+        tmdbAsyncTask.execute();
     }
 }

@@ -4,6 +4,6 @@ import android.widget.ImageView;
 
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 
-public interface OnMoviePosterClickListener {
-    void onMovieClick(Movie movie, ImageView imageView);
+public interface OnMoviePosterClickListener<T> {
+    void onMovieClick(T t, ImageView imageView);
 }

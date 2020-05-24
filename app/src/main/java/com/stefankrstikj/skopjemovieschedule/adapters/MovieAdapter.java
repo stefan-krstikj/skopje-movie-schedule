@@ -20,6 +20,8 @@ import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListene
 
 public class MovieAdapter extends RecyclerView.Adapter {
     private static final String TAG = "MovieAdapter";
+
+    // todo: refactor this and TmdbMovieAdapter
     private static final int POSTER_WIDTH = 272;
     private static final int POSTER_HEIGHT = 403;
 

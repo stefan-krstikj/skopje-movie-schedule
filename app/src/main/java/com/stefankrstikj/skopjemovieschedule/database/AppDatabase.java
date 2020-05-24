@@ -12,12 +12,14 @@ import java.util.concurrent.Executors;
 import com.stefankrstikj.skopjemovieschedule.models.MapLocation;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
 
-@Database(entities =  {Movie.class, MovieSchedule.class, MapLocation.class}, version = 1, exportSchema = false)
+@Database(entities =  {Movie.class, MovieSchedule.class, MapLocation.class, TmdbMovie.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
     public abstract MovieScheduleDao movieScheduleDao();
     public abstract MapLocationDao mapLocationDao();
+    public abstract TmdbMovieDao mTmdbMovieDiscoverDao();
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -28,7 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    // to/do: add fallbacktodestruct if there are problems with build version
+//                     add fallbacktodestruct if there are problems with build version
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "movie_database")
                             .build();
                 }

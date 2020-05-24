@@ -3,29 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesFragment"
-        android:label="@string/title_movies"
-        tools:layout="@layout/fragment_movies" />
+    app:startDestination="@+id/navigation_discover">
 
     <fragment
         android:id="@+id/navigation_discover"
         android:name="com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment"
-        android:label="Discover"
-        tools:layout="@layout/discover_fragment"
+        android:label="@string/title_discovery"
+        tools:layout="@layout/fragment_discover"
         />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.stefankrstikj.skopjemovieschedule.ui.reservations.ReservationsFragment"
-        android:label="@string/title_reservations"
-        tools:layout="@layout/fragment_reservations" />
+        android:id="@+id/navigation_movies"
+        android:name="com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesFragment"
+        android:label="@string/title_movies"
+        tools:layout="@layout/fragment_movies" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:name="com.stefankrstikj.skopjemovieschedule.ui.reservations.ReservationsFragment"-->
+<!--        android:label="@string/title_reservations"-->
+<!--        tools:layout="@layout/fragment_reservations" />-->
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_theaters"
         android:name="com.stefankrstikj.skopjemovieschedule.ui.maps.MapsFragment"
         android:label="@string/title_theaters"
         tools:layout="@layout/fragment_maps" />
