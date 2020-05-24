@@ -7,6 +7,12 @@
         android:title="@string/title_movies" />
 
     <item
+        android:id="@id/navigation_discover"
+        android:icon="@drawable/baseline_explore_24"
+        android:title="@string/title_discover"
+        />
+
+    <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/baseline_restore_24"
         android:title="@string/title_reservations" />

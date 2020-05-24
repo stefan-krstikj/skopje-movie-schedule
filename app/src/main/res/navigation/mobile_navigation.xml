@@ -7,19 +7,26 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="mk.ukim.finki.skopjemovieschedule.ui.movies.MoviesFragment"
+        android:name="com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesFragment"
         android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies" />
 
     <fragment
+        android:id="@+id/navigation_discover"
+        android:name="com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment"
+        android:label="Discover"
+        tools:layout="@layout/discover_fragment"
+        />
+
+    <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="mk.ukim.finki.skopjemovieschedule.ui.reservations.ReservationsFragment"
+        android:name="com.stefankrstikj.skopjemovieschedule.ui.reservations.ReservationsFragment"
         android:label="@string/title_reservations"
         tools:layout="@layout/fragment_reservations" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="mk.ukim.finki.skopjemovieschedule.ui.maps.MapsFragment"
+        android:name="com.stefankrstikj.skopjemovieschedule.ui.maps.MapsFragment"
         android:label="@string/title_theaters"
         tools:layout="@layout/fragment_maps" />
 </navigation>
