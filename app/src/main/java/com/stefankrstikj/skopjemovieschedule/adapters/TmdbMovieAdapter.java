@@ -1,6 +1,5 @@
 package com.stefankrstikj.skopjemovieschedule.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.models.Movie;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
@@ -21,15 +19,13 @@ import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_HEIGHT;
+import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_WIDTH;
+
 public class TmdbMovieAdapter extends RecyclerView.Adapter {
 	private static final String TAG = "TmdbMovieAdapter";
-	// todo: refactor this and MovieAdapter
-	private static final int POSTER_WIDTH = 272;
-	private static final int POSTER_HEIGHT = 403;
-
-	// todo: this and MovieAdapter can be the same class, just generic List items
-	private List<TmdbMovie> mDataset;
-	OnMoviePosterClickListener mListener;
+	private List<TmdbMovieDetailed> mDataset;
+	private OnMoviePosterClickListener mListener;
 
 	public class TmdbMovieHolder extends RecyclerView.ViewHolder{
 
@@ -49,7 +45,7 @@ public class TmdbMovieAdapter extends RecyclerView.Adapter {
 			});
 		}
 
-		void setText(TmdbMovie movie, final OnMoviePosterClickListener listener){
+		void setText(TmdbMovieDetailed movie, final OnMoviePosterClickListener listener){
 			movieTitle.setText(MovieUtils.getDisplayTitle(movie));
 			Picasso.get()
 					.load(URLList.URLTmdbPoster + movie.getPosterPath())
@@ -81,8 +77,9 @@ public class TmdbMovieAdapter extends RecyclerView.Adapter {
 		return mDataset.size();
 	}
 
-	public void updateDataset(List<TmdbMovie> newDataset){
+	public void updateDataset(List<TmdbMovieDetailed> newDataset){
 		this.mDataset = newDataset;
+		this.mDataset.sort((o1, o2) -> o1.getPopularity().compareTo(o2.getPopularity()));
 		notifyDataSetChanged();
 	}
 }

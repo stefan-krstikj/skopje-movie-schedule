@@ -12,8 +12,8 @@ import java.util.List;
 
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
-import com.stefankrstikj.skopjemovieschedule.api_response.omdb.OmdbApiClient;
-import com.stefankrstikj.skopjemovieschedule.api_response.omdb.OmdbMovieResult;
+import com.stefankrstikj.skopjemovieschedule.api.omdb.OmdbApiClient;
+import com.stefankrstikj.skopjemovieschedule.api.omdb.OmdbMovieResult;
 import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 
 public abstract class Jsoup {

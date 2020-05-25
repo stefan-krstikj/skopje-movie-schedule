@@ -1,6 +1,7 @@
 package com.stefankrstikj.skopjemovieschedule.models;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,53 +11,68 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Entity(tableName = "tmdb_movie")
-public class TmdbMovie {
+@Entity(tableName = "tmdb_movie_detailed")
+public class TmdbMovieDetailed {
 
+    @ColumnInfo(name = "popularity")
     @SerializedName("popularity")
-    private String mPopularity;
+    private Double mPopularity;
 
+    @ColumnInfo(name = "vote_count")
     @SerializedName("vote_count")
     private String mVoteCount;
 
+    @ColumnInfo(name = "vote_average")
+    @SerializedName("vote_average")
+    private String mVoteAverage;
+
+    @ColumnInfo(name = "video")
     @SerializedName("video")
     private boolean mVideo;
 
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path")
     private String mPosterPath;
 
     @PrimaryKey
     @NotNull
+    @ColumnInfo(name = "id")
     @SerializedName("id")
-    private String mId;
+    private Integer mId;
 
+    @ColumnInfo(name = "adult")
     @SerializedName("adult")
     private boolean mAdult;
 
+    @ColumnInfo(name = "backdrop_path")
     @SerializedName("backdrop_path")
     private String mBackdropPath;
 
+    @ColumnInfo(name = "original_language")
     @SerializedName("original_language")
     private String mOriginalLanguage;
 
+    @ColumnInfo(name = "original_title")
     @SerializedName("original_title")
     private String mOriginalTitle;
 
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     private String mTitle;
 
-    @SerializedName("vote_average")
-    private String mVoteAverage;
-
+    @ColumnInfo(name = "overview")
     @SerializedName("overview")
     private String mOverview;
 
+    @ColumnInfo(name = "release_date")
     @SerializedName("release_date")
     private String mReleaseDate;
 
-    public TmdbMovie(String popularity, String voteCount, boolean video, String posterPath, String id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, String title, String voteAverage, String overview, String releaseDate) {
+
+    public TmdbMovieDetailed(Double popularity, String voteCount, String voteAverage, boolean video, String posterPath, @NotNull Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, String title, String overview, String releaseDate) {
         mPopularity = popularity;
         mVoteCount = voteCount;
+        mVoteAverage = voteAverage;
         mVideo = video;
         mPosterPath = posterPath;
         mId = id;
@@ -65,16 +81,15 @@ public class TmdbMovie {
         mOriginalLanguage = originalLanguage;
         mOriginalTitle = originalTitle;
         mTitle = title;
-        mVoteAverage = voteAverage;
         mOverview = overview;
         mReleaseDate = releaseDate;
     }
 
-    public String getPopularity() {
+    public Double getPopularity() {
         return mPopularity;
     }
 
-    public void setPopularity(String popularity) {
+    public void setPopularity(Double popularity) {
         mPopularity = popularity;
     }
 
@@ -84,6 +99,14 @@ public class TmdbMovie {
 
     public void setVoteCount(String voteCount) {
         mVoteCount = voteCount;
+    }
+
+    public String getVoteAverage() {
+        return mVoteAverage;
+    }
+
+    public void setVoteAverage(String voteAverage) {
+        mVoteAverage = voteAverage;
     }
 
     public boolean isVideo() {
@@ -103,11 +126,11 @@ public class TmdbMovie {
     }
 
     @NotNull
-    public String getId() {
+    public Integer getId() {
         return mId;
     }
 
-    public void setId(@NotNull String id) {
+    public void setId(@NotNull Integer id) {
         mId = id;
     }
 
@@ -149,14 +172,6 @@ public class TmdbMovie {
 
     public void setTitle(String title) {
         mTitle = title;
-    }
-
-    public String getVoteAverage() {
-        return mVoteAverage;
-    }
-
-    public void setVoteAverage(String voteAverage) {
-        mVoteAverage = voteAverage;
     }
 
     public String getOverview() {

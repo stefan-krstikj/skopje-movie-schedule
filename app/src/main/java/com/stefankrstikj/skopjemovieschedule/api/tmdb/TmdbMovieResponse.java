@@ -1,13 +1,13 @@
-package com.stefankrstikj.skopjemovieschedule.api_response.tmdb;
+package com.stefankrstikj.skopjemovieschedule.api.tmdb;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;
 
-public class TmdbMovieDiscoveryResponse {
+public class TmdbMovieResponse {
 
     @SerializedName("page")
     private int mPage;
@@ -19,9 +19,9 @@ public class TmdbMovieDiscoveryResponse {
     private int mTotalPages;
 
     @SerializedName("results")
-    List<TmdbMovie> mResults;
+    List<TmdbMovieDetailed> mResults;
 
-    public TmdbMovieDiscoveryResponse(int page, int totalResults, int totalPages, List<TmdbMovie> results) {
+    public TmdbMovieResponse(int page, int totalResults, int totalPages, List<TmdbMovieDetailed> results) {
         mPage = page;
         mTotalResults = totalResults;
         mTotalPages = totalPages;
@@ -58,11 +58,11 @@ public class TmdbMovieDiscoveryResponse {
         mTotalPages = totalPages;
     }
 
-    public List<TmdbMovie> getResults() {
+    public List<TmdbMovieDetailed> getResults() {
         return mResults;
     }
 
-    public void setResults(List<TmdbMovie> results) {
+    public void setResults(List<TmdbMovieDetailed> results) {
         mResults = results;
     }
 }

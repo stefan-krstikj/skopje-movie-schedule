@@ -17,13 +17,13 @@ import java.util.List;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
+
+import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_HEIGHT;
+import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_WIDTH;
 
 public class MovieAdapter extends RecyclerView.Adapter {
     private static final String TAG = "MovieAdapter";
-
-    // todo: refactor this and TmdbMovieAdapter
-    private static final int POSTER_WIDTH = 272;
-    private static final int POSTER_HEIGHT = 403;
 
     private List<Movie> mDataset;
     OnMoviePosterClickListener mListener;

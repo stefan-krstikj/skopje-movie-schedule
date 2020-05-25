@@ -1,4 +1,4 @@
-package com.stefankrstikj.skopjemovieschedule.api_response.omdb;
+package com.stefankrstikj.skopjemovieschedule.api.omdb;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

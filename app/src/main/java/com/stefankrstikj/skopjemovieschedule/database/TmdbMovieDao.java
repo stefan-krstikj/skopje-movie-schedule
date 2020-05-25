@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 public interface TmdbMovieDao {
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	public void insert(TmdbMovie tmdbMovie);
+	void insert(TmdbMovieDetailed tmdbMovieDetailed);
 
-	@Query("SELECT * FROM tmdb_movie")
-	LiveData<List<TmdbMovie>> getAll();
+	@Query("SELECT * FROM tmdb_movie_detailed")
+	LiveData<List<TmdbMovieDetailed>> getAll();
 
-	@Query("DELETE FROM tmdb_movie")
+	@Query("DELETE FROM tmdb_movie_detailed")
 	void deleteAll();
 }

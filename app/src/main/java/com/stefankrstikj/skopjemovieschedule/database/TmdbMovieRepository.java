@@ -2,12 +2,12 @@ package com.stefankrstikj.skopjemovieschedule.database;
 
 import androidx.lifecycle.LiveData;
 
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;
 
 public class TmdbMovieRepository {
-	private static String TAG = "TmdbMovieDiscoverRepository";
+	private static String TAG = "TmdbMovieRepository";
 
 	private TmdbMovieDao mTmdbMovieDao;
 	private static volatile TmdbMovieRepository instance;
@@ -28,11 +28,11 @@ public class TmdbMovieRepository {
 		mTmdbMovieDao = tmdbMovieDao;
 	}
 
-	public void insert(TmdbMovie tmdbMovie){
-		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.insert(tmdbMovie));
+	public void insert(TmdbMovieDetailed tmdbMovieDetailed){
+		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.insert(tmdbMovieDetailed));
 	}
 
-	public LiveData<List<TmdbMovie>> getAll(){
+	public LiveData<List<TmdbMovieDetailed>> getAll(){
 		return mTmdbMovieDao.getAll();
 	}
 }

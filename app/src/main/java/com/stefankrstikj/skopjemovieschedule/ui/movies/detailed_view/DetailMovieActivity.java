@@ -40,6 +40,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     private TextView textViewDirector;
     private TextView textViewActors;
     private TextView textViewRuntime;
+    private TextView textViewMovieSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         textViewDirector = findViewById(R.id.textView_Director);
         textViewActors = findViewById(R.id.textView_Actors);
         textViewRuntime = findViewById(R.id.textView_runtime);
-
+        textViewMovieSchedule = findViewById(R.id.textView_movie_schedule_text);
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_movie_schedules);
@@ -105,6 +106,10 @@ public class DetailMovieActivity extends AppCompatActivity {
         detailMovieViewModel = ViewModelProviders.of(this, factory).get(DetailMovieViewModel.class);
         Log.v(TAG, "Getting movie schedules for: " + mMovie.getMovieTitle());
         detailMovieViewModel.getMovieScheduleForMovie(mMovie.getMovieTitle())
-                .observe(this, movieSchedules -> adapter.updateDataset(movieSchedules));
+                .observe(this, movieSchedules -> {
+                    if(movieSchedules.size() == 0)
+                        textViewMovieSchedule.setVisibility(View.INVISIBLE);
+                    adapter.updateDataset(movieSchedules);
+                });
     }
 }

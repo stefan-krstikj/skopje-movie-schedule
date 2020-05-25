@@ -285,7 +285,7 @@ public class Movie implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return "Title:" + mMovieTitle + " mGenresMKD:" + mGenresMKD+ "\n";
+        return "Title:" + mMovieTitle;
     }
     
 }

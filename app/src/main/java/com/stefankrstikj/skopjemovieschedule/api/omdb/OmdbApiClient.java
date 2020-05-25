@@ -1,9 +1,9 @@
-package com.stefankrstikj.skopjemovieschedule.api_response.omdb;
+package com.stefankrstikj.skopjemovieschedule.api.omdb;
 
 
 import android.util.Log;
 
-import com.stefankrstikj.skopjemovieschedule.api_response.APIKeys;
+import com.stefankrstikj.skopjemovieschedule.api.APIKeys;
 
 import java.io.IOException;
 

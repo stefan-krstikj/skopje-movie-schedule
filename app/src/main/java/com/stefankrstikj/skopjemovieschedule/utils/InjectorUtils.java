@@ -6,6 +6,8 @@ import com.stefankrstikj.skopjemovieschedule.database.AppDatabase;
 import com.stefankrstikj.skopjemovieschedule.database.MapLocationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.MovieScheduleRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.maps.MapsViewModelFactory;
@@ -30,6 +32,14 @@ public class InjectorUtils {
         return TmdbMovieRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieDiscoverDao());
     }
 
+    private static TmdbCastRepository getTmdbCastRepository(Context context){
+        return TmdbCastRepository.getInstance(AppDatabase.getDatabase(context).mTmdbCastDao());
+    }
+
+    private static TmdbMovieRecommendationRepository getTmdbMovieRecommendationRepository(Context context){
+        return TmdbMovieRecommendationRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieRecommendationDao());
+    }
+
     public static DetailMovieViewModelFactory provideDetailMovieViewFactory(Context context){
         MovieRepository movieRepository = getMovieRepository(context);
         MovieScheduleRepository movieScheduleRepository = getMovieScheduleRepository(context);
@@ -49,7 +59,9 @@ public class InjectorUtils {
 
     public static DiscoverViewModelFactory provideDiscoverViewModelFactory(Context context){
         TmdbMovieRepository tmdbMovieRepository = getTmdbMovieDiscoverRepository(context);
-        return new DiscoverViewModelFactory(tmdbMovieRepository);
+        TmdbCastRepository tmdbCastRepository = getTmdbCastRepository(context);
+        TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository = getTmdbMovieRecommendationRepository(context);
+        return new DiscoverViewModelFactory(tmdbMovieRepository, tmdbCastRepository, tmdbMovieRecommendationRepository);
     }
 
 }
