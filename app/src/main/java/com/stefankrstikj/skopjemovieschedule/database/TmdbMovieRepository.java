@@ -32,7 +32,11 @@ public class TmdbMovieRepository {
 		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.insert(tmdbMovieDetailed));
 	}
 
-	public LiveData<List<TmdbMovieDetailed>> getAll(){
-		return mTmdbMovieDao.getAll();
+	public LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies(){
+		return mTmdbMovieDao.getAllTrendingMovies();
+	}
+
+	public LiveData<List<TmdbMovieDetailed>> getAllUpcomingMovies(){
+		return mTmdbMovieDao.getAllUpcomingMovies();
 	}
 }

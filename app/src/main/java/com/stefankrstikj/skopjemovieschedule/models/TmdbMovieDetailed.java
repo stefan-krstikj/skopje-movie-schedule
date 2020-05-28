@@ -68,8 +68,10 @@ public class TmdbMovieDetailed {
     @SerializedName("release_date")
     private String mReleaseDate;
 
+    @ColumnInfo(name = "result_type")
+    private String mResultType;
 
-    public TmdbMovieDetailed(Double popularity, String voteCount, String voteAverage, boolean video, String posterPath, @NotNull Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, String title, String overview, String releaseDate) {
+    public TmdbMovieDetailed(Double popularity, String voteCount, String voteAverage, boolean video, String posterPath, @NotNull Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, String title, String overview, String releaseDate, String resultType) {
         mPopularity = popularity;
         mVoteCount = voteCount;
         mVoteAverage = voteAverage;
@@ -83,6 +85,7 @@ public class TmdbMovieDetailed {
         mTitle = title;
         mOverview = overview;
         mReleaseDate = releaseDate;
+        mResultType = resultType;
     }
 
     public Double getPopularity() {
@@ -188,6 +191,14 @@ public class TmdbMovieDetailed {
 
     public void setReleaseDate(String releaseDate) {
         mReleaseDate = releaseDate;
+    }
+
+    public String getResultType() {
+        return mResultType;
+    }
+
+    public void setResultType(String resultType) {
+        mResultType = resultType;
     }
 
     @NonNull

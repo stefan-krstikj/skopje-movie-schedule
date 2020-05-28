@@ -5,7 +5,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "mk.ukim.finki.skopjemovieschedule"
+        applicationId "com.stefankrstikj.skopjemovieschedule"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
@@ -61,7 +61,6 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-
 
 
     // firebase

@@ -3,6 +3,7 @@ package com.stefankrstikj.skopjemovieschedule.ui.discover;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.stefankrstikj.skopjemovieschedule.api.tmdb.TmdbApiClient;
@@ -18,6 +19,8 @@ public class DiscoverViewModel extends ViewModel  {
     private TmdbMovieRepository mTmdbMovieRepository;
     private TmdbCastRepository mTmdbCastRepository;
     private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
+    private MutableLiveData<List<TmdbMovieDetailed>> mData;
+
 
     public DiscoverViewModel(TmdbMovieRepository tmdbMovieRepository,
                              TmdbCastRepository tmdbCastRepository,
@@ -25,16 +28,21 @@ public class DiscoverViewModel extends ViewModel  {
         mTmdbMovieRepository = tmdbMovieRepository;
         mTmdbCastRepository = tmdbCastRepository;
         mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
+        fetchMovieDiscovery();
     }
 
-    LiveData<List<TmdbMovieDetailed>> getAllPopularMovies() {
-        fetchMovieDiscovery();
-        return this.mTmdbMovieRepository.getAll();
+    public LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies() {
+        return this.mTmdbMovieRepository.getAllTrendingMovies();
+    }
+
+    public LiveData<List<TmdbMovieDetailed>> getAllUpcomingMovies(){
+        return this.mTmdbMovieRepository.getAllUpcomingMovies();
     }
 
     private void fetchMovieDiscovery(){
         Log.v(TAG, "Fetching Movie discovery obs");
         TmdbApiClient api = new TmdbApiClient(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository);
-        api.getPopularMovies();
+        api.getTrendingMovies();
+        api.getUpcomingMovies();
     }
 }

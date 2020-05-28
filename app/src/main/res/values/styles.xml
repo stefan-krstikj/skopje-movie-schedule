@@ -49,6 +49,11 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="TmdbListTypeTitle">
+        <item name="android:textColor">@color/color_text_subtitle_light</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
     <style name="TextCategorySubtitle">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:fontFamily">sans-serif-light</item>
@@ -65,17 +70,34 @@
 
     </style>
 
-<!--    <style name="Base.DarkTheme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">-->
-<!--        <item name="colorPrimary">#002f93</item>-->
-<!--        <item name="colorPrimaryDark">#002f93</item>-->
-<!--        <item name="colorAccent">@color/colorAccent</item>-->
-<!--        <item name="android:colorBackground">#2857c4</item>-->
-<!--        <item name="android:titleTextColor">@android:color/white</item>-->
-<!--        <item name="subtitleTextColor">@android:color/white</item>-->
-<!--        <item name="windowActionBar">true</item>-->
-<!--        <item name="windowNoTitle">true</item>-->
-<!--        <item name="android:windowContentTransitions">true</item>-->
-<!--&lt;!&ndash;        <item name="android:colorBackground">#EEEEEE</item>&ndash;&gt;-->
-<!--    </style>-->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--    <style name="Base.DarkTheme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--        <item name="colorPrimary">#002f93</item>-->
+    <!--        <item name="colorPrimaryDark">#002f93</item>-->
+    <!--        <item name="colorAccent">@color/colorAccent</item>-->
+    <!--        <item name="android:colorBackground">#2857c4</item>-->
+    <!--        <item name="android:titleTextColor">@android:color/white</item>-->
+    <!--        <item name="subtitleTextColor">@android:color/white</item>-->
+    <!--        <item name="windowActionBar">true</item>-->
+    <!--        <item name="windowNoTitle">true</item>-->
+    <!--        <item name="android:windowContentTransitions">true</item>-->
+    <!--&lt;!&ndash;        <item name="android:colorBackground">#EEEEEE</item>&ndash;&gt;-->
+    <!--    </style>-->
 
 </resources>

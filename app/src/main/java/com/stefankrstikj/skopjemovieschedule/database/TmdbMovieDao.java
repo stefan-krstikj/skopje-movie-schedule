@@ -16,8 +16,11 @@ public interface TmdbMovieDao {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	void insert(TmdbMovieDetailed tmdbMovieDetailed);
 
-	@Query("SELECT * FROM tmdb_movie_detailed")
-	LiveData<List<TmdbMovieDetailed>> getAll();
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Trending'")
+	LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies();
+
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Upcoming'")
+	LiveData<List<TmdbMovieDetailed>> getAllUpcomingMovies();
 
 	@Query("DELETE FROM tmdb_movie_detailed")
 	void deleteAll();

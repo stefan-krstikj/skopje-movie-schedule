@@ -6,7 +6,10 @@ import com.stefankrstikj.skopjemovieschedule.api.APIKeys;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.OkHttpClient;
@@ -49,36 +52,53 @@ public class TmdbApiClient {
 		return retroFit;
 	}
 
-	public void getPopularMovies() {
-		Log.v(TAG, "doTheJob() started");
-		getPopularMoviesObservable()
+
+	private Observable<TmdbMovieResponse> getTrendingMoviesObservable() {
+		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+		return tmdbApiService.getAllTrendingMovies(APIKeys.TMDB_API_KEY);
+	}
+
+	public void getTrendingMovies() {
+		getTrendingMoviesObservable()
 				.flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
-				.flatMapIterable(baseData ->  baseData)
+				.flatMapIterable(baseData -> baseData)
+				.doOnError(error -> Log.v(TAG, error.getMessage()))
 				.subscribe(tmdbMovieDetailed -> {
+							tmdbMovieDetailed.setResultType("Trending");
 							mTmdbMovieRepository.insert(tmdbMovieDetailed);
 						}
 				);
 	}
 
-
-	private Observable<TmdbMovieResponse> getPopularMoviesObservable() {
+	private Observable<TmdbMovieResponse> getUpcomingMoviesObservable() {
 		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
-		return tmdbApiService.getAllPopularMoviesObs(APIKeys.TMDB_API_KEY);
+		return tmdbApiService.getAllUpcomingMovies(APIKeys.TMDB_API_KEY);
 	}
 
-	private void getMovieCast(Integer id) {
-		Log.v(TAG, "Getting cast for: " + id);
-		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
-		tmdbApiService.getCastForMovie(id, APIKeys.TMDB_API_KEY)
-				.flatMap(tmdbCastResponse -> Observable.just(tmdbCastResponse.getResults()))
-				.flatMapIterable(data -> data)
-				.subscribe(data -> {
-					data.setMovieId(id);
-					mTmdbCastRepository.insert(data);
-				});
+	public void getUpcomingMovies() {
+		getUpcomingMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
+				.flatMapIterable(baseData -> baseData)
+				.doOnError(error -> Log.v(TAG, error.getMessage()))
+				.subscribe(tmdbMovieDetailed -> {
+							tmdbMovieDetailed.setResultType("Upcoming");
+							mTmdbMovieRepository.insert(tmdbMovieDetailed);
+						}
+				);
 	}
 
-	private void getMovieRecommendations(Integer id){
+//	private void getMovieCast(Integer id) {
+//		Log.v(TAG, "Getting cast for: " + id);
+//		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+//		tmdbApiService.getCastForMovie(id, APIKeys.TMDB_API_KEY)
+//				.flatMap(tmdbCastResponse -> Observable.just(tmdbCastResponse.getResults()))
+//				.flatMapIterable(data -> data)
+//				.subscribe(data -> {
+//					data.setMovieId(id);
+//					mTmdbCastRepository.insert(data);
+//				});
+//	}
+
+	private void getMovieRecommendations(Integer id) {
 		Log.v(TAG, "Getting recommendation for: " + id);
 		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
 		tmdbApiService.getRecommendationsForMovie(id, APIKeys.TMDB_API_KEY)

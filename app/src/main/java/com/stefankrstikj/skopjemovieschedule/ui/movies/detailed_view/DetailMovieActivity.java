@@ -50,7 +50,6 @@ public class DetailMovieActivity extends AppCompatActivity {
         this.mMovie = (Movie) getIntent().getSerializableExtra("movie");
         this.mMoviePoster = (Bitmap)this.getIntent().getParcelableExtra("image");
 
-
         initViews();
         initViewModel();
         initData();
@@ -89,18 +88,6 @@ public class DetailMovieActivity extends AppCompatActivity {
 
     }
 
-
-    private void initData(){
-        textViewTitle.setText(mMovie.getMovieTitle());
-        imageViewPoster.setImageBitmap(mMoviePoster);
-        textViewYear.setText(mMovie.getYear());
-        textViewPlot.setText(mMovie.getPlot());
-        textViewGenre.setText(mMovie.getGenre());
-        textViewDirector.setText(mMovie.getDirector());
-        textViewActors.setText(mMovie.getActors());
-        textViewRuntime.setText(mMovie.getRuntime());
-    }
-
     private void initViewModel(){
         DetailMovieViewModelFactory factory = InjectorUtils.provideDetailMovieViewFactory(this);
         detailMovieViewModel = ViewModelProviders.of(this, factory).get(DetailMovieViewModel.class);
@@ -111,5 +98,17 @@ public class DetailMovieActivity extends AppCompatActivity {
                         textViewMovieSchedule.setVisibility(View.INVISIBLE);
                     adapter.updateDataset(movieSchedules);
                 });
+    }
+
+
+    private void initData(){
+        textViewTitle.setText(mMovie.getMovieTitle());
+        imageViewPoster.setImageBitmap(mMoviePoster);
+        textViewYear.setText(mMovie.getYear());
+        textViewPlot.setText(mMovie.getPlot());
+        textViewGenre.setText(mMovie.getGenre());
+        textViewDirector.setText(mMovie.getDirector());
+        textViewActors.setText(mMovie.getActors());
+        textViewRuntime.setText(mMovie.getRuntime());
     }
 }

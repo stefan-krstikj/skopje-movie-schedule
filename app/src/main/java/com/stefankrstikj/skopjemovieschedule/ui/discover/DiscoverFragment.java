@@ -1,14 +1,11 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +13,30 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieAdapter;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.TrendingFragment;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.UpcomingFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
-import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
 public class DiscoverFragment extends Fragment implements OnMoviePosterClickListener {
     private static String TAG = "DiscoverFragment";
-    private DiscoverViewModel mViewModel;
-    private TmdbMovieAdapter adapter;
 
-    public static DiscoverFragment newInstance() {
-        return new DiscoverFragment();
-    }
+    DiscoverPagerAdapter mDiscoverPagerAdapter;
+    ViewPager viewPager;
+
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        ViewModel view = ViewModelProviders.of(this).get(TrendingViewModel.class);
+//        int index = 1;
+//        if (getArguments() != null) {
+//            index = getArguments().getInt(ARG_SECTION_NUMBER);
+//        }
+//        mTrendingViewModel.setIndex(index);
+//    }
 
     @Nullable
     @Override
@@ -41,32 +50,14 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mDiscoverPagerAdapter = new DiscoverPagerAdapter(getContext(), getChildFragmentManager());
+        viewPager = view.findViewById(R.id.discover_view_pager);
+        viewPager.setAdapter(mDiscoverPagerAdapter);
 
+//        initListView();
+//        initData();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initListView();
-        initData();
-
-
-    }
-
-    private void initListView(){
-        RecyclerView recyclerView = getView().findViewById(R.id.discover_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        adapter = new TmdbMovieAdapter(this);
-        recyclerView.setAdapter(adapter);
-    }
-
-    private void initData(){
-        DiscoverViewModelFactory factory = InjectorUtils.provideDiscoverViewModelFactory(getContext());
-        mViewModel = ViewModelProviders.of(this, factory).get(DiscoverViewModel.class);
-        mViewModel.getAllPopularMovies().observe(getViewLifecycleOwner(), data -> {
-            adapter.updateDataset(data);
-        });
-    }
 
     @Override
     public void onMovieClick(Object o, ImageView imageView) {

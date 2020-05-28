@@ -19,7 +19,7 @@ public class MoviesFragment extends Fragment {
     private static final String TAG = "MoviesFragment";
 
 
-    TabLayoutPagerAdapter tabLayoutPagerAdapter;
+    TabLayoutPagerAdapter mTabLayoutPagerAdapter;
     ViewPager viewPager;
 
 
@@ -40,9 +40,9 @@ public class MoviesFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
 
 
-        tabLayoutPagerAdapter = new TabLayoutPagerAdapter(getChildFragmentManager(), getContext());
+        mTabLayoutPagerAdapter = new TabLayoutPagerAdapter(getChildFragmentManager(), getContext());
         viewPager = view.findViewById(R.id.in_theaters_view_pager);
-        viewPager.setAdapter(tabLayoutPagerAdapter);
+        viewPager.setAdapter(mTabLayoutPagerAdapter);
 
     }
 }

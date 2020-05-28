@@ -7,16 +7,16 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface TmdbApiService {
-
 	@GET("trending/movie/week")
-	Call<TmdbMovieResponse> getAllPopularMovies(
+	Observable<TmdbMovieResponse> getAllTrendingMovies(
 			@Query("api_key") String api_key
 	);
 
-	@GET("trending/movie/week")
-	Observable<TmdbMovieResponse> getAllPopularMoviesObs(
+	@GET("movie/upcoming")
+	Observable<TmdbMovieResponse> getAllUpcomingMovies(
 			@Query("api_key") String api_key
 	);
+
 
 	@GET("movie/{movie_id}/credits")
 	Observable<TmdbCastResponse> getCastForMovie(
@@ -29,4 +29,5 @@ public interface TmdbApiService {
 			@Path("movie_id") Integer id,
 			@Query("api_key") String api_key
 	);
+
 }
