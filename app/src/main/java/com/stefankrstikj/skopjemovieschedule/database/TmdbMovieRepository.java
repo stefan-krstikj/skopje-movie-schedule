@@ -39,4 +39,16 @@ public class TmdbMovieRepository {
 	public LiveData<List<TmdbMovieDetailed>> getAllUpcomingMovies(){
 		return mTmdbMovieDao.getAllUpcomingMovies();
 	}
+
+	public LiveData<List<TmdbMovieDetailed>> getAllTopRatedMovies(){
+		return mTmdbMovieDao.getAllTopRatedMovies();
+	}
+
+	public LiveData<List<TmdbMovieDetailed>> getAllPopularMovies(){
+		return mTmdbMovieDao.getAllPopularMovies();
+	}
+
+	public LiveData<List<TmdbMovieDetailed>> getAllNowPlayingMovies(){
+		return mTmdbMovieDao.getAllNowPlayingMovies();
+	}
 }

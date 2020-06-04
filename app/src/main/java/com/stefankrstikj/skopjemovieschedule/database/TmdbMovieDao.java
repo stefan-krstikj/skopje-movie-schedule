@@ -22,6 +22,15 @@ public interface TmdbMovieDao {
 	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Upcoming'")
 	LiveData<List<TmdbMovieDetailed>> getAllUpcomingMovies();
 
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Top Rated'")
+	LiveData<List<TmdbMovieDetailed>> getAllTopRatedMovies();
+
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Popular'")
+	LiveData<List<TmdbMovieDetailed>> getAllPopularMovies();
+
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Now Playing'")
+	LiveData<List<TmdbMovieDetailed>> getAllNowPlayingMovies();
+
 	@Query("DELETE FROM tmdb_movie_detailed")
 	void deleteAll();
 }

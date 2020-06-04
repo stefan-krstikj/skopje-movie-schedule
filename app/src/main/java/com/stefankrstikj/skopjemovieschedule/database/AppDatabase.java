@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,12 +15,15 @@ import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieGenre;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
+import com.stefankrstikj.skopjemovieschedule.utils.type_converters.MovieGenreTypeConverter;
 
 @Database(entities = {
 		Movie.class, MovieSchedule.class, MapLocation.class, TmdbMovieDetailed.class, TmdbCast.class,
-		TmdbMovieRecommendation.class},
+		TmdbMovieRecommendation.class, TmdbMovieGenre.class},
 		version = 1, exportSchema = false)
+@TypeConverters({MovieGenreTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 	public abstract MovieDao movieDao();
 
@@ -32,6 +36,8 @@ public abstract class AppDatabase extends RoomDatabase {
 	public abstract TmdbCastDao mTmdbCastDao();
 
 	public abstract TmdbMovieRecommendationDao mTmdbMovieRecommendationDao();
+
+	public abstract TmdbMovieGenreDao mTmdbMovieGenreDao();
 
 	private static volatile AppDatabase INSTANCE;
 	private static final int NUMBER_OF_THREADS = 4;

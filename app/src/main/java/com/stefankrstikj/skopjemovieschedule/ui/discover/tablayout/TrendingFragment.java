@@ -1,7 +1,6 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class TrendingFragment extends Fragment {
 	public View onCreateView(
 			@NonNull LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View root = inflater.inflate(R.layout.fragment_trending, container, false);
+		View root = inflater.inflate(R.layout.fragment_discover_tab_layout, container, false);
 
 		return root;
 	}
@@ -52,7 +51,7 @@ public class TrendingFragment extends Fragment {
 	}
 
 	private void initListView(){
-		RecyclerView recyclerView = getView().findViewById(R.id.upcoming_recycler_view);
+		RecyclerView recyclerView = getView().findViewById(R.id.discover_tab_recycler_view);
 		recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 		adapter = new TmdbMovieAdapter(mOnMoviePosterClickListener);
 		recyclerView.setAdapter(adapter);

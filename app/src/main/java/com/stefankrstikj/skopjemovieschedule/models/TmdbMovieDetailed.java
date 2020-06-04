@@ -3,16 +3,17 @@ package com.stefankrstikj.skopjemovieschedule.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.List;
 
-@Entity(tableName = "tmdb_movie_detailed")
-public class TmdbMovieDetailed {
+@Entity(tableName = "tmdb_movie_detailed",
+primaryKeys = {"id", "result_type"})
+public class TmdbMovieDetailed implements Serializable {
 
     @ColumnInfo(name = "popularity")
     @SerializedName("popularity")
@@ -34,7 +35,6 @@ public class TmdbMovieDetailed {
     @SerializedName("poster_path")
     private String mPosterPath;
 
-    @PrimaryKey
     @NotNull
     @ColumnInfo(name = "id")
     @SerializedName("id")
@@ -68,10 +68,19 @@ public class TmdbMovieDetailed {
     @SerializedName("release_date")
     private String mReleaseDate;
 
+    @NotNull
     @ColumnInfo(name = "result_type")
     private String mResultType;
 
-    public TmdbMovieDetailed(Double popularity, String voteCount, String voteAverage, boolean video, String posterPath, @NotNull Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, String title, String overview, String releaseDate, String resultType) {
+    @SerializedName("genres")
+    @ColumnInfo(name = "genres")
+    private  List<TmdbMovieGenre> mGenres;
+
+    @SerializedName("runtime")
+    @ColumnInfo(name = "runtime")
+    private Integer mRuntime;
+
+    public TmdbMovieDetailed(Double popularity, String voteCount, String voteAverage, boolean video, String posterPath, @NotNull Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, String title, String overview, String releaseDate, @NotNull String resultType, List<TmdbMovieGenre> genres, Integer runtime) {
         mPopularity = popularity;
         mVoteCount = voteCount;
         mVoteAverage = voteAverage;
@@ -86,6 +95,24 @@ public class TmdbMovieDetailed {
         mOverview = overview;
         mReleaseDate = releaseDate;
         mResultType = resultType;
+        mGenres = genres;
+        mRuntime = runtime;
+    }
+
+    public Integer getRuntime() {
+        return mRuntime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        mRuntime = runtime;
+    }
+
+    public List<TmdbMovieGenre> getGenres() {
+        return mGenres;
+    }
+
+    public void setGenres(List<TmdbMovieGenre> genres) {
+        mGenres = genres;
     }
 
     public Double getPopularity() {

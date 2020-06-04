@@ -31,19 +31,16 @@
                 android:text="Popular" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Top Rated" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Now Playing" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Upcoming" />

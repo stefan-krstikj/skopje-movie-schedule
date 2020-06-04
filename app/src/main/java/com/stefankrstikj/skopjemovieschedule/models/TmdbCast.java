@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
+import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -14,12 +15,13 @@ import org.jetbrains.annotations.NotNull;
 @Entity(tableName = "tmdb_cast",
 		foreignKeys = {
 				@ForeignKey(entity = TmdbMovieDetailed.class,
-						parentColumns = "id",
-						childColumns = "movie_id",
+						parentColumns = {"id", "result_type"},
+						childColumns = {"movie_id", "movie_result_type"},
 						onDelete = ForeignKey.CASCADE)
 		},
 		indices = {
-				@Index(name = "index_cast_movie_id", value = {"movie_id"})
+				@Index(name = "index_cast_movie_id", value = {"movie_id"}),
+				@Index(name = "index_cast_movie_result_type", value = {"movie_result_type"})
 		})
 public class TmdbCast {
 	@PrimaryKey
@@ -31,6 +33,9 @@ public class TmdbCast {
 	@ColumnInfo(name = "movie_id")
 	@SerializedName("movie_id")
 	private Integer mMovieId;
+
+	@ColumnInfo(name = "movie_result_type")
+	private String mMovieResultType;
 
 	@ColumnInfo(name = "cast_id")
 	@SerializedName("cast_id")
@@ -60,9 +65,10 @@ public class TmdbCast {
 	@SerializedName("profile_path")
 	private String mProfilePath;
 
-	public TmdbCast(@NotNull Integer id, Integer movieId, Integer castId, String character, String creditId, Integer gender, String name, Integer order, String profilePath) {
+	public TmdbCast(@NotNull Integer id, Integer movieId, String movieResultType, Integer castId, String character, String creditId, Integer gender, String name, Integer order, String profilePath) {
 		mId = id;
 		mMovieId = movieId;
+		mMovieResultType = movieResultType;
 		mCastId = castId;
 		mCharacter = character;
 		mCreditId = creditId;
@@ -70,6 +76,15 @@ public class TmdbCast {
 		mName = name;
 		mOrder = order;
 		mProfilePath = profilePath;
+	}
+
+
+	public String getMovieResultType() {
+		return mMovieResultType;
+	}
+
+	public void setMovieResultType(String movieResultType) {
+		mMovieResultType = movieResultType;
 	}
 
 	@NotNull

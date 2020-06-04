@@ -1,6 +1,13 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -10,22 +17,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class DiscoverPagerAdapter extends FragmentPagerAdapter implements OnMoviePosterClickListener {
-
+public class DiscoverPagerAdapter extends FragmentPagerAdapter {
+	private static String TAG = "DiscoverPagerAdapter";
 	@StringRes
 	private static final int[] TAB_TITLES = new int[]{R.string.discover_tab_text_1, R.string.discover_tab_text_2, R.string.discover_tab_text_3, R.string.discover_tab_text_4, R.string.discover_tab_text_5};
 	private final Context mContext;
+	private OnMoviePosterClickListener mOnMoviePosterClickListener;
 
-	public DiscoverPagerAdapter(Context context, FragmentManager fm) {
+	public DiscoverPagerAdapter(Context context, OnMoviePosterClickListener onMoviePosterClickListener, FragmentManager fm) {
 		super(fm);
 		mContext = context;
+		mOnMoviePosterClickListener = onMoviePosterClickListener;
 	}
 
 	@Override
@@ -35,11 +46,17 @@ public class DiscoverPagerAdapter extends FragmentPagerAdapter implements OnMovi
 		System.out.println("POSITION: " + position);
 		switch(position){
 			case 0:
-				return new TrendingFragment(this);
+				return new TrendingFragment(mOnMoviePosterClickListener);
 			case 1:
-				return new UpcomingFragment(this);
+				return new PopularFragment(mOnMoviePosterClickListener);
+			case 2:
+				return new TopRatedFragment(mOnMoviePosterClickListener);
+			case 3:
+				return new NowPlayingFragment(mOnMoviePosterClickListener);
+			case 4:
+				return new UpcomingFragment(mOnMoviePosterClickListener);
 			default:
-				return new UpcomingFragment(this);
+				return new UpcomingFragment(mOnMoviePosterClickListener);
 		}
 //		return DiscoverFragment.newInstance(position + 1);
 	}
@@ -53,10 +70,5 @@ public class DiscoverPagerAdapter extends FragmentPagerAdapter implements OnMovi
 	@Override
 	public int getCount() {
 		return TAB_TITLES.length;
-	}
-
-	@Override
-	public void onMovieClick(Object o, ImageView imageView) {
-
 	}
 }

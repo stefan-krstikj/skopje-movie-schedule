@@ -14,6 +14,8 @@
         android:theme="@style/Theme.SkopjeMovieSchedule"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.discover.detailed_tmdb.DetailedTmdbMovie"></activity>
+        <activity android:name=".ui.discover.tablayout.TopRatedFragment" />
         <activity android:name=".ui.reviews.ReviewsActivity" />
         <activity android:name=".ui.movies.detailed_view.DetailMovieActivity" />
         <activity

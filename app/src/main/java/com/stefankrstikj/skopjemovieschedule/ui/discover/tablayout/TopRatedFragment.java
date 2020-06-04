@@ -1,15 +1,13 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,22 +19,23 @@ import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactor
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
-public class UpcomingFragment extends Fragment {
+public class TopRatedFragment extends Fragment {
 
 	private DiscoverViewModel mViewModel;
 	private TmdbMovieAdapter adapter;
 	private static String TAG = "UpcomingFragment";
 	private OnMoviePosterClickListener mOnMoviePosterClickListener;
 
-	public UpcomingFragment(OnMoviePosterClickListener onMoviePosterClickListener) {
+	public TopRatedFragment(OnMoviePosterClickListener onMoviePosterClickListener) {
 		mOnMoviePosterClickListener = onMoviePosterClickListener;
+
 	}
 
+	@Nullable
 	@Override
-	public View onCreateView(
-			@NonNull LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.fragment_discover_tab_layout, container, false);
+
 		return root;
 	}
 
@@ -55,11 +54,11 @@ public class UpcomingFragment extends Fragment {
 	}
 
 	private void initData(){
+
 		DiscoverViewModelFactory factory = InjectorUtils.provideDiscoverViewModelFactory(getContext());
 		mViewModel = ViewModelProviders.of(this, factory).get(DiscoverViewModel.class);
-		mViewModel.getAllUpcomingMovies().observe(getViewLifecycleOwner(), data -> {
+		mViewModel.getAllTopRatedMovies().observe(getViewLifecycleOwner(), data -> {
 			adapter.updateDataset(data);
 		});
 	}
-
 }
