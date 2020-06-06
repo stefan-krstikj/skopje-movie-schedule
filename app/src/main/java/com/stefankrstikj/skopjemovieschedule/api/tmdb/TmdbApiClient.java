@@ -55,19 +55,19 @@ public class TmdbApiClient {
 		return retroFit;
 	}
 
-	private Observable<List<TmdbMovieGenre>> getAllGenresObservable() {
-		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
-		return tmdbApiService.getAllGenres(APIKeys.TMDB_API_KEY);
-	}
-
-	public void getAllGenres() {
-		getAllGenresObservable()
-				.flatMapIterable(baseData -> baseData)
-				.doOnError(error -> Log.v(TAG, error.getMessage()))
-				.subscribe(tmdbMovieGenre -> {
-					mTmdbMovieGenreRepository.insert(tmdbMovieGenre);
-				});
-	}
+//	private Observable<List<TmdbMovieGenre>> getAllGenresObservable() {
+//		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+//		return tmdbApiService.getAllGenres(APIKeys.TMDB_API_KEY);
+//	}
+//
+//	public void getAllGenres() {
+//		getAllGenresObservable()
+//				.flatMapIterable(baseData -> baseData)
+//				.doOnError(error -> Log.v(TAG, error.getMessage()))
+//				.subscribe(tmdbMovieGenre -> {
+//					mTmdbMovieGenreRepository.insert(tmdbMovieGenre);
+//				});
+//	}
 
 	private Observable<TmdbMovieResponse> getTrendingMoviesObservable() {
 		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
@@ -81,6 +81,7 @@ public class TmdbApiClient {
 				.doOnError(error -> Log.v(TAG, "GET TRENDING: " + error.getMessage()))
 				.forEach(tmdbMovieDetailed -> {
 							getDetailsForMovie(tmdbMovieDetailed);
+							getMovieCast(tmdbMovieDetailed.getId());
 						}
 				);
 	}

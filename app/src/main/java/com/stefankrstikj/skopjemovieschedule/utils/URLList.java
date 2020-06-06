@@ -11,4 +11,5 @@ public final class URLList {
 
     public static final String URLTmdbPoster = "https://image.tmdb.org/t/p/w185/";
     public static final String URLTmdbBackdrop = "https://image.tmdb.org/t/p/w780";
+    public static final String URLTmdbCastProfilePath = "https://image.tmdb.org/t/p/w185";
 }

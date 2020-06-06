@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModel;
 
 public class DetailsPagerAdapter extends FragmentPagerAdapter {
 
@@ -18,11 +19,13 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 	private static final int[] TAB_TITLES = new int[] {R.string.detailed_tmdb_tab_text_1, R.string.detailed_tmdb_tab_text_2, R.string.detailed_tmdb_tab_text_3, R.string.detailed_tmdb_tab_text_4};
 
 	private final Context mContext;
+	private DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
 
 
-	public DetailsPagerAdapter(Context context, FragmentManager fm) {
+	public DetailsPagerAdapter(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, Context context, FragmentManager fm) {
 		super(fm);
 		mContext = context;
+		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
 	}
 
 	@NonNull
@@ -30,7 +33,7 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int position) {
 		switch(position){
 			case 0:
-				return new CastFragment(null);
+				return new CastFragment(mDetailedTmdbMovieViewModel);
 			case 1:
 				return new TrailerFragment();
 			case 2:

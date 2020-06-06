@@ -72,17 +72,16 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		this.mMoviePoster = this.getIntent().getParcelableExtra("image");
 
 
-		DetailsPagerAdapter sectionsPagerAdapter = new DetailsPagerAdapter(this, getSupportFragmentManager());
-		viewPager = findViewById(R.id.detailed_tmdb_view_pager);
-		viewPager.setAdapter(sectionsPagerAdapter);
+
 //		TabLayout tabs = findViewById(R.id.tabs);
 //		tabs.setupWithViewPager(viewPager);
 
 		initToolbar();
 		initNestedScrollView();
-		initViews();
 		initViewModel();
+		initViews();
 		initData();
+		initPagerAdapter();
 	}
 
 	private void initToolbar(){
@@ -125,12 +124,8 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 	}
 
 	private void initViewModel() {
-		DetailedTmdbMovieViewModelFactory factory = InjectorUtils.provideDetailedTmdbMovieViewModelFactory(this);
+		DetailedTmdbMovieViewModelFactory factory = InjectorUtils.provideDetailedTmdbMovieViewModelFactory(this, mTmdbMovieDetailed);
 		mDetailedTmdbMovieViewModel = ViewModelProviders.of(this, factory).get(DetailedTmdbMovieViewModel.class);
-		mDetailedTmdbMovieViewModel.getTmdbMovieCastForMovie(mTmdbMovieDetailed.getId())
-				.observe(this, tmdbMovieCast -> {
-
-				});
 	}
 
 	private void initData() {
@@ -148,5 +143,11 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 //		Picasso.get()
 //				.load(URLList.URLTmdbBackdrop + mTmdbMovieDetailed.getBackdropPath())
 //				.into(imageViewbackdropPath);
+	}
+
+	private void initPagerAdapter(){
+		DetailsPagerAdapter sectionsPagerAdapter = new DetailsPagerAdapter(mDetailedTmdbMovieViewModel, this, getSupportFragmentManager());
+		viewPager = findViewById(R.id.detailed_tmdb_view_pager);
+		viewPager.setAdapter(sectionsPagerAdapter);
 	}
 }

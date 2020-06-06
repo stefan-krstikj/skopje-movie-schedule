@@ -6,20 +6,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 public class DetailedTmdbMovieViewModelFactory extends ViewModelProvider.NewInstanceFactory {
-	private TmdbMovieRepository mTmdbMovieRepository;
 	private TmdbCastRepository mTmdbCastRepository;
+	private TmdbMovieDetailed mTmdbMovieDetailed;
 
-	public DetailedTmdbMovieViewModelFactory(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository) {
-		mTmdbMovieRepository = tmdbMovieRepository;
+	public DetailedTmdbMovieViewModelFactory(TmdbCastRepository tmdbCastRepository, TmdbMovieDetailed movieDetailed) {
 		mTmdbCastRepository = tmdbCastRepository;
+		mTmdbMovieDetailed = movieDetailed;
 	}
 
 	@NonNull
 	@Override
 	public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-		DetailedTmdbMovieViewModel detailedTmdbMovieViewModel = new DetailedTmdbMovieViewModel(mTmdbMovieRepository, mTmdbCastRepository);
+		DetailedTmdbMovieViewModel detailedTmdbMovieViewModel = new DetailedTmdbMovieViewModel(mTmdbCastRepository, mTmdbMovieDetailed);
 		return (T) detailedTmdbMovieViewModel;
 	}
 }

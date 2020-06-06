@@ -6,21 +6,22 @@ import androidx.lifecycle.ViewModel;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;
 
 public class DetailedTmdbMovieViewModel extends ViewModel {
 	private static String TAG = "DetailedTmdbMovieViewModel";
 
-	private TmdbMovieRepository mTmdbMovieRepository;
 	private TmdbCastRepository mTmdbCastRepository;
+	private TmdbMovieDetailed mTmdbMovieDetailed;
 
-	public DetailedTmdbMovieViewModel(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository) {
-		mTmdbMovieRepository = tmdbMovieRepository;
+	public DetailedTmdbMovieViewModel(TmdbCastRepository tmdbCastRepository, TmdbMovieDetailed movieDetailed) {
 		mTmdbCastRepository = tmdbCastRepository;
+		mTmdbMovieDetailed = movieDetailed;
 	}
 
-	LiveData<List<TmdbCast>> getTmdbMovieCastForMovie(Integer movieId){
-		return mTmdbCastRepository.getAllForMovie(movieId);
+	public LiveData<List<TmdbCast>> getTmdbMovieCastForMovie(){
+		return mTmdbCastRepository.getAllForMovie(mTmdbMovieDetailed.getId());
 	}
 }

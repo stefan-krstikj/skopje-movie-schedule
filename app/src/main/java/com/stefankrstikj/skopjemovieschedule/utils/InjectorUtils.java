@@ -10,6 +10,7 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModelFactory;
@@ -72,10 +73,9 @@ public class InjectorUtils {
         return new DiscoverViewModelFactory(tmdbMovieRepository, tmdbCastRepository, tmdbMovieRecommendationRepository, tmdbMovieGenreRepository);
     }
 
-    public static DetailedTmdbMovieViewModelFactory provideDetailedTmdbMovieViewModelFactory(Context context){
-        TmdbMovieRepository tmdbMovieRepository = getTmdbMovieDiscoverRepository(context);
+    public static DetailedTmdbMovieViewModelFactory provideDetailedTmdbMovieViewModelFactory(Context context, TmdbMovieDetailed movieDetailed){
         TmdbCastRepository tmdbCastRepository = getTmdbCastRepository(context);
-        return new DetailedTmdbMovieViewModelFactory(tmdbMovieRepository, tmdbCastRepository);
+        return new DetailedTmdbMovieViewModelFactory(tmdbCastRepository, movieDetailed);
     }
 
 
