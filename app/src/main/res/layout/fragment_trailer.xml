@@ -3,8 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.discover.detailed_tmdb.tablayout.TrailerFragment">
-
-
-
-</FrameLayout>
+    tools:context=".ui.discover.detailed_tmdb.tablayout.TrailerFragment"/>

@@ -37,6 +37,7 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 			case 1:
 				return new TrailerFragment();
 			case 2:
+				return new ReviewsFragment();
 			case 3:
 			default:
 				return new TrailerFragment();
