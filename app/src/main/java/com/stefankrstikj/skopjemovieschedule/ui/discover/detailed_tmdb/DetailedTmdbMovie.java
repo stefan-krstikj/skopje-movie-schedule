@@ -1,20 +1,35 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
+import com.stefankrstikj.skopjemovieschedule.databinding.ActivityDetailedTmdbMovieBinding;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.tablayout.DetailsPagerAdapter;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
+
+import java.util.Objects;
 
 public class DetailedTmdbMovie extends AppCompatActivity {
 	private static String TAG = "DetailedTmdbMovie";
@@ -22,6 +37,9 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 	DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
 
 	private TmdbMovieDetailed mTmdbMovieDetailed;
+
+	private NestedScrollView mNestedScrollView;
+	private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
 	private Bitmap mMoviePoster;
 
@@ -40,13 +58,19 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 	private DetailsPagerAdapter mDetailsPagerAdapter;
 	private ViewPager viewPager;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// todo: Refactor using data-binding in XML layout
+//		ActivityDetailedTmdbMovieBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detailed_tmdb_movie);
+//		binding.setTmdbMovie(mTmdbMovieDetailed);
+
 		setContentView(R.layout.activity_detailed_tmdb_movie);
 
 		this.mTmdbMovieDetailed = (TmdbMovieDetailed) getIntent().getSerializableExtra("movie");
 		this.mMoviePoster = this.getIntent().getParcelableExtra("image");
+
 
 		DetailsPagerAdapter sectionsPagerAdapter = new DetailsPagerAdapter(this, getSupportFragmentManager());
 		viewPager = findViewById(R.id.detailed_tmdb_view_pager);
@@ -54,9 +78,36 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 //		TabLayout tabs = findViewById(R.id.tabs);
 //		tabs.setupWithViewPager(viewPager);
 
+		initToolbar();
+		initNestedScrollView();
 		initViews();
 		initViewModel();
 		initData();
+	}
+
+	private void initToolbar(){
+		androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.detailed_tmdb_movie_toolbar);
+		setSupportActionBar(myToolbar);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+	}
+
+	private void initNestedScrollView() {
+		this.mNestedScrollView = findViewById(R.id.detailed_tmdb_movie_scrollview);
+		mCollapsingToolbarLayout = findViewById(R.id.detailed_tmdb_movie_toolbarlayout);
+
+		AppBarLayout appBarLayout = findViewById(R.id.detailed_tmdb_movie_appbar);
+		appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+			@Override
+			public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+				if (Math.abs(i) == appBarLayout.getTotalScrollRange()) {
+					appBarLayout.setActivated(true);
+					mCollapsingToolbarLayout.setTitleEnabled(true);
+				}else{
+					appBarLayout.setActivated(false);
+					mCollapsingToolbarLayout.setTitleEnabled(false);
+				}
+			}
+		});
 	}
 
 
@@ -70,7 +121,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		textViewActors = findViewById(R.id.textView_Actors);
 		textViewRuntime = findViewById(R.id.textView_runtime);
 		textViewMovieSchedule = findViewById(R.id.textView_movie_schedule_text);
-		imageViewbackdropPath = findViewById(R.id.imageView_backdrop_path);
+//		imageViewbackdropPath = findViewById(R.id.imageView_backdrop_path);
 	}
 
 	private void initViewModel() {
@@ -83,6 +134,8 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 	}
 
 	private void initData() {
+		mCollapsingToolbarLayout.setTitle(mTmdbMovieDetailed.getTitle());
+
 		textViewTitle.setText(mTmdbMovieDetailed.getTitle());
 		imageViewPoster.setImageBitmap(mMoviePoster);
 		textViewRuntime.setText(mTmdbMovieDetailed.getRuntime() + " min");
@@ -92,8 +145,8 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 //		textViewDirector.setText(mTmdbMovieDetailed.getDirector());
 //		textViewActors.setText(mTmdbMovieDetailed.getActors());
 //		textViewRuntime.setText(mTmdbMovieDetailed.get());
-		Picasso.get()
-				.load(URLList.URLTmdbBackdrop + mTmdbMovieDetailed.getBackdropPath())
-				.into(imageViewbackdropPath);
+//		Picasso.get()
+//				.load(URLList.URLTmdbBackdrop + mTmdbMovieDetailed.getBackdropPath())
+//				.into(imageViewbackdropPath);
 	}
 }

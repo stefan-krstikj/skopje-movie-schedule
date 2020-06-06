@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+<!--    <data>-->
+<!--        <import type="android.view.View" />-->
+<!--        <variable-->
+<!--            name="tmdbMovie"-->
+<!--            type="com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed" />-->
+<!--    </data>-->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.movies.detailed_view.DetailMovieActivity">
-
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+        android:id="@+id/detailed_tmdb_movie_appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:stateListAnimator="@animator/show_detailed_movie_toolbar"
+        android:animateLayoutChanges="true">
+
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/detailed_tmdb_movie_toolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="0dp"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-            app:toolbarId="@+id/toolbar_fragment">
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/movies_blue_800_dark"
+            app:collapsedTitleGravity="center"
+            app:collapsedTitleTextAppearance="@android:color/black"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title=""
+            app:titleEnabled="true"
+            app:toolbarId="@+id/detailed_tmdb_movie_toolbar"
+            android:background="@color/movies_blue_800_dark"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -113,61 +134,84 @@
                     app:layout_constraintStart_toStartOf="@+id/textView9"
                     app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-                <TextView
+                <com.borjabravo.readmoretextview.ReadMoreTextView
                     android:id="@+id/textView_plot"
                     style="@style/TextCategorySubtitle"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:autoSizeMaxTextSize="20sp"
-                    android:autoSizeMinTextSize="14sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
+                    android:layout_marginBottom="32dp"
                     android:text="@string/detail_movie_description"
                     android:textSize="18dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView_details_movie" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_details_movie"
+                    app:trimCollapsedText="Show more"
+                    app:trimExpandedText="Show less"
+                    app:trimLength="200"
+                    app:trimMode="trimModeLength" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/detailed_tmdb_movie_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:titleTextColor="@android:color/black" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/detailed_tmdb_view_pager"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/detailed_tmdb_movie_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:fillViewport="true"
+        android:paddingBottom="72dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/detailed_tmdb_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="scrollable">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                style="@style/TabLayoutTheme"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trailer" />
+                app:tabMode="scrollable">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cast" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cast" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reviews" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trailer" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Recommendations" />
-        </com.google.android.material.tabs.TabLayout>
-    </androidx.viewpager.widget.ViewPager>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reviews" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recommendations" />
+            </com.google.android.material.tabs.TabLayout>
+        </androidx.viewpager.widget.ViewPager>
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

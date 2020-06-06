@@ -15,7 +15,7 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 
 
 	@StringRes
-	private static final int[] TAB_TITLES = new int[] {R.string.detailed_tmdb_tab_text_1, R.string.detailed_tmdb_tab_text_2, R.string.detailed_tmdb_tab_text_3};
+	private static final int[] TAB_TITLES = new int[] {R.string.detailed_tmdb_tab_text_1, R.string.detailed_tmdb_tab_text_2, R.string.detailed_tmdb_tab_text_3, R.string.detailed_tmdb_tab_text_4};
 
 	private final Context mContext;
 
@@ -30,11 +30,11 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int position) {
 		switch(position){
 			case 0:
-				return new TrailerFragment();
+				return new CastFragment(null);
 			case 1:
-				return new CastFragment();
+				return new TrailerFragment();
 			case 2:
-				return new CastFragment();
+			case 3:
 			default:
 				return new TrailerFragment();
 		}
