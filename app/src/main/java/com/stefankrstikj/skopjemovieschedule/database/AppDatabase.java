@@ -17,11 +17,12 @@ import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieGenre;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieReview;
 import com.stefankrstikj.skopjemovieschedule.utils.type_converters.MovieGenreTypeConverter;
 
 @Database(entities = {
 		Movie.class, MovieSchedule.class, MapLocation.class, TmdbMovieDetailed.class, TmdbCast.class,
-		TmdbMovieRecommendation.class, TmdbMovieGenre.class},
+		TmdbMovieRecommendation.class, TmdbMovieGenre.class, TmdbMovieReview.class},
 		version = 1, exportSchema = false)
 @TypeConverters({MovieGenreTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -38,6 +39,8 @@ public abstract class AppDatabase extends RoomDatabase {
 	public abstract TmdbMovieRecommendationDao mTmdbMovieRecommendationDao();
 
 	public abstract TmdbMovieGenreDao mTmdbMovieGenreDao();
+
+	public abstract TmdbMovieReviewDao mTmdbMovieReviewDao();
 
 	private static volatile AppDatabase INSTANCE;
 	private static final int NUMBER_OF_THREADS = 4;

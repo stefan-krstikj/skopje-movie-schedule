@@ -11,6 +11,7 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieReviewRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;
@@ -21,17 +22,17 @@ public class DiscoverViewModel extends ViewModel  {
     private TmdbCastRepository mTmdbCastRepository;
     private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
     private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
-    private MutableLiveData<List<TmdbMovieDetailed>> mData;
-
+    private TmdbMovieReviewRepository mTmdbMovieReviewRepository;
 
     public DiscoverViewModel(TmdbMovieRepository tmdbMovieRepository,
                              TmdbCastRepository tmdbCastRepository,
                              TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository,
-                             TmdbMovieGenreRepository tmdbMovieGenreRepository) {
+                             TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository) {
         mTmdbMovieRepository = tmdbMovieRepository;
         mTmdbCastRepository = tmdbCastRepository;
         mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
         mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
+        mTmdbMovieReviewRepository = tmdbMovieReviewRepository;
         fetchMovieDiscovery();
     }
 
@@ -57,7 +58,7 @@ public class DiscoverViewModel extends ViewModel  {
 
     private void fetchMovieDiscovery(){
         Log.v(TAG, "Fetching Movie discovery obs");
-        TmdbApiClient api = new TmdbApiClient(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository, mTmdbMovieGenreRepository);
+        TmdbApiClient api = new TmdbApiClient(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository, mTmdbMovieGenreRepository, mTmdbMovieReviewRepository);
 //        api.getAllGenres();
         api.getTrendingMovies();
         api.getUpcomingMovies();

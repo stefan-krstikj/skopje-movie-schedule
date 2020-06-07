@@ -7,6 +7,7 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieReviewRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieGenre;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
@@ -29,12 +30,14 @@ public class TmdbApiClient {
 	private TmdbCastRepository mTmdbCastRepository;
 	private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
 	private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
+	private TmdbMovieReviewRepository mTmdbMovieReviewRepository;
 
-	public TmdbApiClient(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository, TmdbMovieGenreRepository tmdbMovieGenreRepository) {
+	public TmdbApiClient(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository, TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository) {
 		mTmdbMovieRepository = tmdbMovieRepository;
 		mTmdbCastRepository = tmdbCastRepository;
 		mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
 		mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
+		mTmdbMovieReviewRepository = tmdbMovieReviewRepository;
 	}
 
 	private static Retrofit getRetroFit() {
@@ -82,6 +85,7 @@ public class TmdbApiClient {
 				.forEach(tmdbMovieDetailed -> {
 							getDetailsForMovie(tmdbMovieDetailed);
 							getMovieCast(tmdbMovieDetailed.getId());
+							getMovieReviews(tmdbMovieDetailed.getId());
 						}
 				);
 	}
@@ -173,6 +177,18 @@ public class TmdbApiClient {
 				.subscribe(data -> {
 					data.setMovieId(id);
 					mTmdbCastRepository.insert(data);
+				});
+	}
+
+	private void getMovieReviews(Integer id){
+		Log.v(TAG, "Getting reviews for: " + id);
+		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+		tmdbApiService.getReviewsForMovie(id, APIKeys.TMDB_API_KEY)
+				.flatMap(tmdbMovieReviewResponse -> Observable.just(tmdbMovieReviewResponse.getResults()))
+				.flatMapIterable(data -> data)
+				.subscribe(data ->{
+					data.setMovieId(id);
+					mTmdbMovieReviewRepository.insert(data);
 				});
 	}
 

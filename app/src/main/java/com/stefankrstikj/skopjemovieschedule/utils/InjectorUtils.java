@@ -10,6 +10,7 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieReviewRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModel;
@@ -48,6 +49,10 @@ public class InjectorUtils {
         return TmdbMovieGenreRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieGenreDao());
     }
 
+    private static TmdbMovieReviewRepository getTmdbMovieReviewRepository(Context context){
+        return TmdbMovieReviewRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieReviewDao());
+    }
+
     public static DetailMovieViewModelFactory provideDetailMovieViewFactory(Context context){
         MovieRepository movieRepository = getMovieRepository(context);
         MovieScheduleRepository movieScheduleRepository = getMovieScheduleRepository(context);
@@ -66,17 +71,12 @@ public class InjectorUtils {
     }
 
     public static DiscoverViewModelFactory provideDiscoverViewModelFactory(Context context){
-        TmdbMovieRepository tmdbMovieRepository = getTmdbMovieDiscoverRepository(context);
-        TmdbCastRepository tmdbCastRepository = getTmdbCastRepository(context);
-        TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository = getTmdbMovieRecommendationRepository(context);
-        TmdbMovieGenreRepository tmdbMovieGenreRepository = getTmdbMovieGenreRepository(context);
-        return new DiscoverViewModelFactory(tmdbMovieRepository, tmdbCastRepository, tmdbMovieRecommendationRepository, tmdbMovieGenreRepository);
+        return new DiscoverViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context),
+                getTmdbMovieRecommendationRepository(context), getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context));
     }
 
     public static DetailedTmdbMovieViewModelFactory provideDetailedTmdbMovieViewModelFactory(Context context, TmdbMovieDetailed movieDetailed){
-        TmdbCastRepository tmdbCastRepository = getTmdbCastRepository(context);
-        return new DetailedTmdbMovieViewModelFactory(tmdbCastRepository, movieDetailed);
+        return new DetailedTmdbMovieViewModelFactory(getTmdbCastRepository(context), getTmdbMovieReviewRepository(context), movieDetailed);
     }
-
 
 }

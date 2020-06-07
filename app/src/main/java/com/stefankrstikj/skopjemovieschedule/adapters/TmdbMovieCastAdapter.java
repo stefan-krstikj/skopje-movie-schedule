@@ -17,12 +17,12 @@ import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TmdbMovieCastAdapter extends RecyclerView.Adapter {
+public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdapter.TmdbMovieCastHolder> {
 	private static final String TAG = "MovieCastAdapter";
 
 	private List<TmdbCast> mDataset;
 
-	public class TmdbMovieCastHolder extends RecyclerView.ViewHolder{
+	public static class TmdbMovieCastHolder extends RecyclerView.ViewHolder{
 
 		private TextView mName;
 		private TextView mCharacter;
@@ -52,17 +52,18 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter {
 
 	@NonNull
 	@Override
-	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+	public TmdbMovieCastHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View v  = LayoutInflater.from(parent.getContext())
 				.inflate(R.layout.cast_list_layout, parent, false);
 		return new TmdbMovieCastHolder(v);
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-		((TmdbMovieCastHolder) holder).setText(mDataset.get(position));
+	public void onBindViewHolder(@NonNull TmdbMovieCastHolder holder, int position) {
+		holder.setText(mDataset.get(position));
 
 	}
+
 
 	@Override
 	public int getItemCount() {

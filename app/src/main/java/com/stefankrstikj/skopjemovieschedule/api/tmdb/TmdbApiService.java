@@ -60,4 +60,9 @@ public interface TmdbApiService {
 			@Query("api_key") String api_key
 	);
 
+	@GET("movie/{movie_id}/reviews")
+	Observable<TmdbMovieReviewResponse> getReviewsForMovie(
+			@Path("movie_id") Integer id,
+			@Query("api_key") String api_key
+	);
 }
