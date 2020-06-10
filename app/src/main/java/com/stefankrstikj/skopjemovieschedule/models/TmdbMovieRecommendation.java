@@ -8,8 +8,10 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "tmdb_movie_recommendation")
 public class TmdbMovieRecommendation {
-	@PrimaryKey
+	@PrimaryKey(autoGenerate = true)
 	@NotNull
+	private Integer mId;
+
 	@ColumnInfo(name = "source_movie_id")
 	private Integer mSourceMovieId;
 
@@ -19,6 +21,15 @@ public class TmdbMovieRecommendation {
 	public TmdbMovieRecommendation(Integer sourceMovieId, Integer movieId) {
 		mSourceMovieId = sourceMovieId;
 		mMovieId = movieId;
+	}
+
+	@NotNull
+	public Integer getId() {
+		return mId;
+	}
+
+	public void setId(@NotNull Integer id) {
+		mId = id;
 	}
 
 	public Integer getSourceMovieId() {

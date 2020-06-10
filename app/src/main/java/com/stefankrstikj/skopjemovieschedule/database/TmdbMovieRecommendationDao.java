@@ -13,12 +13,17 @@ import java.util.List;
 
 @Dao
 public interface TmdbMovieRecommendationDao {
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insert(TmdbMovieRecommendation tmdbMovieRecommendation);
 
-	@Query("SELECT * FROM tmdb_movie_recommendation tmr INNER JOIN tmdb_movie_detailed tmd ON tmr.movie_id=tmd.id" +
-			" WHERE movie_id == :movie_id")
-	LiveData<List<TmdbMovieRecommendation>> getRecommendedMoviesForMovie(Integer movie_id);
+//	@Query("select * from tmdb_movie_detailed where id in" +
+//			"(SELECT tmr.movie_id FROM tmdb_movie_recommendation tmr INNER JOIN tmdb_movie_detailed tmd ON tmr.source_movie_id == tmd.id" +
+//			" WHERE tmr.source_movie_id == 33888)" +
+//			" AND result_type == 2)"
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE id in (SELECT movie_id FROM tmdb_movie_recommendation tmr INNER JOIN tmdb_movie_detailed tmd ON tmr.source_movie_id==tmd.id " +
+			"WHERE tmr.source_movie_id==:movie_id) " +
+			"AND result_type=='Recommendation'")
+	LiveData<List<TmdbMovieDetailed>> getRecommendedMoviesForMovie(Integer movie_id);
 
 	@Query("DELETE FROM tmdb_movie_recommendation")
 	void deleteAll();

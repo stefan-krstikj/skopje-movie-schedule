@@ -42,6 +42,7 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 			this.mCharacter.setText(tmdbCast.getCharacter());
 			Picasso.get()
 					.load(URLList.URLTmdbCastProfilePath + tmdbCast.getProfilePath())
+					.placeholder(R.drawable.profile_picture_template)
 					.into(mPoster);
 		}
 	}

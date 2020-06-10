@@ -1,5 +1,7 @@
 package com.stefankrstikj.skopjemovieschedule.database;
 
+import android.os.AsyncTask;
+
 import androidx.lifecycle.LiveData;
 
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
@@ -30,6 +32,18 @@ public class TmdbMovieRepository {
 
 	public void insert(TmdbMovieDetailed tmdbMovieDetailed){
 		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.insert(tmdbMovieDetailed));
+	}
+
+	public void clear(String resultType){
+//		new AsyncTask<Void, Void, Void>(){
+//
+//			@Override
+//			protected Void doInBackground(Void... voids) {
+//				mTmdbMovieDao.delete(resultType);
+//				return null;
+//			}
+//		}.execute();
+		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.delete(resultType));
 	}
 
 	public LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies(){

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class TmdbMovieRecommendationRepository {
 		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieRecommendationDao.insert(tmdbMovieRecommendation));
 	}
 
-	public LiveData<List<TmdbMovieRecommendation>> getAllRecommendationsForMovie(Integer id){
+	public LiveData<List<TmdbMovieDetailed>> getAllRecommendationsForMovie(Integer id){
 		return mTmdbMovieRecommendationDao.getRecommendedMoviesForMovie(id);
 	}
 

@@ -17,11 +17,13 @@
 
             <ImageView
                 android:id="@+id/imageView_cast_poster"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/cast_poster_width"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@drawable/profile_picture_template" />
 
             <TextView
                 android:id="@+id/textView_cast_name"

@@ -71,11 +71,6 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		this.mTmdbMovieDetailed = (TmdbMovieDetailed) getIntent().getSerializableExtra("movie");
 		this.mMoviePoster = this.getIntent().getParcelableExtra("image");
 
-
-
-//		TabLayout tabs = findViewById(R.id.tabs);
-//		tabs.setupWithViewPager(viewPager);
-
 		initToolbar();
 		initNestedScrollView();
 		initViewModel();

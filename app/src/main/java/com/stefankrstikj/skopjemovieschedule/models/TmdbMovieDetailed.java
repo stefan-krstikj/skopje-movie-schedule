@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity(tableName = "tmdb_movie_detailed",
 primaryKeys = {"id", "result_type"})
-public class TmdbMovieDetailed implements Serializable {
+public class TmdbMovieDetailed implements Serializable, Comparable {
 
     @ColumnInfo(name = "popularity")
     @SerializedName("popularity")
@@ -232,5 +232,10 @@ public class TmdbMovieDetailed implements Serializable {
     @Override
     public String toString() {
         return mTitle;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return getId().compareTo(((TmdbMovieDetailed) o).getId());
     }
 }

@@ -23,6 +23,7 @@ public class DiscoverViewModel extends ViewModel  {
     private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
     private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
     private TmdbMovieReviewRepository mTmdbMovieReviewRepository;
+    TmdbApiClient mApiClient;
 
     public DiscoverViewModel(TmdbMovieRepository tmdbMovieRepository,
                              TmdbCastRepository tmdbCastRepository,
@@ -33,7 +34,8 @@ public class DiscoverViewModel extends ViewModel  {
         mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
         mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
         mTmdbMovieReviewRepository = tmdbMovieReviewRepository;
-        fetchMovieDiscovery();
+         mApiClient = new TmdbApiClient(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository, mTmdbMovieGenreRepository, mTmdbMovieReviewRepository);
+//        fetchAllMovies();
     }
 
     public LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies() {
@@ -56,14 +58,37 @@ public class DiscoverViewModel extends ViewModel  {
         return this.mTmdbMovieRepository.getAllNowPlayingMovies();
     }
 
-    private void fetchMovieDiscovery(){
+    public void clearAll(String resultType){
+        mTmdbMovieRepository.clear(resultType);
+    }
+
+    public void fetchTrendingMovies(){
+        mApiClient.getTrendingMovies();
+    }
+
+    public void fetchUpcomingMovies(){
+        mApiClient.getUpcomingMovies();
+    }
+
+    public void fetchTopRatedMovies(){
+        mApiClient.getAllTopRatedMovies();
+    }
+
+    public void fetchPopularMovies(){
+        mApiClient.getAllPopularMovies();
+    }
+
+    public void fetchNowPlayingMovies(){
+        mApiClient.getAllNowPlayingMovies();
+    }
+
+    public void fetchAllMovies(){
         Log.v(TAG, "Fetching Movie discovery obs");
-        TmdbApiClient api = new TmdbApiClient(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository, mTmdbMovieGenreRepository, mTmdbMovieReviewRepository);
 //        api.getAllGenres();
-        api.getTrendingMovies();
-        api.getUpcomingMovies();
-        api.getAllTopRatedMovies();
-        api.getAllPopularMovies();
-        api.getAllNowPlayingMovies();
+        mApiClient.getTrendingMovies();
+        mApiClient.getUpcomingMovies();
+        mApiClient.getAllTopRatedMovies();
+        mApiClient.getAllPopularMovies();
+        mApiClient.getAllNowPlayingMovies();
     }
 }

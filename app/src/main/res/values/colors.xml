@@ -16,6 +16,8 @@
     <color name="color_text_subtitle_light">#FFFFFF</color>
     <color name="color_text_head_light">@color/colorAccent</color>
 
+    <color name="placeholder_light">#fff</color>
+    <color name="placeholder_dark">#eeeeee</color>
 
     <!--    <color name="movies_blue_500">#2857C4</color>-->
 <!--    <color name="movies_blue_700">#0B2F83</color>-->

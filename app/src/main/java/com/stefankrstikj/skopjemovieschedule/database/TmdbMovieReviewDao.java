@@ -12,7 +12,7 @@ import java.util.List;
 
 @Dao
 public interface TmdbMovieReviewDao {
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insert(TmdbMovieReview tmdbMovieReview);
 
 	@Query("SELECT * FROM tmdb_movie_review WHERE movie_id=:movieId")

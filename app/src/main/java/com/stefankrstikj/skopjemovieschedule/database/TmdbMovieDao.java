@@ -13,24 +13,27 @@ import java.util.List;
 @Dao
 public interface TmdbMovieDao {
 
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insert(TmdbMovieDetailed tmdbMovieDetailed);
 
-	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Trending'")
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Trending' ORDER BY popularity DESC")
 	LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies();
 
-	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Upcoming'")
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Upcoming' ORDER BY popularity DESC")
 	LiveData<List<TmdbMovieDetailed>> getAllUpcomingMovies();
 
-	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Top Rated'")
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Top Rated' ORDER BY popularity DESC")
 	LiveData<List<TmdbMovieDetailed>> getAllTopRatedMovies();
 
-	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Popular'")
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Popular' ORDER BY popularity DESC")
 	LiveData<List<TmdbMovieDetailed>> getAllPopularMovies();
 
-	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Now Playing'")
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Now Playing' ORDER BY popularity DESC")
 	LiveData<List<TmdbMovieDetailed>> getAllNowPlayingMovies();
 
 	@Query("DELETE FROM tmdb_movie_detailed")
 	void deleteAll();
+
+	@Query("DELETE FROM tmdb_movie_detailed WHERE result_type==:resultType")
+	void delete(String resultType);
 }

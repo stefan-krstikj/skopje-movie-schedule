@@ -2,29 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:theme="@style/MovieCardTheme"
+        android:padding="8dp"
 
-        >
+        android:theme="@style/MovieCardTheme">
 
         <ImageView
             android:id="@+id/moviePoster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="115dp"
+            android:layout_height="173dp"
+            android:adjustViewBounds="true"
             android:transitionName="imageMain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars[2]" />
+            tools:srcCompat="@drawable/ad_astra_movie_poster" />
 
         <TextView
             android:id="@+id/movieTitle"
@@ -37,7 +35,7 @@
             android:textSize="11sp"
             android:transitionName="textMain"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/moviePoster"
             app:layout_constraintStart_toStartOf="@+id/moviePoster"
             app:layout_constraintTop_toBottomOf="@+id/moviePoster" />
 

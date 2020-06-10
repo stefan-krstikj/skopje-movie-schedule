@@ -39,6 +39,7 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 			case 2:
 				return new ReviewsFragment(mDetailedTmdbMovieViewModel);
 			case 3:
+				return new RecommendationsFragment(mDetailedTmdbMovieViewModel);
 			default:
 				return new TrailerFragment();
 		}

@@ -9,7 +9,7 @@
         android:id="@+id/navigation_discover"
         android:name="com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment"
         android:label="@string/title_discovery"
-        tools:layout="@layout/fragment_discover"
+        tools:layout="@layout/fragment_discover_tabs"
         />
 
     <fragment

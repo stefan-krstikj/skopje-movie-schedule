@@ -1,6 +1,6 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <item name="spacing_offset" type="integer"></item>
+    <item name="spacing_offset" type="integer">8</item>
     <item name="poster_width" type="integer">272</item>
     <item name="poster_height" type="integer">403</item>
     <item name="max_display_chars" type="integer">22</item>
@@ -12,4 +12,7 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="movie_poster_width">115dp</dimen> <!-- 342px, 115dp e tamam za dp -->
+    <dimen name="cast_poster_width">70dp</dimen> <!-- 185px -->
+    <dimen name="item_offset">8dp</dimen>
 </resources>

@@ -10,9 +10,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +22,6 @@ import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.TrendingFragment;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.UpcomingFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
 public class DiscoverFragment extends Fragment implements OnMoviePosterClickListener {
@@ -50,7 +48,7 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_discover, container, false);
+        View root = inflater.inflate(R.layout.fragment_discover_tabs, container, false);
         return root;
     }
 
@@ -67,14 +65,16 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
     @Override
     public void onMovieClick(Object o, ImageView imageView) {
         TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
-        Intent intent = new Intent(getContext(), DetailedTmdbMovie.class);
+        Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
+
         Drawable drawable = imageView.getDrawable();
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
         intent.putExtra("movie", movie);
         intent.putExtra("image", bitmap);
-        ActivityOptions activityOptions = ActivityOptions
-                .makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+        // todo: add a working, good animation
+//        ActivityOptions activityOptions = ActivityOptions
+//                .makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
 
-        startActivity(intent, activityOptions.toBundle());
+        startActivity(intent);
     }
 }

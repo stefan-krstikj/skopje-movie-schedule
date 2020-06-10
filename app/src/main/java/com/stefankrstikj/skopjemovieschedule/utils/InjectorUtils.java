@@ -13,7 +13,6 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieReviewRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.maps.MapsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
@@ -76,7 +75,8 @@ public class InjectorUtils {
     }
 
     public static DetailedTmdbMovieViewModelFactory provideDetailedTmdbMovieViewModelFactory(Context context, TmdbMovieDetailed movieDetailed){
-        return new DetailedTmdbMovieViewModelFactory(getTmdbCastRepository(context), getTmdbMovieReviewRepository(context), movieDetailed);
+        return new DetailedTmdbMovieViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
+                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), movieDetailed);
     }
 
 }

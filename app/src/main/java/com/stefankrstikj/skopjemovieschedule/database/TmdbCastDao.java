@@ -12,7 +12,7 @@ import java.util.List;
 
 @Dao
 public interface TmdbCastDao {
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insert(TmdbCast cast);
 
 	@Query("SELECT * FROM tmdb_cast")
