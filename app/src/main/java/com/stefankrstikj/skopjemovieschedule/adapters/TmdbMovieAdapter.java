@@ -52,18 +52,13 @@ public class TmdbMovieAdapter extends RecyclerView.Adapter {
 
 		void setText(TmdbMovieDetailed movie) {
 			movieTitle.setText(MovieUtils.getDisplayTitle(movie));
-			Log.v(TAG, URLList.URLTmdbPoster + movie.getPosterPath());
+//			Log.v(TAG, URLList.URLTmdbPoster + movie.getPosterPath());
 //			Picasso.get()
 //					.load(URLList.URLTmdbPoster + movie.getPosterPath())
 ////					.placeholder(R.drawable.movie_poster_template)
 ////					.resize(POSTER_WIDTH, POSTER_HEIGHT)
 //					.into(moviePoster);
-//			CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(itemView.getContext());
-//			circularProgressDrawable.setStrokeWidth(5f);
-//			circularProgressDrawable.setCenterRadius(30f);
-//			circularProgressDrawable.start();
-			DrawableCrossFadeFactory factory =
-					new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+
 			Glide
 					.with(itemView.getContext())
 //					.asBitmap()
@@ -118,7 +113,7 @@ public class TmdbMovieAdapter extends RecyclerView.Adapter {
 	}
 
 	public void updateDataset(RefreshDataCallback refreshDataCallback, List<TmdbMovieDetailed> newDataset) {
-		Log.v(TAG, "Received update dataset");
+		Log.v(TAG, "Received update dataset " + newDataset.size());
 		// only change the view when the dataset is complete, to avoid UI
 		if (newDataset.size() < 20)
 			return;

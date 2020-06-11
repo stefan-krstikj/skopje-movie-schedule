@@ -64,6 +64,7 @@ public class PopularFragment extends AbstractDiscoverTab {
 
 	@Override
 	void initDataSource() {
+		mViewModel.fetchPopularMovies();
 		mViewModel.getAllPopularMovies().observe(getViewLifecycleOwner(), data -> {
 			Log.v(TAG, "Received data, now updating dataset: " + data.size());
 			mAdapter.updateDataset(this, data);

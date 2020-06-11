@@ -61,6 +61,7 @@ public class NowPlayingFragment extends AbstractDiscoverTab {
 
 	@Override
 	void initDataSource() {
+		mViewModel.fetchNowPlayingMovies();
 		mViewModel.getAllNowPlayingMovies().observe(getViewLifecycleOwner(), data -> {
 			mAdapter.updateDataset(this, data);
 		});

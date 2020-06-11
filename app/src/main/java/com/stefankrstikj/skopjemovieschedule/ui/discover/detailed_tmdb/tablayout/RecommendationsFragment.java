@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.stefankrstikj.skopjemovieschedule.R;
@@ -50,16 +51,17 @@ public class RecommendationsFragment extends Fragment {
 		shimmerFrameLayout.stopShimmer();
 		shimmerFrameLayout.setVisibility(View.GONE);
 
-		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_movie_list);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		lp.setMargins(0, 0, 0, 0);
+
+		SwipeRefreshLayout swipeRefreshLayout = getView().findViewById(R.id.swipe_movie_list);
+		swipeRefreshLayout.setLayoutParams(lp);
+
+		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_movie_list);
 		recyclerView.setLayoutParams(lp);
 		recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
-		mAdapter = new TmdbMovieAdapter(new OnMoviePosterClickListener() {
-			@Override
-			public void onMovieClick(Object o, ImageView imageView) {
+		mAdapter = new TmdbMovieAdapter((o, imageView) -> {
 
-			}
 		});
 		recyclerView.setAdapter(mAdapter);
 	}

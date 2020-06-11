@@ -1,6 +1,7 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,8 @@ import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+
+import java.io.ByteArrayOutputStream;
 
 public class DiscoverFragment extends Fragment implements OnMoviePosterClickListener {
     private static String TAG = "DiscoverFragment";
@@ -67,14 +72,44 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
         TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
         Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
 
-        Drawable drawable = imageView.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        intent.putExtra("movie", movie);
-        intent.putExtra("image", bitmap);
-        // todo: add a working, good animation
-//        ActivityOptions activityOptions = ActivityOptions
-//                .makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+//        Drawable drawable = imageView.getDrawable();
+//        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        imageView.buildDrawingCache();
+        Bitmap bitmap = imageView.getDrawingCache();
 
-        startActivity(intent);
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
+        intent.putExtra("byteArray", bs.toByteArray());
+
+
+        intent.putExtra("movie", movie);
+//        intent.putExtra("image", bitmap);
+        // todo: add a working, good animation
+        ActivityOptions activityOptions = ActivityOptions
+                .makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+
+        startActivity(intent, activityOptions.toBundle());
+
+    }
+
+    public class DynamicImageView extends androidx.appcompat.widget.AppCompatImageView {
+
+        public DynamicImageView(final Context context, final AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+            final Drawable d = this.getDrawable();
+
+            if (d != null) {
+                // ceil not round - avoid thin vertical gaps along the left/right edges
+                final int width = MeasureSpec.getSize(widthMeasureSpec);
+                final int height = (int) Math.ceil(width * (float) d.getIntrinsicHeight() / d.getIntrinsicWidth());
+                this.setMeasuredDimension(width, height);
+            } else {
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            }
+        }
     }
 }

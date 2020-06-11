@@ -63,6 +63,7 @@ public class TopRatedFragment extends AbstractDiscoverTab {
 
 	@Override
 	void initDataSource() {
+		mViewModel.fetchTopRatedMovies();
 		mViewModel.getAllTopRatedMovies().observe(getViewLifecycleOwner(), data -> {
 			mAdapter.updateDataset(this, data);
 		});

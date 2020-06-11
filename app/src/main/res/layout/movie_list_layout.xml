@@ -13,16 +13,27 @@
 
         android:theme="@style/MovieCardTheme">
 
-        <ImageView
-            android:id="@+id/moviePoster"
-            android:layout_width="115dp"
-            android:layout_height="173dp"
-            android:adjustViewBounds="true"
-            android:transitionName="imageMain"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_for_movie_poster"
+            style="@style/MovieCardViewPoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ad_astra_movie_poster" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/moviePoster"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:transitionName="imageMain"
+                tools:srcCompat="@drawable/ad_astra_movie_poster" />
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <TextView
             android:id="@+id/movieTitle"
@@ -35,9 +46,9 @@
             android:textSize="11sp"
             android:transitionName="textMain"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/moviePoster"
-            app:layout_constraintStart_toStartOf="@+id/moviePoster"
-            app:layout_constraintTop_toBottomOf="@+id/moviePoster" />
+            app:layout_constraintEnd_toEndOf="@+id/cardView_for_movie_poster"
+            app:layout_constraintStart_toStartOf="@+id/cardView_for_movie_poster"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_for_movie_poster" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

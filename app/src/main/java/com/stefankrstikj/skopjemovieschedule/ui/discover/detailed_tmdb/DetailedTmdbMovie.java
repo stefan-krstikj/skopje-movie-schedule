@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -69,7 +70,10 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		setContentView(R.layout.activity_detailed_tmdb_movie);
 
 		this.mTmdbMovieDetailed = (TmdbMovieDetailed) getIntent().getSerializableExtra("movie");
-		this.mMoviePoster = this.getIntent().getParcelableExtra("image");
+		mMoviePoster = BitmapFactory.decodeByteArray(
+				getIntent().getByteArrayExtra("byteArray"),0,getIntent().getByteArrayExtra("byteArray").length);
+
+
 
 		initToolbar();
 		initNestedScrollView();
@@ -115,7 +119,6 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		textViewActors = findViewById(R.id.textView_Actors);
 		textViewRuntime = findViewById(R.id.textView_runtime);
 		textViewMovieSchedule = findViewById(R.id.textView_movie_schedule_text);
-//		imageViewbackdropPath = findViewById(R.id.imageView_backdrop_path);
 	}
 
 	private void initViewModel() {
@@ -132,12 +135,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		textViewYear.setText(mTmdbMovieDetailed.getReleaseDate().substring(0, 4));
 		textViewPlot.setText(mTmdbMovieDetailed.getOverview());
 		textViewGenre.setText(mTmdbMovieDetailed.getGenres().toString().replace("[", "").replace("]", ""));
-//		textViewDirector.setText(mTmdbMovieDetailed.getDirector());
-//		textViewActors.setText(mTmdbMovieDetailed.getActors());
-//		textViewRuntime.setText(mTmdbMovieDetailed.get());
-//		Picasso.get()
-//				.load(URLList.URLTmdbBackdrop + mTmdbMovieDetailed.getBackdropPath())
-//				.into(imageViewbackdropPath);
+
 	}
 
 	private void initPagerAdapter(){

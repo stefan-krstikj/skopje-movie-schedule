@@ -17,13 +17,6 @@ public class TrendingFragment extends AbstractDiscoverTab {
 	private static String TAG = "TrendingFragment";
 	private static String mResultType = "Trending";
 
-//	private OnMoviePosterClickListener mOnMoviePosterClickListener;
-//	private ShimmerFrameLayout mShimmerFrameLayout;
-//	private RecyclerView mRecyclerView;
-//	private TmdbMovieAdapter mAdapter;
-//	private DiscoverViewModel mViewModel;
-//	private SwipeRefreshLayout mSwipeRefreshLayout;
-
 
 	public TrendingFragment(OnMoviePosterClickListener onMoviePosterClickListener) {
 		mOnMoviePosterClickListener = onMoviePosterClickListener;
@@ -46,6 +39,7 @@ public class TrendingFragment extends AbstractDiscoverTab {
 
 	@Override
 	void initViews() {
+		Log.v(TAG, "initViews()");
 		mShimmerFrameLayout = getView().findViewById(R.id.movie_list_shimmer);
 		mSwipeRefreshLayout = getView().findViewById(R.id.swipe_movie_list);
 		mRecyclerView = getView().findViewById(R.id.recyclerView_movie_list);
@@ -53,7 +47,10 @@ public class TrendingFragment extends AbstractDiscoverTab {
 
 	@Override
 	void initDataSource() {
+		Log.v(TAG, "initDataSource()");
+		mViewModel.fetchTrendingMovies();
 		mViewModel.getAllTrendingMovies().observe(getViewLifecycleOwner(), data -> {
+			Log.v(TAG, "data :" + data.size());
 			mAdapter.updateDataset(this, data);
 		});
 	}

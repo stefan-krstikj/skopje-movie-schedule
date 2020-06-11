@@ -41,6 +41,8 @@ public abstract class AbstractDiscoverTab extends Fragment implements RefreshDat
 		DiscoverViewModelFactory factory = InjectorUtils.provideDiscoverViewModelFactory(getContext());
 		mViewModel = ViewModelProviders.of(this, factory).get(DiscoverViewModel.class);
 		initDataSource();
+		if(mAdapter.getItemCount() < 19)
+			mShimmerFrameLayout.startShimmer();
 	}
 
 	abstract void initDataSource();

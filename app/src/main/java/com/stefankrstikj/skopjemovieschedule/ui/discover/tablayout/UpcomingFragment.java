@@ -54,6 +54,7 @@ public class UpcomingFragment extends AbstractDiscoverTab{
 
 	@Override
 	void initDataSource() {
+		mViewModel.fetchUpcomingMovies();
 		mViewModel.getAllUpcomingMovies().observe(getViewLifecycleOwner(), data -> {
 			mAdapter.updateDataset(this, data);
 		});
