@@ -20,7 +20,7 @@ public class MainMoviesView extends AppCompatActivity {
 
 
         // set toolbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_discover);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 

@@ -2,6 +2,7 @@ package com.stefankrstikj.skopjemovieschedule.utils;
 
 import android.content.Context;
 
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.TmdbApiClient;
 import com.stefankrstikj.skopjemovieschedule.database.AppDatabase;
 import com.stefankrstikj.skopjemovieschedule.database.MapLocationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
@@ -11,14 +12,24 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieReviewRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieVideoRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModelFactory;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.maps.MapsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.detailed_view.DetailMovieViewModelFactory;
 
+import java.util.Observer;
+
 public class InjectorUtils {
+
+    // todo: other viewmodels dont need all the repository access they have, refactor them later
+    private static TmdbApiClient getTmdbApiClient(Context context){
+        return TmdbApiClient.getInstance(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
+                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context));
+    }
 
     private static MovieRepository getMovieRepository(Context context){
         return MovieRepository.getInstance(AppDatabase.getDatabase(context).movieDao());
@@ -52,6 +63,10 @@ public class InjectorUtils {
         return TmdbMovieReviewRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieReviewDao());
     }
 
+    private static TmdbMovieVideoRepository getTmdbMovieVideoRepository(Context context){
+        return TmdbMovieVideoRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieVideoDao());
+    }
+
     public static DetailMovieViewModelFactory provideDetailMovieViewFactory(Context context){
         MovieRepository movieRepository = getMovieRepository(context);
         MovieScheduleRepository movieScheduleRepository = getMovieScheduleRepository(context);
@@ -71,12 +86,17 @@ public class InjectorUtils {
 
     public static DiscoverViewModelFactory provideDiscoverViewModelFactory(Context context){
         return new DiscoverViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context),
-                getTmdbMovieRecommendationRepository(context), getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context));
+                getTmdbMovieRecommendationRepository(context), getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context),
+                getTmdbMovieVideoRepository(context), getTmdbApiClient(context));
     }
 
     public static DetailedTmdbMovieViewModelFactory provideDetailedTmdbMovieViewModelFactory(Context context, TmdbMovieDetailed movieDetailed){
         return new DetailedTmdbMovieViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
-                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), movieDetailed);
+                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context), movieDetailed, getTmdbApiClient(context));
+    }
+
+    public static DiscoverSearchResultsViewModelFactory provideDiscoverSearchResultsViewModelFactory(Context context){
+        return new DiscoverSearchResultsViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbApiClient(context));
     }
 
 }

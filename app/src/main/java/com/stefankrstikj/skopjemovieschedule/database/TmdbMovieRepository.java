@@ -35,15 +35,11 @@ public class TmdbMovieRepository {
 	}
 
 	public void clear(String resultType){
-//		new AsyncTask<Void, Void, Void>(){
-//
-//			@Override
-//			protected Void doInBackground(Void... voids) {
-//				mTmdbMovieDao.delete(resultType);
-//				return null;
-//			}
-//		}.execute();
 		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.delete(resultType));
+	}
+
+	public void clear(String resultType, String movieTitle){
+		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbMovieDao.delete(resultType, movieTitle));
 	}
 
 	public LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies(){
@@ -64,5 +60,9 @@ public class TmdbMovieRepository {
 
 	public LiveData<List<TmdbMovieDetailed>> getAllNowPlayingMovies(){
 		return mTmdbMovieDao.getAllNowPlayingMovies();
+	}
+
+	public LiveData<List<TmdbMovieDetailed>> getAllQueryMovies(){
+		return mTmdbMovieDao.getAllQueryMovies();
 	}
 }

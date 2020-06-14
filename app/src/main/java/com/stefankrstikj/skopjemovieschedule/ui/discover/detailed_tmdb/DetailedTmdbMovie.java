@@ -28,6 +28,7 @@ import com.stefankrstikj.skopjemovieschedule.databinding.ActivityDetailedTmdbMov
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.tablayout.DetailsPagerAdapter;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
+import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
 import java.util.Objects;
@@ -134,7 +135,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		textViewRuntime.setText(mTmdbMovieDetailed.getRuntime() + " min");
 		textViewYear.setText(mTmdbMovieDetailed.getReleaseDate().substring(0, 4));
 		textViewPlot.setText(mTmdbMovieDetailed.getOverview());
-		textViewGenre.setText(mTmdbMovieDetailed.getGenres().toString().replace("[", "").replace("]", ""));
+		textViewGenre.setText(MovieUtils.getGenres(mTmdbMovieDetailed));
 
 	}
 

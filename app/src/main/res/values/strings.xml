@@ -34,7 +34,7 @@
     <string name="discover_tab_text_5">Upcoming</string>
     <string name="title_activity_discover">Discover</string>
     <string name="detailed_tmdb_tab_text_1">Cast</string>
-    <string name="detailed_tmdb_tab_text_2">Trailer</string>
+    <string name="detailed_tmdb_tab_text_2">Videos</string>
     <string name="detailed_tmdb_tab_text_3">Reviews</string>
     <string name="detailed_tmdb_tab_text_4">Recommendations</string>
     <string name="trim_collapsed_text"> Show more</string>

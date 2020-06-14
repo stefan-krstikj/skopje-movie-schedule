@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="0dp"
+        android:theme="@style/MovieCardTheme">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_movie_list_list_movie_poster"
+            style="@style/MovieCardViewPoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView_movie_list_list_movie_poster"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:transitionName="imageMain"
+                tools:srcCompat="@drawable/ad_astra_movie_poster" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView_movie_list_list_movie_poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cardView_movie_list_list_movie_poster"
+            app:layout_constraintTop_toTopOf="@+id/cardView_movie_list_list_movie_poster">
+
+            <TextView
+                android:id="@+id/textView_movie_list_list_title"
+                style="@style/TextCategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="The Revenent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="textMain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_movie_list_list_year"
+                style="@style/TextCategorySubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="2017"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView_movie_list_list_title"
+                app:layout_constraintTop_toBottomOf="@+id/textView_movie_list_list_title" />
+
+            <TextView
+                android:id="@+id/textView_movie_list_list_genres"
+                style="@style/TextCategorySubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Action, Thriller, Horror"
+                app:layout_constraintStart_toStartOf="@+id/textView_movie_list_list_year"
+                app:layout_constraintTop_toBottomOf="@+id/textView_movie_list_list_year" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

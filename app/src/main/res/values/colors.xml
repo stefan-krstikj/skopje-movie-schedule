@@ -6,7 +6,8 @@
     <color name="openNowTrue">#0CB33B</color>
     <color name="openNowFalse">#FF413A</color>
 
-    <color name="movies_blue_background">#1A2C40</color>
+<!--    <color name="movies_blue_background">#1A2C40</color>--> old
+    <color name="movies_blue_background">#152333</color>
     <color name="movies_item_color">#fff</color>
     <color name="movies_blue_800">#1565c0</color>
     <color name="movies_blue_800_dark">#003c8f</color>

@@ -1,22 +1,25 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,18 +27,23 @@ import android.widget.ImageView;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModel;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsFragment;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
 import java.io.ByteArrayOutputStream;
 
 public class DiscoverFragment extends Fragment implements OnMoviePosterClickListener {
-    private static String TAG = "DiscoverFragment";
+	private static String TAG = "DiscoverFragment";
 
-    DiscoverPagerAdapter mDiscoverPagerAdapter;
-    ViewPager viewPager;
-
-    private static final String ARG_SECTION_NUMBER = "section_number";
+	DiscoverPagerAdapter mDiscoverPagerAdapter;
+	ViewPager viewPager;
+	private DiscoverSearchResultsViewModel mDiscoverSearchResultsViewModel;
+	private static final String ARG_SECTION_NUMBER = "section_number";
 
 
 //    @Override
@@ -49,67 +57,95 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 //        mTrendingViewModel.setIndex(index);
 //    }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_discover_tabs, container, false);
-        return root;
-    }
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+							 @Nullable Bundle savedInstanceState) {
+		View root = inflater.inflate(R.layout.fragment_discover_tabs, container, false);
+		setHasOptionsMenu(true);
+		androidx.appcompat.widget.Toolbar toolbar = root.findViewById(R.id.toolbar_discover);
+		((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+		return root;
+	}
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-        mDiscoverPagerAdapter = new DiscoverPagerAdapter(getContext(), this, getChildFragmentManager());
-        viewPager = view.findViewById(R.id.discover_view_pager);
-        viewPager.setAdapter(mDiscoverPagerAdapter);
-    }
+		mDiscoverPagerAdapter = new DiscoverPagerAdapter(getContext(), this, getChildFragmentManager());
+		viewPager = view.findViewById(R.id.discover_view_pager);
+		viewPager.setAdapter(mDiscoverPagerAdapter);
+	}
+
+	@Override
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.options_menu_discover, menu);
+
+//		androidx.appcompat.widget.SearchView searchView =
+//				(androidx.appcompat.widget.SearchView) menu.findItem(R.id.discover_search).getActionView();
+
+		MenuItem searchItem = menu.findItem(R.id.discover_search);
+		SearchView searchView = (SearchView) searchItem.getActionView();
+
+		searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+			@Override
+			public boolean onMenuItemActionExpand(MenuItem item) {
+				DiscoverSearchResultsViewModelFactory factory = InjectorUtils.provideDiscoverSearchResultsViewModelFactory(getContext());
+				mDiscoverSearchResultsViewModel = ViewModelProviders.of(getActivity(), factory).get(DiscoverSearchResultsViewModel.class);
+				return true;
+			}
+
+			@Override
+			public boolean onMenuItemActionCollapse(MenuItem item) {
+				getActivity().getSupportFragmentManager().popBackStackImmediate();
+//				getActivity().getSupportFragmentManager().popBackStackImmediate();
+				return true;
+			}
+		});
+
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				Log.v(TAG, "Submitting " + newText);
+				if(newText == null || newText.length() <= 3)
+					return false;
+				if(getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0){
+					Fragment fragment = new DiscoverSearchResultsFragment(mDiscoverSearchResultsViewModel, DiscoverFragment.this::onMovieClick);
+					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.discover_fragment_container, fragment).addToBackStack("DiscoverFragment").commit();
+				}
+
+				mDiscoverSearchResultsViewModel.fetchQueryMovies(newText);
+				return false;
+			}
+		});
 
 
-    @Override
-    public void onMovieClick(Object o, ImageView imageView) {
-        TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
-        Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
+	}
 
-//        Drawable drawable = imageView.getDrawable();
-//        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        imageView.buildDrawingCache();
-        Bitmap bitmap = imageView.getDrawingCache();
+	@Override
+	public void onMovieClick(Object o, ImageView imageView) {
+		TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
+		Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
 
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
-        intent.putExtra("byteArray", bs.toByteArray());
+		imageView.buildDrawingCache();
+		Bitmap bitmap = imageView.getDrawingCache();
+
+		ByteArrayOutputStream bs = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
+		intent.putExtra("byteArray", bs.toByteArray());
 
 
-        intent.putExtra("movie", movie);
-//        intent.putExtra("image", bitmap);
-        // todo: add a working, good animation
-        ActivityOptions activityOptions = ActivityOptions
-                .makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+		intent.putExtra("movie", movie);
+		// todo: add a working, good animation
+		ActivityOptions activityOptions = ActivityOptions
+				.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
 
-        startActivity(intent, activityOptions.toBundle());
-
-    }
-
-    public class DynamicImageView extends androidx.appcompat.widget.AppCompatImageView {
-
-        public DynamicImageView(final Context context, final AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        @Override
-        protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-            final Drawable d = this.getDrawable();
-
-            if (d != null) {
-                // ceil not round - avoid thin vertical gaps along the left/right edges
-                final int width = MeasureSpec.getSize(widthMeasureSpec);
-                final int height = (int) Math.ceil(width * (float) d.getIntrinsicHeight() / d.getIntrinsicWidth());
-                this.setMeasuredDimension(width, height);
-            } else {
-                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            }
-        }
-    }
+		startActivity(intent, activityOptions.toBundle());
+	}
 }

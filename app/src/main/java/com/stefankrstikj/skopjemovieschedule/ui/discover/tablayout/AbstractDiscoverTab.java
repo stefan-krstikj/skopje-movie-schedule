@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieAdapter;
+import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieGridAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.RefreshDataCallback;
@@ -23,7 +22,7 @@ public abstract class AbstractDiscoverTab extends Fragment implements RefreshDat
 	protected OnMoviePosterClickListener mOnMoviePosterClickListener;
 	protected ShimmerFrameLayout mShimmerFrameLayout;
 	protected RecyclerView mRecyclerView;
-	protected TmdbMovieAdapter mAdapter;
+	protected TmdbMovieGridAdapter mAdapter;
 	protected DiscoverViewModel mViewModel;
 	protected SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -33,7 +32,7 @@ public abstract class AbstractDiscoverTab extends Fragment implements RefreshDat
 		mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setItemViewCacheSize(20);
-		mAdapter = new TmdbMovieAdapter(mOnMoviePosterClickListener);
+		mAdapter = new TmdbMovieGridAdapter(mOnMoviePosterClickListener);
 		mRecyclerView.setAdapter(mAdapter);
 	}
 

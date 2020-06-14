@@ -10,21 +10,25 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieReviewAdapter;
+import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieVideoAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModel;
 
 import java.util.Objects;
 
-public class ReviewsFragment extends Fragment {
+public class VideosFragment extends Fragment {
+	private static String TAG = "TrailerFragment";
 	private DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
-	private TmdbMovieReviewAdapter mAdapter;
+	private TmdbMovieVideoAdapter mAdapter;
 
-	public ReviewsFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel) {
+	public VideosFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel) {
+		Log.v(TAG, "Initialized trailer fragment");
 		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
 	}
 
@@ -43,17 +47,17 @@ public class ReviewsFragment extends Fragment {
 
 	void initListView(){
 		// init Recycler View
+		Log.v(TAG, "Initializing ListView for Trailer");
 		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_fragment_template);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		mAdapter = new TmdbMovieReviewAdapter();
+		mAdapter = new TmdbMovieVideoAdapter();
 		recyclerView.setAdapter(mAdapter);
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-				LinearLayoutManager.VERTICAL);
-		dividerItemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.divier_item_decoration)));
-		recyclerView.addItemDecoration(dividerItemDecoration);
 	}
 
 	void initData(){
-		mDetailedTmdbMovieViewModel.getTmdbMovieReviewsForMovie().observe(getViewLifecycleOwner(), data -> mAdapter.updateDataset(data));
+		mDetailedTmdbMovieViewModel.getTmdbdVideosForMovie().observe(getViewLifecycleOwner(), data -> {
+			Log.v(TAG, "Received data: " + data.toString());
+			mAdapter.updateDataset(data);
+		});
 	}
 }

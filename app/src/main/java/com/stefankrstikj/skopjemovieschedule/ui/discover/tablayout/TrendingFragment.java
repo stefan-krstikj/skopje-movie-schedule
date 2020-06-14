@@ -50,7 +50,6 @@ public class TrendingFragment extends AbstractDiscoverTab {
 		Log.v(TAG, "initDataSource()");
 		mViewModel.fetchTrendingMovies();
 		mViewModel.getAllTrendingMovies().observe(getViewLifecycleOwner(), data -> {
-			Log.v(TAG, "data :" + data.size());
 			mAdapter.updateDataset(this, data);
 		});
 	}

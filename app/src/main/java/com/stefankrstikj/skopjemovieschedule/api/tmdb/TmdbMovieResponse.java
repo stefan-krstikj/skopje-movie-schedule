@@ -19,7 +19,7 @@ public class TmdbMovieResponse {
     private int mTotalPages;
 
     @SerializedName("results")
-    List<TmdbMovieDetailed> mResults;
+    private List<TmdbMovieDetailed> mResults;
 
     public TmdbMovieResponse(int page, int totalResults, int totalPages, List<TmdbMovieDetailed> results) {
         mPage = page;

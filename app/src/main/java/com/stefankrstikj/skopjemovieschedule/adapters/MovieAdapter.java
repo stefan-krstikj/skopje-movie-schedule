@@ -17,7 +17,6 @@ import java.util.List;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
-import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 
 import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_HEIGHT;
 import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_WIDTH;
@@ -35,8 +34,8 @@ public class MovieAdapter extends RecyclerView.Adapter {
 
         MovieHolder(@NonNull View itemView) {
             super(itemView);
-            movieTitle = itemView.findViewById(R.id.movieTitle);
-            moviePoster = itemView.findViewById(R.id.moviePoster);
+            movieTitle = itemView.findViewById(R.id.textView_movie_list_grid_movie_title);
+            moviePoster = itemView.findViewById(R.id.imageView_movie_list_grid_movie_poster);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,7 +62,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_list_layout, parent, false);
+                .inflate(R.layout.list_layout_movie_grid, parent, false);
         return new MovieHolder(v);
     }
 

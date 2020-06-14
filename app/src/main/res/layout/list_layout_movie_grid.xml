@@ -14,7 +14,7 @@
         android:theme="@style/MovieCardTheme">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView_for_movie_poster"
+            android:id="@+id/cardView_movie_list_grid_movie_poster"
             style="@style/MovieCardViewPoster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/moviePoster"
+                android:id="@+id/imageView_movie_list_grid_movie_poster"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -36,7 +36,7 @@
 
 
         <TextView
-            android:id="@+id/movieTitle"
+            android:id="@+id/textView_movie_list_grid_movie_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -46,9 +46,9 @@
             android:textSize="11sp"
             android:transitionName="textMain"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/cardView_for_movie_poster"
-            app:layout_constraintStart_toStartOf="@+id/cardView_for_movie_poster"
-            app:layout_constraintTop_toBottomOf="@+id/cardView_for_movie_poster" />
+            app:layout_constraintEnd_toEndOf="@+id/cardView_movie_list_grid_movie_poster"
+            app:layout_constraintStart_toStartOf="@+id/cardView_movie_list_grid_movie_poster"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_movie_list_grid_movie_poster" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

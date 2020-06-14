@@ -31,9 +31,15 @@ public interface TmdbMovieDao {
 	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Now Playing' ORDER BY popularity DESC")
 	LiveData<List<TmdbMovieDetailed>> getAllNowPlayingMovies();
 
+	@Query("SELECT * FROM tmdb_movie_detailed WHERE result_type == 'Query' ORDER BY popularity DESC LIMIT 8")
+	LiveData<List<TmdbMovieDetailed>> getAllQueryMovies();
+
 	@Query("DELETE FROM tmdb_movie_detailed")
 	void deleteAll();
 
 	@Query("DELETE FROM tmdb_movie_detailed WHERE result_type==:resultType")
 	void delete(String resultType);
+
+	@Query("DELETE FROM tmdb_movie_detailed WHERE result_type==:resultType AND title NOT LIKE '%' || :movieTitle || '%'")
+	void delete(String resultType, String movieTitle);
 }

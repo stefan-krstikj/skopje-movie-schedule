@@ -1,7 +1,6 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModel;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
-import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
 public class PopularFragment extends AbstractDiscoverTab {
 

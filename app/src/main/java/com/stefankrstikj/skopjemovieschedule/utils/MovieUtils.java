@@ -23,4 +23,16 @@ public class MovieUtils {
 		}
 		return title;
 	}
+
+	public static String getGenres(TmdbMovieDetailed tmdbMovieDetailed){
+		if(tmdbMovieDetailed.getGenres() != null && tmdbMovieDetailed.getGenres().size() > 0)
+			return tmdbMovieDetailed.getGenres().toString().replace("[", "").replace("]", "");
+		return "";
+	}
+
+	public static String getDisplayYear(TmdbMovieDetailed tmdbMovieDetailed){
+		if(tmdbMovieDetailed.getReleaseDate() != null && tmdbMovieDetailed.getReleaseDate().length() >= 4)
+			return tmdbMovieDetailed.getReleaseDate().substring(0, 4);
+		return "";
+	}
 }

@@ -8,13 +8,10 @@ import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieReviewRepository;
+import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieVideoRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieGenre;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
-import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
-import com.stefankrstikj.skopjemovieschedule.utils.URLList;
-
-import java.util.List;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieVideo;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.OkHttpClient;
@@ -32,13 +29,26 @@ public class TmdbApiClient {
 	private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
 	private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
 	private TmdbMovieReviewRepository mTmdbMovieReviewRepository;
+	private TmdbMovieVideoRepository mTmdbMovieVideoRepository;
+	public static volatile TmdbApiClient mInstance;
 
-	public TmdbApiClient(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository, TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository) {
+	synchronized public static TmdbApiClient getInstance(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository,
+														 TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository, TmdbMovieVideoRepository tmdbMovieVideoRepository) {
+		if (mInstance == null) {
+			mInstance = new TmdbApiClient(tmdbMovieRepository, tmdbCastRepository, tmdbMovieRecommendationRepository, tmdbMovieGenreRepository, tmdbMovieReviewRepository, tmdbMovieVideoRepository);
+		}
+		return mInstance;
+	}
+
+
+	private TmdbApiClient(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository,
+						  TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository, TmdbMovieVideoRepository tmdbMovieVideoRepository) {
 		mTmdbMovieRepository = tmdbMovieRepository;
 		mTmdbCastRepository = tmdbCastRepository;
 		mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
 		mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
 		mTmdbMovieReviewRepository = tmdbMovieReviewRepository;
+		mTmdbMovieVideoRepository = tmdbMovieVideoRepository;
 	}
 
 	private static Retrofit getRetroFit() {
@@ -73,24 +83,6 @@ public class TmdbApiClient {
 //				});
 //	}
 
-	private Observable<TmdbMovieResponse> getTrendingMoviesObservable() {
-		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
-		return tmdbApiService.getAllTrendingMovies(APIKeys.TMDB_API_KEY);
-	}
-
-	public void getTrendingMovies() {
-		getTrendingMoviesObservable()
-				.flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
-				.flatMapIterable(baseData -> baseData)
-				.doOnError(error -> Log.v(TAG, "GET TRENDING: " + error.getMessage()))
-				.forEach(tmdbMovieDetailed -> {
-							getDetailsForMovie(tmdbMovieDetailed, "Trending");
-							getMovieCast(tmdbMovieDetailed.getId());
-							getMovieReviews(tmdbMovieDetailed.getId());
-//							getMovieRecommendations(tmdbMovieDetailed.getId());
-						}
-				);
-	}
 
 	private Observable<TmdbMovieDetailed> getDetailsForMovieObservable(TmdbMovieDetailed tmdbMovieDetailed) {
 		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
@@ -103,7 +95,35 @@ public class TmdbApiClient {
 				.subscribe(data -> {
 					data.setResultType(resultType);
 					mTmdbMovieRepository.insert(data);
+					getMovieCast(tmdbMovieDetailed.getId());
+					getMovieReviews(tmdbMovieDetailed.getId());
+					getMovieVideos(tmdbMovieDetailed.getId());
 				});
+	}
+
+	private Observable<TmdbMovieResponse> getTrendingMoviesObservable() {
+		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+		return tmdbApiService.getAllTrendingMovies(APIKeys.TMDB_API_KEY);
+	}
+
+	public void getTrendingMovies() {
+		getTrendingMoviesObservable()
+				.flatMap(discoveryResponse -> Observable.just(discoveryResponse.getResults()))
+				.flatMapIterable(baseData -> baseData)
+				.doOnError(error -> Log.e(TAG, "GET TRENDING: " + error.getMessage()))
+				.forEach(tmdbMovieDetailed -> getDetailsForMovie(tmdbMovieDetailed, "Trending"));
+	}
+
+	private Observable<TmdbMovieResponse> getAllMoviesForQueryObservable(String query){
+		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+		return tmdbApiService.getMoviesForQuery(query, APIKeys.TMDB_API_KEY);
+	}
+
+	public void getAllMoviesForQuery(String query){
+		getAllMoviesForQueryObservable(query)
+				.flatMap(tmdbMovieResponse -> Observable.just(tmdbMovieResponse.getResults()))
+				.flatMapIterable(data -> data)
+				.forEach(tmdbMovieDetailed -> getDetailsForMovie(tmdbMovieDetailed, "Query"));
 	}
 
 	private Observable<TmdbMovieResponse> getUpcomingMoviesObservable() {
@@ -112,13 +132,11 @@ public class TmdbApiClient {
 	}
 
 	public void getUpcomingMovies() {
-		getUpcomingMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
+		getUpcomingMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.getResults()))
 				.flatMapIterable(baseData -> baseData)
-				.doOnError(error -> Log.v(TAG, error.getMessage()))
+				.doOnError(error -> Log.e(TAG, error.getMessage()))
 				.subscribe(tmdbMovieDetailed -> {
 							getDetailsForMovie(tmdbMovieDetailed, "Upcoming");
-							getMovieCast(tmdbMovieDetailed.getId());
-							getMovieReviews(tmdbMovieDetailed.getId());
 						}
 				);
 	}
@@ -129,13 +147,11 @@ public class TmdbApiClient {
 	}
 
 	public void getAllTopRatedMovies() {
-		getTopRatedMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
+		getTopRatedMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.getResults()))
 				.flatMapIterable(baseData -> baseData)
-				.doOnError(error -> Log.v(TAG, error.getMessage()))
+				.doOnError(error -> Log.e(TAG, error.getMessage()))
 				.subscribe(tmdbMovieDetailed -> {
 							getDetailsForMovie(tmdbMovieDetailed, "Top Rated");
-							getMovieCast(tmdbMovieDetailed.getId());
-							getMovieReviews(tmdbMovieDetailed.getId());
 						}
 				);
 	}
@@ -146,13 +162,11 @@ public class TmdbApiClient {
 	}
 
 	public void getAllPopularMovies() {
-		getAllPopularMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
+		getAllPopularMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.getResults()))
 				.flatMapIterable(baseData -> baseData)
-				.doOnError(error -> Log.v(TAG, error.getMessage()))
+				.doOnError(error -> Log.e(TAG, error.getMessage()))
 				.subscribe(tmdbMovieDetailed -> {
 							getDetailsForMovie(tmdbMovieDetailed, "Popular");
-							getMovieCast(tmdbMovieDetailed.getId());
-							getMovieReviews(tmdbMovieDetailed.getId());
 						}
 				);
 	}
@@ -163,13 +177,11 @@ public class TmdbApiClient {
 	}
 
 	public void getAllNowPlayingMovies() {
-		getAllNowPlayingMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.mResults))
+		getAllNowPlayingMoviesObservable().flatMap(discoveryResponse -> Observable.just(discoveryResponse.getResults()))
 				.flatMapIterable(baseData -> baseData)
-				.doOnError(error -> Log.v(TAG, error.getMessage()))
+				.doOnError(error -> Log.e(TAG, error.getMessage()))
 				.subscribe(tmdbMovieDetailed -> {
 							getDetailsForMovie(tmdbMovieDetailed, "Now Playing");
-							getMovieCast(tmdbMovieDetailed.getId());
-							getMovieReviews(tmdbMovieDetailed.getId());
 						}
 				);
 	}
@@ -199,15 +211,29 @@ public class TmdbApiClient {
 	public void getMovieRecommendations(Integer id) {
 		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
 		tmdbApiService.getRecommendationsForMovie(id, APIKeys.TMDB_API_KEY)
-				.flatMap(tmdbMovieResponse -> Observable.just(tmdbMovieResponse.mResults))
+				.flatMap(tmdbMovieResponse -> Observable.just(tmdbMovieResponse.getResults()))
 				.flatMapIterable(data -> data)
-				.doOnError(error -> Log.v(TAG, error.getMessage()))
+				.doOnError(error -> Log.e(TAG, error.getMessage()))
 				.subscribe(data -> {
 					TmdbMovieRecommendation recommendation = new TmdbMovieRecommendation(id, data.getId());
 					mTmdbMovieRecommendationRepository.insert(recommendation);
 					getDetailsForMovie(data, "Recommendation");
 				});
 	}
+
+	public void getMovieVideos(Integer id) {
+		TmdbApiService tmdbApiService = getRetroFit().create(TmdbApiService.class);
+		tmdbApiService.getVideosForMovie(id, APIKeys.TMDB_API_KEY)
+				.flatMap(tmdbMovieVideosResponse -> Observable.just(tmdbMovieVideosResponse.getResponse()))
+				.flatMapIterable(data -> data)
+				.doOnError(error -> Log.e(TAG, error.getMessage()))
+				.subscribe(data -> {
+					Log.v(TAG, "Received data: " + data.getName());
+					data.setMovieId(id);
+					mTmdbMovieVideoRepository.insert(data);
+				});
+	}
+
 
 //	private void getDetailsForTmdbMovie(TmdbMovieDetailed tmdbMovieDetailed) {
 //		// da povikam koi genres gi ima, pa potoa da povikam cast i recommendations i se toa

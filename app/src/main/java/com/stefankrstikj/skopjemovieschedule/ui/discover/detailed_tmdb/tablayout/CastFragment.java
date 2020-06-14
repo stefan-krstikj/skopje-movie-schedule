@@ -32,7 +32,7 @@ public class CastFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 
-		return inflater.inflate(R.layout.fragment_cast, container, false);
+		return inflater.inflate(R.layout.fragment_with_recyclerview, container, false);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class CastFragment extends Fragment {
 	}
 
 	void initListView(){
-		RecyclerView recyclerView = getView().findViewById(R.id.recyclerView_tmdb_movie_cast);
+		RecyclerView recyclerView = getView().findViewById(R.id.recyclerView_fragment_template);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 		mAdapter = new TmdbMovieCastAdapter();
 		recyclerView.setAdapter(mAdapter);

@@ -22,6 +22,8 @@ import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
@@ -39,6 +41,7 @@ public class DiscoverPagerAdapter extends FragmentPagerAdapter {
 		mOnMoviePosterClickListener = onMoviePosterClickListener;
 	}
 
+	@NotNull
 	@Override
 	public Fragment getItem(int position) {
 		// getItem is called to instantiate the fragment for the given page.
