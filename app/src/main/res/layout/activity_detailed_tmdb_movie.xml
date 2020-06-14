@@ -30,14 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/movies_blue_800_dark"
+            app:contentScrim="@color/movies_blue_dark"
             app:collapsedTitleGravity="center"
             app:collapsedTitleTextAppearance="@android:color/black"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title=""
             app:titleEnabled="true"
             app:toolbarId="@+id/detailed_tmdb_movie_toolbar"
-            android:background="@color/movies_blue_800_dark"
+            android:background="@color/movies_blue_dark"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,7 +196,7 @@
                 style="@style/TabLayoutTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/movies_blue_800_dark"
+                android:background="@color/movies_blue_dark"
                 app:tabGravity="fill"
                 app:tabMode="auto">
 

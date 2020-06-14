@@ -1,22 +1,19 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.tablayout;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieReviewAdapter;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieVideoAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovieViewModel;
 
@@ -47,11 +44,14 @@ public class VideosFragment extends Fragment {
 
 	void initListView(){
 		// init Recycler View
-		Log.v(TAG, "Initializing ListView for Trailer");
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+		lp.setMargins(0, 0, 0, 0);
+
 		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_fragment_template);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 		mAdapter = new TmdbMovieVideoAdapter();
 		recyclerView.setAdapter(mAdapter);
+		recyclerView.setLayoutParams(lp);
 	}
 
 	void initData(){

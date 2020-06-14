@@ -1,6 +1,10 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.tablayout;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,10 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieReviewAdapter;
@@ -43,13 +43,19 @@ public class ReviewsFragment extends Fragment {
 
 	void initListView(){
 		// init Recycler View
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+		lp.setMargins(0, 0, 0, 0);
+
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+				LinearLayoutManager.VERTICAL);
+		dividerItemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.divier_item_decoration)));
+
 		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_fragment_template);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 		mAdapter = new TmdbMovieReviewAdapter();
 		recyclerView.setAdapter(mAdapter);
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-				LinearLayoutManager.VERTICAL);
-		dividerItemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.divier_item_decoration)));
+
+		recyclerView.setLayoutParams(lp);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 	}
 

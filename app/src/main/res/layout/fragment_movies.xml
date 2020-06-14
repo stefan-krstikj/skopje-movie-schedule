@@ -45,7 +45,7 @@
                 android:id="@+id/toolbar_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/movies_blue_800_dark"
+                android:background="@color/movies_blue_dark"
                 app:contentInsetStart="0dp">
 
                 <TextView

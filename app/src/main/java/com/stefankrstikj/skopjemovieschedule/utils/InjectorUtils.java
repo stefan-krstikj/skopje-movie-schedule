@@ -21,11 +21,8 @@ import com.stefankrstikj.skopjemovieschedule.ui.maps.MapsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.detailed_view.DetailMovieViewModelFactory;
 
-import java.util.Observer;
-
 public class InjectorUtils {
 
-    // todo: other viewmodels dont need all the repository access they have, refactor them later
     private static TmdbApiClient getTmdbApiClient(Context context){
         return TmdbApiClient.getInstance(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
                 getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context));
@@ -85,14 +82,12 @@ public class InjectorUtils {
     }
 
     public static DiscoverViewModelFactory provideDiscoverViewModelFactory(Context context){
-        return new DiscoverViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context),
-                getTmdbMovieRecommendationRepository(context), getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context),
-                getTmdbMovieVideoRepository(context), getTmdbApiClient(context));
+        return new DiscoverViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbApiClient(context));
     }
 
     public static DetailedTmdbMovieViewModelFactory provideDetailedTmdbMovieViewModelFactory(Context context, TmdbMovieDetailed movieDetailed){
-        return new DetailedTmdbMovieViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
-                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context), movieDetailed, getTmdbApiClient(context));
+        return new DetailedTmdbMovieViewModelFactory(getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
+                getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context), movieDetailed, getTmdbApiClient(context));
     }
 
     public static DiscoverSearchResultsViewModelFactory provideDiscoverSearchResultsViewModelFactory(Context context){

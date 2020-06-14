@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieCast;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdapter.TmdbMovieCastHolder> {
 	private static final String TAG = "MovieCastAdapter";
 
-	private List<TmdbCast> mDataset;
+	private List<TmdbMovieCast> mDataset;
 
 	public static class TmdbMovieCastHolder extends RecyclerView.ViewHolder{
 
@@ -37,11 +37,11 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 			mPoster = itemView.findViewById(R.id.imageView_cast_poster);
 		}
 
-		void setText(TmdbCast tmdbCast){
-			this.mName.setText(tmdbCast.getName());
-			this.mCharacter.setText(tmdbCast.getCharacter());
+		void setText(TmdbMovieCast tmdbMovieCast){
+			this.mName.setText(tmdbMovieCast.getName());
+			this.mCharacter.setText(tmdbMovieCast.getCharacter());
 			Picasso.get()
-					.load(URLList.URLTmdbCastProfilePath + tmdbCast.getProfilePath())
+					.load(URLList.URLTmdbCastProfilePath + tmdbMovieCast.getProfilePath())
 					.placeholder(R.drawable.profile_picture_template)
 					.into(mPoster);
 		}
@@ -71,7 +71,7 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 		return mDataset.size();
 	}
 
-	public void updateDataset(List<TmdbCast> dataset){
+	public void updateDataset(List<TmdbMovieCast> dataset){
 		this.mDataset = dataset;
 		notifyDataSetChanged();
 	}

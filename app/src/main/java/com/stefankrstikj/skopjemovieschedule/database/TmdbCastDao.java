@@ -6,21 +6,21 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieCast;
 
 import java.util.List;
 
 @Dao
 public interface TmdbCastDao {
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
-	void insert(TmdbCast cast);
+	void insert(TmdbMovieCast cast);
 
-	@Query("SELECT * FROM tmdb_cast")
-	LiveData<List<TmdbCast>> getAllCasts();
+	@Query("SELECT * FROM tmdb_movie_cast")
+	LiveData<List<TmdbMovieCast>> getAllCasts();
 
-	@Query("SELECT * FROM tmdb_cast WHERE movie_id == :movieId")
-	LiveData<List<TmdbCast>> getCastForMovie(Integer movieId);
+	@Query("SELECT * FROM tmdb_movie_cast WHERE movie_id == :movieId")
+	LiveData<List<TmdbMovieCast>> getCastForMovie(Integer movieId);
 
-	@Query("DELETE FROM tmdb_cast")
+	@Query("DELETE FROM tmdb_movie_cast")
 	void deleteAll();
 }

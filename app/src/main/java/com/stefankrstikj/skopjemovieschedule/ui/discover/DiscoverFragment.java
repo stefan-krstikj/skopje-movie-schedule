@@ -4,17 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,14 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsFragment;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
@@ -43,19 +39,7 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 	DiscoverPagerAdapter mDiscoverPagerAdapter;
 	ViewPager viewPager;
 	private DiscoverSearchResultsViewModel mDiscoverSearchResultsViewModel;
-	private static final String ARG_SECTION_NUMBER = "section_number";
 
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        ViewModel view = ViewModelProviders.of(this).get(TrendingViewModel.class);
-//        int index = 1;
-//        if (getArguments() != null) {
-//            index = getArguments().getInt(ARG_SECTION_NUMBER);
-//        }
-//        mTrendingViewModel.setIndex(index);
-//    }
 
 	@Nullable
 	@Override
@@ -130,6 +114,7 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 
 	@Override
 	public void onMovieClick(Object o, ImageView imageView) {
+		// todo: bad implementation, cant do the OnMoviePosterClick inside recommendationFragment (which is inside DetailedTmdbMovie.class)
 		TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
 		Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
 
@@ -142,7 +127,6 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 
 
 		intent.putExtra("movie", movie);
-		// todo: add a working, good animation
 		ActivityOptions activityOptions = ActivityOptions
 				.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
 

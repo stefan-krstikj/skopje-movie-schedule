@@ -28,27 +28,27 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-
-import java.util.List;
-
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.MapLocationAdapter;
 import com.stefankrstikj.skopjemovieschedule.models.MapLocation;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
-import static androidx.core.content.ContextCompat.*;
+import java.util.List;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapLocationClickListener{
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
+public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapLocationClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
     private static String TAG = "MapsFragment";
 
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     public static String GOOGLE_MAPS_API_KEY;
     private Boolean mFoundPlaces = false;
 
@@ -105,9 +105,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+       initMap();
+    }
+
+    private void initMap(){
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(60000); // two minute interval
         mLocationRequest.setFastestInterval(60000);
+
+
 
         if (checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //Location Permission already granted
@@ -118,7 +124,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
             checkLocationPermission();
         }
     }
-
 
     private LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -136,8 +141,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
                 //Place current location marker
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                //move map camera
-//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+//                move map camera
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
 
                 mRequest = URLList.REQUEST_URL_MAPLOCATIONS + latLng.latitude +","+latLng.longitude
                     + "&key=" + getResources().getString(R.string.google_maps_key)
@@ -157,8 +162,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -170,8 +174,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(getActivity(),
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );
                             }
                         })
@@ -181,8 +184,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
 
             } else {
                 // No explanation needed, we can mRequest the permission.
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION );
             }
         }
@@ -217,5 +219,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, OnMapL
     public void onMapLocationClick(MapLocation mapLocation) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mapLocation.getMapsURL()));
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+            Log.v(TAG, "Permissions callback");
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Permission granted");
+                initMap();
+            } else
+                Log.v(TAG, "Permission not granted");
+        }
     }
 }

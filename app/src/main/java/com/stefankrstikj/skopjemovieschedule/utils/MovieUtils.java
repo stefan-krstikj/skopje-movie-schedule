@@ -4,7 +4,7 @@ import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 public class MovieUtils {
-	static final int MAX_CHARACTERS = 18;
+	static final int MAX_CHARACTERS = 20;
 	public static final int POSTER_WIDTH = 272;
 	public static final int POSTER_HEIGHT = 403;
 

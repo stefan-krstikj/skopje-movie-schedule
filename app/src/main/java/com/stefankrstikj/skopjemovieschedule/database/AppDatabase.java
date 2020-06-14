@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 import com.stefankrstikj.skopjemovieschedule.models.MapLocation;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieCast;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieGenre;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
@@ -22,7 +22,7 @@ import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieVideo;
 import com.stefankrstikj.skopjemovieschedule.utils.type_converters.MovieGenreTypeConverter;
 
 @Database(entities = {
-		Movie.class, MovieSchedule.class, MapLocation.class, TmdbMovieDetailed.class, TmdbCast.class,
+		Movie.class, MovieSchedule.class, MapLocation.class, TmdbMovieDetailed.class, TmdbMovieCast.class,
 		TmdbMovieRecommendation.class, TmdbMovieGenre.class, TmdbMovieReview.class, TmdbMovieVideo.class},
 		version = 1, exportSchema = false)
 @TypeConverters({MovieGenreTypeConverter.class})

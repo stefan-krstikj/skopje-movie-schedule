@@ -26,13 +26,14 @@
                 android:id="@+id/toolbar_discover"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/movies_blue_800_dark">
+                android:background="@color/movies_blue_dark"
+                android:elevation="2dp">
 
                 <TextView
                     style="@style/ToolbarTextTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Search movies"
+                    android:text="@string/string_discovery_actionbar"
                     android:textSize="20sp"
                     tools:textStyle="bold" />
             </androidx.appcompat.widget.Toolbar>
@@ -70,22 +71,22 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Popular" />
+                    android:text="@string/discover_tab_text_2" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Top Rated" />
+                    android:text="@string/discover_tab_text_3" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Now Playing" />
+                    android:text="@string/discover_tab_text_4" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upcoming" />
+                    android:text="@string/discover_tab_text_5" />
 
             </com.google.android.material.tabs.TabLayout>
         </androidx.viewpager.widget.ViewPager>

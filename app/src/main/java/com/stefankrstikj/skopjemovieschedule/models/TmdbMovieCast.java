@@ -5,14 +5,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
-import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
 
-@Entity(tableName = "tmdb_cast",
+@Entity(tableName = "tmdb_movie_cast",
 		foreignKeys = {
 				@ForeignKey(entity = TmdbMovieDetailed.class,
 						parentColumns = {"id", "result_type"},
@@ -23,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 				@Index(name = "index_cast_movie_id", value = {"movie_id"}),
 				@Index(name = "index_cast_movie_result_type", value = {"movie_result_type"})
 		})
-public class TmdbCast {
+public class TmdbMovieCast {
 	@PrimaryKey
 	@NotNull
 	@ColumnInfo(name = "id")
@@ -65,7 +64,7 @@ public class TmdbCast {
 	@SerializedName("profile_path")
 	private String mProfilePath;
 
-	public TmdbCast(@NotNull Integer id, Integer movieId, String movieResultType, Integer castId, String character, String creditId, Integer gender, String name, Integer order, String profilePath) {
+	public TmdbMovieCast(@NotNull Integer id, Integer movieId, String movieResultType, Integer castId, String character, String creditId, Integer gender, String name, Integer order, String profilePath) {
 		mId = id;
 		mMovieId = movieId;
 		mMovieResultType = movieResultType;

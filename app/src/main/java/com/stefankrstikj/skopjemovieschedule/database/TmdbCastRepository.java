@@ -2,7 +2,7 @@ package com.stefankrstikj.skopjemovieschedule.database;
 
 import androidx.lifecycle.LiveData;
 
-import com.stefankrstikj.skopjemovieschedule.models.TmdbCast;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieCast;
 
 import java.util.List;
 
@@ -27,15 +27,15 @@ public class TmdbCastRepository {
 		mTmdbCastDao = tmdbCastDao;
 	}
 
-	public void insert(TmdbCast tmdbCast){
-		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbCastDao.insert(tmdbCast));
+	public void insert(TmdbMovieCast tmdbMovieCast){
+		AppDatabase.databaseWriteExecutor.execute(() -> mTmdbCastDao.insert(tmdbMovieCast));
 	}
 
-	public LiveData<List<TmdbCast>> getAll(){
+	public LiveData<List<TmdbMovieCast>> getAll(){
 		return mTmdbCastDao.getAllCasts();
 	}
 
-	public LiveData<List<TmdbCast>> getAllForMovie(Integer movieId){
+	public LiveData<List<TmdbMovieCast>> getAllForMovie(Integer movieId){
 		return mTmdbCastDao.getCastForMovie(movieId);
 	}
 }

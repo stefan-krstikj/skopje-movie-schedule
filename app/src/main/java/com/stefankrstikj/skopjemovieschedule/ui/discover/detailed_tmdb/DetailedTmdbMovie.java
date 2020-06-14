@@ -1,35 +1,23 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.databinding.ActivityDetailedTmdbMovieBinding;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.tablayout.DetailsPagerAdapter;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
-import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
 import java.util.Objects;
 
@@ -57,7 +45,6 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 	private TextView textViewMovieSchedule;
 	private ImageView imageViewbackdropPath;
 
-	private DetailsPagerAdapter mDetailsPagerAdapter;
 	private ViewPager viewPager;
 
 
