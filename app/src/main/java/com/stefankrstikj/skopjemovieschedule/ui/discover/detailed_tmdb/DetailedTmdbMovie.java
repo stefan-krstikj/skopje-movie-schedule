@@ -57,11 +57,8 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 
 		setContentView(R.layout.activity_detailed_tmdb_movie);
 
-		this.mTmdbMovieDetailed = (TmdbMovieDetailed) getIntent().getSerializableExtra("movie");
-		mMoviePoster = BitmapFactory.decodeByteArray(
-				getIntent().getByteArrayExtra("byteArray"),0,getIntent().getByteArrayExtra("byteArray").length);
-
-
+		mTmdbMovieDetailed = (TmdbMovieDetailed) getIntent().getSerializableExtra("movie");
+		mMoviePoster = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("byteArray"), 0, getIntent().getByteArrayExtra("byteArray").length);
 
 		initToolbar();
 		initNestedScrollView();
@@ -71,7 +68,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		initPagerAdapter();
 	}
 
-	private void initToolbar(){
+	private void initToolbar() {
 		androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.detailed_tmdb_movie_toolbar);
 		setSupportActionBar(myToolbar);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -88,7 +85,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 				if (Math.abs(i) == appBarLayout.getTotalScrollRange()) {
 					appBarLayout.setActivated(true);
 					mCollapsingToolbarLayout.setTitleEnabled(true);
-				}else{
+				} else {
 					appBarLayout.setActivated(false);
 					mCollapsingToolbarLayout.setTitleEnabled(false);
 				}
@@ -126,7 +123,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 
 	}
 
-	private void initPagerAdapter(){
+	private void initPagerAdapter() {
 		DetailsPagerAdapter sectionsPagerAdapter = new DetailsPagerAdapter(mDetailedTmdbMovieViewModel, this, getSupportFragmentManager());
 		viewPager = findViewById(R.id.detailed_tmdb_view_pager);
 		viewPager.setAdapter(sectionsPagerAdapter);

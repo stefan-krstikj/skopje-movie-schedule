@@ -41,6 +41,7 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 	private DiscoverSearchResultsViewModel mDiscoverSearchResultsViewModel;
 
 
+
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -83,7 +84,6 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
 				getActivity().getSupportFragmentManager().popBackStackImmediate();
-//				getActivity().getSupportFragmentManager().popBackStackImmediate();
 				return true;
 			}
 		});
@@ -124,12 +124,11 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 		ByteArrayOutputStream bs = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
 		intent.putExtra("byteArray", bs.toByteArray());
-
-
 		intent.putExtra("movie", movie);
 		ActivityOptions activityOptions = ActivityOptions
 				.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
 
 		startActivity(intent, activityOptions.toBundle());
 	}
+
 }
