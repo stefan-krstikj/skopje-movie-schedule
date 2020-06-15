@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.stefankrstikj.skopjemovieschedule.api.tmdb.TmdbApiClient;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
-
-import java.util.Observer;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
 
 public class DiscoverSearchResultsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

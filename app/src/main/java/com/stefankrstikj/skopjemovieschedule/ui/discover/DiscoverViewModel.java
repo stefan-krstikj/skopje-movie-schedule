@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.stefankrstikj.skopjemovieschedule.api.tmdb.TmdbApiClient;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;

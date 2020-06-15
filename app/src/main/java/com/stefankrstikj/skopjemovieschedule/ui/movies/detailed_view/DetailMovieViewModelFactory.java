@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
-import com.stefankrstikj.skopjemovieschedule.database.MovieScheduleRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieScheduleRepository;
 
 public class DetailMovieViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private MovieRepository mMovieRepository;

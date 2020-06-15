@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.stefankrstikj.skopjemovieschedule.database.MapLocationRepository;
+import com.stefankrstikj.skopjemovieschedule.database.maplocation.MapLocationRepository;
 
 public class MapsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private MapLocationRepository mMapLocationRepository;

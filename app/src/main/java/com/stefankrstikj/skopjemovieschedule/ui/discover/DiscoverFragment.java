@@ -23,7 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;

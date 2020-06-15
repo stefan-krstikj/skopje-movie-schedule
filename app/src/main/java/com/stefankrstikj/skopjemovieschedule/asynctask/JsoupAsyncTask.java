@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
-import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
-import com.stefankrstikj.skopjemovieschedule.database.MovieScheduleRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieScheduleRepository;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
 

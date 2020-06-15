@@ -1,14 +1,6 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -17,9 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
 import org.jetbrains.annotations.NotNull;
