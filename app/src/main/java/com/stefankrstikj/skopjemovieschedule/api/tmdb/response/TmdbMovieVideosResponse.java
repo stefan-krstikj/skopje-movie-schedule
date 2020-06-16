@@ -1,4 +1,4 @@
-package com.stefankrstikj.skopjemovieschedule.api.tmdb;
+package com.stefankrstikj.skopjemovieschedule.api.tmdb.response;
 
 import com.google.gson.annotations.SerializedName;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieVideo;

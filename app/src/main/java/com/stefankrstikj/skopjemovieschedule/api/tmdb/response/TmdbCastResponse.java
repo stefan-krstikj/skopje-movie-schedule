@@ -1,4 +1,4 @@
-package com.stefankrstikj.skopjemovieschedule.api.tmdb;
+package com.stefankrstikj.skopjemovieschedule.api.tmdb.response;
 
 import androidx.annotation.NonNull;
 

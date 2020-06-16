@@ -7,15 +7,17 @@ import com.stefankrstikj.skopjemovieschedule.database.AppDatabase;
 import com.stefankrstikj.skopjemovieschedule.database.maplocation.MapLocationRepository;
 import com.stefankrstikj.skopjemovieschedule.database.movie.MovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.movie.MovieScheduleRepository;
-import com.stefankrstikj.skopjemovieschedule.database.tmdb.cast.TmdbCastRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.cast.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.genre.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.recommendation.TmdbMovieRecommendationRepository;
-import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.review.TmdbMovieReviewRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.video.TmdbMovieVideoRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.people.TmdbPeopleRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModelFactory;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.person.DetailedTmdbPersonViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.maps.MapsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
@@ -25,7 +27,7 @@ public class InjectorUtils {
 
     private static TmdbApiClient getTmdbApiClient(Context context){
         return TmdbApiClient.getInstance(getTmdbMovieDiscoverRepository(context), getTmdbCastRepository(context), getTmdbMovieRecommendationRepository(context),
-                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context));
+                getTmdbMovieGenreRepository(context), getTmdbMovieReviewRepository(context), getTmdbMovieVideoRepository(context), getTmdbPeopleRepository(context));
     }
 
     private static MovieRepository getMovieRepository(Context context){
@@ -64,6 +66,10 @@ public class InjectorUtils {
         return TmdbMovieVideoRepository.getInstance(AppDatabase.getDatabase(context).mTmdbMovieVideoDao());
     }
 
+    private static TmdbPeopleRepository getTmdbPeopleRepository(Context context){
+        return TmdbPeopleRepository.getInstance(AppDatabase.getDatabase(context).mTmdbPeopleDao());
+    }
+
     public static DetailMovieViewModelFactory provideDetailMovieViewFactory(Context context){
         MovieRepository movieRepository = getMovieRepository(context);
         MovieScheduleRepository movieScheduleRepository = getMovieScheduleRepository(context);
@@ -92,6 +98,10 @@ public class InjectorUtils {
 
     public static DiscoverSearchResultsViewModelFactory provideDiscoverSearchResultsViewModelFactory(Context context){
         return new DiscoverSearchResultsViewModelFactory(getTmdbMovieDiscoverRepository(context), getTmdbApiClient(context));
+    }
+
+    public static DetailedTmdbPersonViewModelFactory provideDetailedTmdbPersonViewModelFactory(Context context){
+        return new DetailedTmdbPersonViewModelFactory(getTmdbPeopleRepository(context), getTmdbApiClient(context));
     }
 
 }

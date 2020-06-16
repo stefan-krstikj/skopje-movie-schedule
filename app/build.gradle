@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -85,6 +86,8 @@ dependencies {
 
     // facebook shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
 
 
 }

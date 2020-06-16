@@ -1,5 +1,9 @@
-package com.stefankrstikj.skopjemovieschedule.api.tmdb;
+package com.stefankrstikj.skopjemovieschedule.api.tmdb.service;
 
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.response.TmdbCastResponse;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.response.TmdbMovieResponse;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.response.TmdbMovieReviewResponse;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.response.TmdbMovieVideosResponse;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieGenre;
 

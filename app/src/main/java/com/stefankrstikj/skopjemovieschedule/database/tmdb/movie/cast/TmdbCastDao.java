@@ -1,4 +1,4 @@
-package com.stefankrstikj.skopjemovieschedule.database.tmdb.cast;
+package com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.cast;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

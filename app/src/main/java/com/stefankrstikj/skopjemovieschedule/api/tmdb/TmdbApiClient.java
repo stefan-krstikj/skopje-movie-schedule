@@ -3,14 +3,20 @@ package com.stefankrstikj.skopjemovieschedule.api.tmdb;
 import android.util.Log;
 
 import com.stefankrstikj.skopjemovieschedule.api.APIKeys;
-import com.stefankrstikj.skopjemovieschedule.database.tmdb.cast.TmdbCastRepository;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.response.TmdbMovieResponse;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.service.TmdbMovieApiService;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.service.TmdbPeopleApiService;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.cast.TmdbCastRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.genre.TmdbMovieGenreRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.recommendation.TmdbMovieRecommendationRepository;
-import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.review.TmdbMovieReviewRepository;
 import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.video.TmdbMovieVideoRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.people.TmdbPeopleRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieRecommendation;
+import com.stefankrstikj.skopjemovieschedule.models.TmdbPerson;
+import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.OkHttpClient;
@@ -29,25 +35,27 @@ public class TmdbApiClient {
 	private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
 	private TmdbMovieReviewRepository mTmdbMovieReviewRepository;
 	private TmdbMovieVideoRepository mTmdbMovieVideoRepository;
+	private TmdbPeopleRepository mTmdbPeopleRepository;
 	public static volatile TmdbApiClient mInstance;
 
 	synchronized public static TmdbApiClient getInstance(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository,
-														 TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository, TmdbMovieVideoRepository tmdbMovieVideoRepository) {
+														 TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository, TmdbMovieVideoRepository tmdbMovieVideoRepository,
+														 TmdbPeopleRepository tmdbPeopleRepository) {
 		if (mInstance == null) {
-			mInstance = new TmdbApiClient(tmdbMovieRepository, tmdbCastRepository, tmdbMovieRecommendationRepository, tmdbMovieGenreRepository, tmdbMovieReviewRepository, tmdbMovieVideoRepository);
+			mInstance = new TmdbApiClient(tmdbMovieRepository, tmdbCastRepository, tmdbMovieRecommendationRepository, tmdbMovieGenreRepository, tmdbMovieReviewRepository, tmdbMovieVideoRepository, tmdbPeopleRepository);
 		}
 		return mInstance;
 	}
 
 
-	private TmdbApiClient(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository,
-						  TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository, TmdbMovieVideoRepository tmdbMovieVideoRepository) {
+	private TmdbApiClient(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository, TmdbMovieGenreRepository tmdbMovieGenreRepository, TmdbMovieReviewRepository tmdbMovieReviewRepository, TmdbMovieVideoRepository tmdbMovieVideoRepository, TmdbPeopleRepository tmdbPeopleRepository) {
 		mTmdbMovieRepository = tmdbMovieRepository;
 		mTmdbCastRepository = tmdbCastRepository;
 		mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
 		mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
 		mTmdbMovieReviewRepository = tmdbMovieReviewRepository;
 		mTmdbMovieVideoRepository = tmdbMovieVideoRepository;
+		mTmdbPeopleRepository = tmdbPeopleRepository;
 	}
 
 	private static Retrofit getRetroFit() {
@@ -58,7 +66,7 @@ public class TmdbApiClient {
 		if (retroFit == null) {
 
 			retroFit = new Retrofit.Builder()
-					.baseUrl("https://api.themoviedb.org/3/")
+					.baseUrl(URLList.TMDBBaseUrl)
 					.client(client)
 					.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
 					.addConverterFactory(GsonConverterFactory.create())
@@ -113,12 +121,12 @@ public class TmdbApiClient {
 				.forEach(tmdbMovieDetailed -> getDetailsForMovie(tmdbMovieDetailed, "Trending"));
 	}
 
-	private Observable<TmdbMovieResponse> getAllMoviesForQueryObservable(String query){
+	private Observable<TmdbMovieResponse> getAllMoviesForQueryObservable(String query) {
 		TmdbMovieApiService tmdbMovieApiService = getRetroFit().create(TmdbMovieApiService.class);
 		return tmdbMovieApiService.getMoviesForQuery(query, APIKeys.TMDB_API_KEY);
 	}
 
-	public void getAllMoviesForQuery(String query){
+	public void getAllMoviesForQuery(String query) {
 		getAllMoviesForQueryObservable(query)
 				.flatMap(tmdbMovieResponse -> Observable.just(tmdbMovieResponse.getResults()))
 				.flatMapIterable(data -> data)
@@ -227,12 +235,23 @@ public class TmdbApiClient {
 				.flatMapIterable(data -> data)
 				.doOnError(error -> Log.e(TAG, error.getMessage()))
 				.subscribe(data -> {
-					Log.v(TAG, "Received data: " + data.getName());
 					data.setMovieId(id);
 					mTmdbMovieVideoRepository.insert(data);
 				});
 	}
 
+	private Observable<TmdbPerson> getDetailsForPersonObs(Integer id) {
+		TmdbPeopleApiService tmdbPeopleApiService = getRetroFit().create(TmdbPeopleApiService.class);
+		return tmdbPeopleApiService.getDetailsForPerson(id, APIKeys.TMDB_API_KEY);
+	}
+
+	public void getDetailsForPerson(Integer id) {
+		getDetailsForPersonObs(id)
+				.flatMap(data -> Observable.just(data))
+				.subscribe(data -> {
+					mTmdbPeopleRepository.insert(data);
+				}, throwable -> Log.e(TAG, throwable.getMessage()));
+	}
 
 //	private void getDetailsForTmdbMovie(TmdbMovieDetailed tmdbMovieDetailed) {
 //		// da povikam koi genres gi ima, pa potoa da povikam cast i recommendations i se toa

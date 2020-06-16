@@ -63,6 +63,10 @@ public class DiscoverViewModel extends ViewModel  {
         mApiClient.getAllNowPlayingMovies();
     }
 
+    public void fetchDetailsForPerson(Integer id){
+        mApiClient.getDetailsForPerson(id);
+    }
+
     public void fetchAllMovies(){
         mApiClient.getTrendingMovies();
         mApiClient.getUpcomingMovies();

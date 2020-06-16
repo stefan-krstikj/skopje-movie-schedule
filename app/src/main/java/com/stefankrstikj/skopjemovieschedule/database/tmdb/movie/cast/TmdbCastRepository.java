@@ -1,4 +1,4 @@
-package com.stefankrstikj.skopjemovieschedule.database.tmdb.cast;
+package com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.cast;
 
 import androidx.lifecycle.LiveData;
 
@@ -36,7 +36,7 @@ public class TmdbCastRepository {
 		return mTmdbCastDao.getAllCasts();
 	}
 
-	public LiveData<List<TmdbMovieCast>> getAllForMovie(Integer movieId){
+	public LiveData<List<TmdbMovieCast>> getAllCastForMovie(Integer movieId){
 		return mTmdbCastDao.getCastForMovie(movieId);
 	}
 }
