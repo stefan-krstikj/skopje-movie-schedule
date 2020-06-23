@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<!--<layout -->
+<!--    >-->
     
 <!--    <data>-->
 <!--        <import type="android.view.View" />-->
@@ -10,35 +9,40 @@
 <!--            type="com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed" />-->
 <!--    </data>-->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout_detailed_tmdb_movie"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/movies_blue_background"
+    android:clickable="true"
     android:fitsSystemWindows="true"
     tools:context=".ui.movies.detailed_view.DetailMovieActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/detailed_tmdb_movie_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:stateListAnimator="@animator/show_detailed_movie_toolbar"
-        android:animateLayoutChanges="true">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/detailed_tmdb_movie_toolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/movies_blue_dark"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/movies_blue_dark"
             app:collapsedTitleGravity="center"
             app:collapsedTitleTextAppearance="@android:color/black"
+            app:contentScrim="@color/movies_blue_dark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title=""
             app:titleEnabled="true"
-            app:toolbarId="@+id/detailed_tmdb_movie_toolbar"
-            android:background="@color/movies_blue_dark"
-            >
+            app:toolbarId="@+id/detailed_tmdb_movie_toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -64,7 +68,6 @@
 
                         tools:srcCompat="@drawable/dolittle_poster_mkd" />
                 </androidx.cardview.widget.CardView>
-
 
 
                 <TextView
@@ -171,8 +174,8 @@
                 android:id="@+id/detailed_tmdb_movie_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:contentInsetStart="0dp"/>
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -225,4 +228,4 @@
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+<!--</layout>-->

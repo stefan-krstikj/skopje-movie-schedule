@@ -11,6 +11,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 @Entity(tableName = "tmdb_movie_cast",
 		foreignKeys = {
 				@ForeignKey(entity = TmdbMovieDetailed.class,
@@ -22,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 				@Index(name = "index_cast_movie_id", value = {"movie_id"}),
 				@Index(name = "index_cast_movie_result_type", value = {"movie_result_type"})
 		})
-public class TmdbMovieCast {
+public class TmdbMovieCast implements Serializable {
 	@PrimaryKey
 	@NotNull
 	@ColumnInfo(name = "id")

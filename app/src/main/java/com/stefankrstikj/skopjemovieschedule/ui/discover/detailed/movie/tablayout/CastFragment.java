@@ -1,6 +1,7 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieCastAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModel;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
 public class CastFragment extends Fragment {
 	private static String TAG = "CastFragment";
 	DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
 	TmdbMovieCastAdapter mAdapter;
+	private OnClickListener mOnClickListener;
 
-	public CastFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel) {
+	public CastFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, OnClickListener onClickListener) {
 		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
+		mOnClickListener = onClickListener;
+		Log.v(TAG, "Constructor called");
 	}
 
 
@@ -46,7 +51,7 @@ public class CastFragment extends Fragment {
 
 		RecyclerView recyclerView = getView().findViewById(R.id.recyclerView_fragment_template);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		mAdapter = new TmdbMovieCastAdapter();
+		mAdapter = new TmdbMovieCastAdapter(mOnClickListener);
 		recyclerView.setAdapter(mAdapter);
 		recyclerView.setLayoutParams(lp);
 	}

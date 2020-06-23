@@ -26,10 +26,10 @@ import com.stefankrstikj.skopjemovieschedule.models.Movie;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.detailed_view.DetailMovieActivity;
 import com.stefankrstikj.skopjemovieschedule.ui.movies.MoviesViewModel;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
-public class InTheatersTabFragment extends Fragment implements OnMoviePosterClickListener{
+public class InTheatersTabFragment extends Fragment implements OnClickListener {
 
     private MoviesViewModel moviesViewModel;
     MovieAdapter adapter;
@@ -92,7 +92,7 @@ public class InTheatersTabFragment extends Fragment implements OnMoviePosterClic
 
 
     @Override
-    public void onMovieClick(Object o, ImageView imageView) {
+    public void onClick(Object o, ImageView imageView, Integer position) {
         Movie movie = (Movie) o;
         Intent intent = new Intent(getContext(), DetailMovieActivity.class);
         Drawable drawable = imageView.getDrawable();

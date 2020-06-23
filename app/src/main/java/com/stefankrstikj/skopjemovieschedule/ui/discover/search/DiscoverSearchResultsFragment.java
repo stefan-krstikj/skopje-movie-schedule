@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieListAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
 import java.util.Objects;
 
@@ -22,11 +22,11 @@ public class DiscoverSearchResultsFragment extends Fragment {
 	private static String TAG = "DiscoverSearchResultsFragment";
 	private TmdbMovieListAdapter mAdapter;
 	private DiscoverSearchResultsViewModel mDiscoverSearchResultsViewModel;
-	private OnMoviePosterClickListener mOnMoviePosterClickListener;
+	private OnClickListener mOnClickListener;
 
-	public DiscoverSearchResultsFragment(DiscoverSearchResultsViewModel discoverSearchResultsViewModel, OnMoviePosterClickListener onMoviePosterClickListener) {
+	public DiscoverSearchResultsFragment(DiscoverSearchResultsViewModel discoverSearchResultsViewModel, OnClickListener onClickListener) {
 		mDiscoverSearchResultsViewModel = discoverSearchResultsViewModel;
-		mOnMoviePosterClickListener = onMoviePosterClickListener;
+		mOnClickListener = onClickListener;
 	}
 
 	@Nullable
@@ -46,7 +46,7 @@ public class DiscoverSearchResultsFragment extends Fragment {
 	private void initListView(){
 		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_fragment_template);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		mAdapter = new TmdbMovieListAdapter(mOnMoviePosterClickListener);
+		mAdapter = new TmdbMovieListAdapter(mOnClickListener);
 		recyclerView.setAdapter(mAdapter);
 	}
 

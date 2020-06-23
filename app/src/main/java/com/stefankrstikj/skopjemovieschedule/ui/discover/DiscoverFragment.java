@@ -1,10 +1,7 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,28 +15,29 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovie;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsFragment;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
 import java.io.ByteArrayOutputStream;
 
-public class DiscoverFragment extends Fragment implements OnMoviePosterClickListener {
+public class DiscoverFragment extends Fragment implements OnClickListener {
 	private static String TAG = "DiscoverFragment";
 
 	DiscoverPagerAdapter mDiscoverPagerAdapter;
 	ViewPager viewPager;
 	private DiscoverSearchResultsViewModel mDiscoverSearchResultsViewModel;
-
 
 
 	@Nullable
@@ -96,11 +94,10 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 
 			@Override
 			public boolean onQueryTextChange(String newText) {
-				Log.v(TAG, "Submitting " + newText);
-				if(newText == null || newText.length() <= 3)
+				if (newText == null || newText.length() <= 3)
 					return false;
-				if(getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0){
-					Fragment fragment = new DiscoverSearchResultsFragment(mDiscoverSearchResultsViewModel, DiscoverFragment.this::onMovieClick);
+				if (getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0) {
+					Fragment fragment = new DiscoverSearchResultsFragment(mDiscoverSearchResultsViewModel, DiscoverFragment.this::onClick);
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.discover_fragment_container, fragment).addToBackStack("DiscoverFragment").commit();
 				}
 
@@ -108,27 +105,29 @@ public class DiscoverFragment extends Fragment implements OnMoviePosterClickList
 				return false;
 			}
 		});
-
-
 	}
 
 	@Override
-	public void onMovieClick(Object o, ImageView imageView) {
-		// todo: bad implementation, cant do the OnMoviePosterClick inside recommendationFragment (which is inside DetailedTmdbMovie.class)
+	public void onClick(Object o, ImageView imageView, Integer position) {
 		TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
-		Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
 
 		imageView.buildDrawingCache();
 		Bitmap bitmap = imageView.getDrawingCache();
 
 		ByteArrayOutputStream bs = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
-		intent.putExtra("byteArray", bs.toByteArray());
-		intent.putExtra("movie", movie);
-		ActivityOptions activityOptions = ActivityOptions
-				.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
 
-		startActivity(intent, activityOptions.toBundle());
+		Bundle bundle = new Bundle();
+		bundle.putByteArray("byteArray", bs.toByteArray());
+		bundle.putSerializable("movie", movie);
+		bundle.putSerializable("transitionName", "imageMain" + position);
+		Fragment fragment = new DetailedTmdbMovieFragment();
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getChildFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.coordinatorLayout_fragment_discover, fragment);
+		fragmentTransaction.addToBackStack(TAG);
+		fragmentTransaction.addSharedElement(imageView, "transition" + position);
+		fragmentTransaction.commit();
 	}
-
 }

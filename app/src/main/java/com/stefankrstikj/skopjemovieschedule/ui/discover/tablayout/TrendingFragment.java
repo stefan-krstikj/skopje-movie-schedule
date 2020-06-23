@@ -1,7 +1,6 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
 public class TrendingFragment extends AbstractDiscoverTab {
 
@@ -18,8 +17,8 @@ public class TrendingFragment extends AbstractDiscoverTab {
 	private static String mResultType = "Trending";
 
 
-	public TrendingFragment(OnMoviePosterClickListener onMoviePosterClickListener) {
-		mOnMoviePosterClickListener = onMoviePosterClickListener;
+	public TrendingFragment(OnClickListener onClickListener) {
+		mOnClickListener = onClickListener;
 	}
 
 	public View onCreateView(

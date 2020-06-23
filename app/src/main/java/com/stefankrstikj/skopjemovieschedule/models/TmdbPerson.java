@@ -9,8 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 @Entity(tableName = "tmdb_persons")
-public class TmdbPerson {
+public class TmdbPerson implements Serializable {
 
 	@ColumnInfo(name = "birthday")
 	@SerializedName("birthday")

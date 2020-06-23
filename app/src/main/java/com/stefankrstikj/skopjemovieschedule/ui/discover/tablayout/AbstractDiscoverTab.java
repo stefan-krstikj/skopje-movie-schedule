@@ -14,12 +14,12 @@ import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieGridAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.RefreshDataCallback;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
 public abstract class AbstractDiscoverTab extends Fragment implements RefreshDataCallback {
 
-	protected OnMoviePosterClickListener mOnMoviePosterClickListener;
+	protected OnClickListener mOnClickListener;
 	protected ShimmerFrameLayout mShimmerFrameLayout;
 	protected RecyclerView mRecyclerView;
 	protected TmdbMovieGridAdapter mAdapter;
@@ -32,7 +32,7 @@ public abstract class AbstractDiscoverTab extends Fragment implements RefreshDat
 		mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setItemViewCacheSize(20);
-		mAdapter = new TmdbMovieGridAdapter(mOnMoviePosterClickListener);
+		mAdapter = new TmdbMovieGridAdapter(mOnClickListener);
 		mRecyclerView.setAdapter(mAdapter);
 	}
 

@@ -1,5 +1,6 @@
 package com.stefankrstikj.skopjemovieschedule.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieCast;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
 import java.util.ArrayList;
@@ -19,10 +21,10 @@ import java.util.List;
 
 public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdapter.TmdbMovieCastHolder> {
 	private static final String TAG = "MovieCastAdapter";
-
+	private OnClickListener mOnClickListener;
 	private List<TmdbMovieCast> mDataset;
 
-	public static class TmdbMovieCastHolder extends RecyclerView.ViewHolder{
+	public class TmdbMovieCastHolder extends RecyclerView.ViewHolder{
 
 		private TextView mName;
 		private TextView mCharacter;
@@ -35,6 +37,16 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 			mName = itemView.findViewById(R.id.textView_cast_name);
 			mCharacter = itemView.findViewById(R.id.textView_cast_character);
 			mPoster = itemView.findViewById(R.id.imageView_cast_poster);
+
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					TmdbMovieCast tmdbMovieCast = mDataset.get(getAdapterPosition());
+					Log.v(TAG, "Clicked " + tmdbMovieCast.getName());
+					mOnClickListener.onClick(tmdbMovieCast, mPoster, getAdapterPosition());
+
+				}
+			});
 		}
 
 		void setText(TmdbMovieCast tmdbMovieCast){
@@ -47,8 +59,9 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 		}
 	}
 
-	public TmdbMovieCastAdapter() {
-		this.mDataset = new ArrayList<>();
+	public TmdbMovieCastAdapter(OnClickListener onClickListener) {
+		mOnClickListener = onClickListener;
+		mDataset = new ArrayList<>();
 	}
 
 	@NonNull
@@ -61,8 +74,8 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 
 	@Override
 	public void onBindViewHolder(@NonNull TmdbMovieCastHolder holder, int position) {
+		holder.mPoster.setTransitionName(holder.mPoster.getTransitionName() + position);
 		holder.setText(mDataset.get(position));
-
 	}
 
 

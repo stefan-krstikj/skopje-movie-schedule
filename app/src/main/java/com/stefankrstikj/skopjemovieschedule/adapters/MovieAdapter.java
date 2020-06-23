@@ -10,13 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.stefankrstikj.skopjemovieschedule.R;
+import com.stefankrstikj.skopjemovieschedule.models.Movie;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.models.Movie;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
 
 import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_HEIGHT;
 import static com.stefankrstikj.skopjemovieschedule.utils.MovieUtils.POSTER_WIDTH;
@@ -25,7 +24,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
     private static final String TAG = "MovieAdapter";
 
     private List<Movie> mDataset;
-    OnMoviePosterClickListener mListener;
+    OnClickListener mListener;
 
     public class MovieHolder extends RecyclerView.ViewHolder{
 
@@ -39,12 +38,12 @@ public class MovieAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onMovieClick(mDataset.get(getAdapterPosition()), moviePoster);
+                    mListener.onClick(mDataset.get(getAdapterPosition()), moviePoster, getAdapterPosition());
                 }
             });
         }
 
-        void setText(Movie movie, final OnMoviePosterClickListener listener){
+        void setText(Movie movie, final OnClickListener listener){
             movieTitle.setText(movie.getMovieDisplayTitle());
             Picasso.get()
                     .load(movie.getPosterURL())
@@ -53,7 +52,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public MovieAdapter(OnMoviePosterClickListener listener) {
+    public MovieAdapter(OnClickListener listener) {
         this.mDataset = new ArrayList<>();
         this.mListener = listener;
     }

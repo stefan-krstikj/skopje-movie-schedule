@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
 public class TopRatedFragment extends AbstractDiscoverTab {
 
@@ -23,8 +23,8 @@ public class TopRatedFragment extends AbstractDiscoverTab {
 //	private DiscoverViewModel mViewModel;
 //	private SwipeRefreshLayout mSwipeRefreshLayout;
 
-	public TopRatedFragment(OnMoviePosterClickListener onMoviePosterClickListener) {
-		mOnMoviePosterClickListener = onMoviePosterClickListener;
+	public TopRatedFragment(OnClickListener onClickListener) {
+		mOnClickListener = onClickListener;
 	}
 
 	public View onCreateView(

@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,8 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
-import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
@@ -25,12 +23,12 @@ import java.util.List;
 
 public class TmdbMovieListAdapter extends RecyclerView.Adapter<TmdbMovieListAdapter.TmdbMovieListHolder> {
 
-	private OnMoviePosterClickListener mOnMoviePosterClickListener;
+	private OnClickListener mOnClickListener;
 	private List<TmdbMovieDetailed> mDataset;
 
 
-	public TmdbMovieListAdapter(OnMoviePosterClickListener onMoviePosterClickListener) {
-		mOnMoviePosterClickListener = onMoviePosterClickListener;
+	public TmdbMovieListAdapter(OnClickListener onClickListener) {
+		mOnClickListener = onClickListener;
 		mDataset = new ArrayList<>();
 	}
 
@@ -46,7 +44,7 @@ public class TmdbMovieListAdapter extends RecyclerView.Adapter<TmdbMovieListAdap
 			mTitle = itemView.findViewById(R.id.textView_movie_list_list_title);
 			mYear = itemView.findViewById(R.id.textView_movie_list_list_year);
 			mGenres = itemView.findViewById(R.id.textView_movie_list_list_genres);
-			itemView.setOnClickListener(v -> mOnMoviePosterClickListener.onMovieClick(mDataset.get(getAdapterPosition()), mMoviePoster));
+			itemView.setOnClickListener(v -> mOnClickListener.onClick(mDataset.get(getAdapterPosition()), mMoviePoster, getAdapterPosition()));
 		}
 
 		void setText(TmdbMovieDetailed tmdbMovieDetailed){

@@ -1,13 +1,9 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -20,23 +16,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieGridAdapter;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovie;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModel;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 
-public class RecommendationsFragment extends Fragment implements OnMoviePosterClickListener {
+public class RecommendationsFragment extends Fragment {
 	private static final String TAG = "RecommendationsFragment";
 
 	private DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
 	private TmdbMovieGridAdapter mAdapter;
+	private OnClickListener mOnClickListener;
 
 
-	public RecommendationsFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel) {
+	public RecommendationsFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, OnClickListener onClickListener) {
 		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
+		mOnClickListener = onClickListener;
 	}
 
 	@Override
@@ -67,7 +62,7 @@ public class RecommendationsFragment extends Fragment implements OnMoviePosterCl
 		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_movie_list);
 		recyclerView.setLayoutParams(lp);
 		recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
-		mAdapter = new TmdbMovieGridAdapter(this);
+		mAdapter = new TmdbMovieGridAdapter(mOnClickListener);
 		recyclerView.setAdapter(mAdapter);
 	}
 
@@ -75,21 +70,4 @@ public class RecommendationsFragment extends Fragment implements OnMoviePosterCl
 		this.mDetailedTmdbMovieViewModel.getTmdbMovieRecommendationsForMovie().observe(getViewLifecycleOwner(), data -> mAdapter.updateDataset(data));
 	}
 
-	@Override
-	public void onMovieClick(Object o, ImageView imageView) {
-		TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
-		Intent intent = new Intent(getActivity(), DetailedTmdbMovie.class);
-
-		imageView.buildDrawingCache();
-		Bitmap bitmap = imageView.getDrawingCache();
-
-		ByteArrayOutputStream bs = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
-		intent.putExtra("byteArray", bs.toByteArray());
-		intent.putExtra("movie", movie);
-		ActivityOptions activityOptions = ActivityOptions
-				.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
-
-		startActivity(intent, activityOptions.toBundle());
-	}
 }

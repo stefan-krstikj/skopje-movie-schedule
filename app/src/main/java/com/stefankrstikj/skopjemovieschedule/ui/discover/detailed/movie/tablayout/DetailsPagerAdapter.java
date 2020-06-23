@@ -7,12 +7,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModel;
+import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 
-public class DetailsPagerAdapter extends FragmentPagerAdapter {
+public class DetailsPagerAdapter extends FragmentStatePagerAdapter {
 
 
 	@StringRes
@@ -20,12 +21,14 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 
 	private final Context mContext;
 	private DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
+	private OnClickListener mOnClickListener;
 
 
-	public DetailsPagerAdapter(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, Context context, FragmentManager fm) {
+	public DetailsPagerAdapter(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, Context context, FragmentManager fm, OnClickListener onClickListener) {
 		super(fm);
 		mContext = context;
 		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
+		mOnClickListener = onClickListener;
 	}
 
 	@NonNull
@@ -33,13 +36,13 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int position) {
 		switch(position){
 			case 0:
-				return new CastFragment(mDetailedTmdbMovieViewModel);
+				return new CastFragment(mDetailedTmdbMovieViewModel, mOnClickListener);
 			case 1:
 				return new VideosFragment(mDetailedTmdbMovieViewModel);
 			case 2:
 				return new ReviewsFragment(mDetailedTmdbMovieViewModel);
 			case 3:
-				return new RecommendationsFragment(mDetailedTmdbMovieViewModel);
+				return new RecommendationsFragment(mDetailedTmdbMovieViewModel, mOnClickListener);
 			default:
 				return null;
 		}
