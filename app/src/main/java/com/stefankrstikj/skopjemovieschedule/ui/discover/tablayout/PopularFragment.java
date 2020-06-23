@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 public class PopularFragment extends AbstractDiscoverTab {
 
@@ -24,8 +24,8 @@ public class PopularFragment extends AbstractDiscoverTab {
 //	private DiscoverViewModel mViewModel;
 //	private SwipeRefreshLayout mSwipeRefreshLayout;
 
-	public PopularFragment(OnClickListener onClickListener) {
-		mOnClickListener = onClickListener;
+	public PopularFragment(OnMovieClickListener onMovieClickListener) {
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	public View onCreateView(

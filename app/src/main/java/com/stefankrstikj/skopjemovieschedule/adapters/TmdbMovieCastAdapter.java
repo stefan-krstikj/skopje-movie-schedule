@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnCastClickListener;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieCast;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdapter.TmdbMovieCastHolder> {
 	private static final String TAG = "MovieCastAdapter";
-	private OnClickListener mOnClickListener;
+	private OnCastClickListener mOnCastClickListener;
 	private List<TmdbMovieCast> mDataset;
 
 	public class TmdbMovieCastHolder extends RecyclerView.ViewHolder{
@@ -43,7 +43,7 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 				public void onClick(View v) {
 					TmdbMovieCast tmdbMovieCast = mDataset.get(getAdapterPosition());
 					Log.v(TAG, "Clicked " + tmdbMovieCast.getName());
-					mOnClickListener.onClick(tmdbMovieCast, mPoster, getAdapterPosition());
+					mOnCastClickListener.onCastClick(tmdbMovieCast, mPoster, getAdapterPosition());
 
 				}
 			});
@@ -59,8 +59,8 @@ public class TmdbMovieCastAdapter extends RecyclerView.Adapter<TmdbMovieCastAdap
 		}
 	}
 
-	public TmdbMovieCastAdapter(OnClickListener onClickListener) {
-		mOnClickListener = onClickListener;
+	public TmdbMovieCastAdapter(OnCastClickListener onCastClickListener) {
+		mOnCastClickListener = onCastClickListener;
 		mDataset = new ArrayList<>();
 	}
 

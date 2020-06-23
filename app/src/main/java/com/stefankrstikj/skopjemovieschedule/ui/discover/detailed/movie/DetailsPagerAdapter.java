@@ -1,4 +1,4 @@
-package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout;
+package com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie;
 
 import android.content.Context;
 
@@ -10,8 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModel;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnCastClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout.CastFragment;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout.RecommendationsFragment;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout.ReviewsFragment;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.tablayout.VideosFragment;
 
 public class DetailsPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -21,14 +25,15 @@ public class DetailsPagerAdapter extends FragmentStatePagerAdapter {
 
 	private final Context mContext;
 	private DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
-	private OnClickListener mOnClickListener;
+	private OnMovieClickListener mOnMovieClickListener;
+	private OnCastClickListener mOnCastClickListener;
 
-
-	public DetailsPagerAdapter(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, Context context, FragmentManager fm, OnClickListener onClickListener) {
+	public DetailsPagerAdapter(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, Context context, FragmentManager fm, OnMovieClickListener onMovieClickListener, OnCastClickListener onCastClickListener) {
 		super(fm);
 		mContext = context;
 		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
-		mOnClickListener = onClickListener;
+		mOnMovieClickListener = onMovieClickListener;
+		mOnCastClickListener = onCastClickListener;
 	}
 
 	@NonNull
@@ -36,13 +41,13 @@ public class DetailsPagerAdapter extends FragmentStatePagerAdapter {
 	public Fragment getItem(int position) {
 		switch(position){
 			case 0:
-				return new CastFragment(mDetailedTmdbMovieViewModel, mOnClickListener);
+				return new CastFragment(mDetailedTmdbMovieViewModel, mOnCastClickListener);
 			case 1:
 				return new VideosFragment(mDetailedTmdbMovieViewModel);
 			case 2:
 				return new ReviewsFragment(mDetailedTmdbMovieViewModel);
 			case 3:
-				return new RecommendationsFragment(mDetailedTmdbMovieViewModel, mOnClickListener);
+				return new RecommendationsFragment(mDetailedTmdbMovieViewModel, mOnMovieClickListener);
 			default:
 				return null;
 		}

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.stefankrstikj.skopjemovieschedule.R;;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 public class UpcomingFragment extends AbstractDiscoverTab{
 
@@ -26,8 +26,8 @@ public class UpcomingFragment extends AbstractDiscoverTab{
 //	private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
-	public UpcomingFragment(OnClickListener onClickListener) {
-		mOnClickListener = onClickListener;
+	public UpcomingFragment(OnMovieClickListener onMovieClickListener) {
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	public View onCreateView(

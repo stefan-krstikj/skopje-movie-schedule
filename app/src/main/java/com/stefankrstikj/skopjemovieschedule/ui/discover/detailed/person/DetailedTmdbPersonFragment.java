@@ -56,7 +56,7 @@ public class DetailedTmdbPersonFragment extends Fragment {
 	void unwrapBundle(){
 		Bundle bundle = this.getArguments();
 		if (bundle != null) {
-			TmdbMovieCast tmdbPerson = (TmdbMovieCast) bundle.getSerializable("person");
+			TmdbMovieCast tmdbPerson = (TmdbMovieCast) bundle.getSerializable("cast");
 			Log.v(TAG, "RECEIVED: " + tmdbPerson);
 			mProfileBitmap = BitmapFactory.decodeByteArray(bundle.getByteArray("byteArray"), 0, bundle.getByteArray("byteArray").length);
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 public class TrendingFragment extends AbstractDiscoverTab {
 
@@ -17,8 +17,8 @@ public class TrendingFragment extends AbstractDiscoverTab {
 	private static String mResultType = "Trending";
 
 
-	public TrendingFragment(OnClickListener onClickListener) {
-		mOnClickListener = onClickListener;
+	public TrendingFragment(OnMovieClickListener onMovieClickListener) {
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	public View onCreateView(

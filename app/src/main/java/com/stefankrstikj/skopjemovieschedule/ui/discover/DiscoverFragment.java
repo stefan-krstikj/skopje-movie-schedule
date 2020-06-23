@@ -27,12 +27,12 @@ import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchRe
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModel;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.search.DiscoverSearchResultsViewModelFactory;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout.DiscoverPagerAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 
 import java.io.ByteArrayOutputStream;
 
-public class DiscoverFragment extends Fragment implements OnClickListener {
+public class DiscoverFragment extends Fragment implements OnMovieClickListener {
 	private static String TAG = "DiscoverFragment";
 
 	DiscoverPagerAdapter mDiscoverPagerAdapter;
@@ -97,7 +97,7 @@ public class DiscoverFragment extends Fragment implements OnClickListener {
 				if (newText == null || newText.length() <= 3)
 					return false;
 				if (getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0) {
-					Fragment fragment = new DiscoverSearchResultsFragment(mDiscoverSearchResultsViewModel, DiscoverFragment.this::onClick);
+					Fragment fragment = new DiscoverSearchResultsFragment(mDiscoverSearchResultsViewModel, DiscoverFragment.this::onMovieClick);
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.discover_fragment_container, fragment).addToBackStack("DiscoverFragment").commit();
 				}
 
@@ -108,7 +108,7 @@ public class DiscoverFragment extends Fragment implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(Object o, ImageView imageView, Integer position) {
+	public void onMovieClick(Object o, ImageView imageView, Integer position) {
 		TmdbMovieDetailed movie = (TmdbMovieDetailed) o;
 
 		imageView.buildDrawingCache();

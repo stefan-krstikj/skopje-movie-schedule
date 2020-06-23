@@ -17,7 +17,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieGridAdapter;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModel;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 import java.util.Objects;
 
@@ -26,12 +26,12 @@ public class RecommendationsFragment extends Fragment {
 
 	private DetailedTmdbMovieViewModel mDetailedTmdbMovieViewModel;
 	private TmdbMovieGridAdapter mAdapter;
-	private OnClickListener mOnClickListener;
+	private OnMovieClickListener mOnMovieClickListener;
 
 
-	public RecommendationsFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, OnClickListener onClickListener) {
+	public RecommendationsFragment(DetailedTmdbMovieViewModel detailedTmdbMovieViewModel, OnMovieClickListener onMovieClickListener) {
 		mDetailedTmdbMovieViewModel = detailedTmdbMovieViewModel;
-		mOnClickListener = onClickListener;
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class RecommendationsFragment extends Fragment {
 		RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView_movie_list);
 		recyclerView.setLayoutParams(lp);
 		recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
-		mAdapter = new TmdbMovieGridAdapter(mOnClickListener);
+		mAdapter = new TmdbMovieGridAdapter(mOnMovieClickListener);
 		recyclerView.setAdapter(mAdapter);
 	}
 

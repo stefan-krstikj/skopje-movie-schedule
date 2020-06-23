@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 public class NowPlayingFragment extends AbstractDiscoverTab {
 	private static String TAG = "NowPlayingFragment";
@@ -22,8 +22,8 @@ public class NowPlayingFragment extends AbstractDiscoverTab {
 //	private DiscoverViewModel mViewModel;
 //	private SwipeRefreshLayout mSwipeRefreshLayout;
 
-	public NowPlayingFragment(OnClickListener onClickListener) {
-		mOnClickListener = onClickListener;
+	public NowPlayingFragment(OnMovieClickListener onMovieClickListener) {
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	public View onCreateView(

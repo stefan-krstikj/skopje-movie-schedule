@@ -16,7 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 import com.stefankrstikj.skopjemovieschedule.ui.discover.RefreshDataCallback;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 import com.stefankrstikj.skopjemovieschedule.utils.MovieUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
@@ -26,7 +26,7 @@ import java.util.List;
 public class TmdbMovieGridAdapter extends RecyclerView.Adapter {
 	private static final String TAG = "TmdbMovieAdapter";
 	private List<TmdbMovieDetailed> mDataset;
-	private OnClickListener mOnClickListener;
+	private OnMovieClickListener mOnMovieClickListener;
 
 	public class TmdbMovieGridHolder extends RecyclerView.ViewHolder {
 
@@ -37,7 +37,7 @@ public class TmdbMovieGridAdapter extends RecyclerView.Adapter {
 			super(itemView);
 			movieTitle = itemView.findViewById(R.id.textView_movie_list_grid_movie_title);
 			moviePoster = itemView.findViewById(R.id.imageView_movie_list_grid_movie_poster);
-			itemView.setOnClickListener(v -> mOnClickListener.onClick(mDataset.get(getAdapterPosition()), moviePoster, getAdapterPosition()));
+			itemView.setOnClickListener(v -> mOnMovieClickListener.onMovieClick(mDataset.get(getAdapterPosition()), moviePoster, getAdapterPosition()));
 		}
 
 		void setText(TmdbMovieDetailed movie) {
@@ -53,9 +53,9 @@ public class TmdbMovieGridAdapter extends RecyclerView.Adapter {
 		}
 	}
 
-	public TmdbMovieGridAdapter(OnClickListener onClickListener) {
+	public TmdbMovieGridAdapter(OnMovieClickListener onMovieClickListener) {
 		mDataset = new ArrayList<>();
-		mOnClickListener = onClickListener;
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	@NonNull

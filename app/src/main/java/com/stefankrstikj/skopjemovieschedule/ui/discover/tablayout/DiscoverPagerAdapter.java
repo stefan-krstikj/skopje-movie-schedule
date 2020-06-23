@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,12 +22,12 @@ public class DiscoverPagerAdapter extends FragmentStatePagerAdapter {
 	@StringRes
 	private static final int[] TAB_TITLES = new int[]{R.string.discover_tab_text_1, R.string.discover_tab_text_2, R.string.discover_tab_text_3, R.string.discover_tab_text_4, R.string.discover_tab_text_5};
 	private final Context mContext;
-	private OnClickListener mOnClickListener;
+	private OnMovieClickListener mOnMovieClickListener;
 
-	public DiscoverPagerAdapter(Context context, OnClickListener onClickListener, FragmentManager fm) {
+	public DiscoverPagerAdapter(Context context, OnMovieClickListener onMovieClickListener, FragmentManager fm) {
 		super(fm);
 		mContext = context;
-		mOnClickListener = onClickListener;
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
 	@NotNull
@@ -38,17 +38,17 @@ public class DiscoverPagerAdapter extends FragmentStatePagerAdapter {
 		System.out.println("POSITION: " + position);
 		switch(position){
 			case 0:
-				return new TrendingFragment(mOnClickListener);
+				return new TrendingFragment(mOnMovieClickListener);
 			case 1:
-				return new PopularFragment(mOnClickListener);
+				return new PopularFragment(mOnMovieClickListener);
 			case 2:
-				return new TopRatedFragment(mOnClickListener);
+				return new TopRatedFragment(mOnMovieClickListener);
 			case 3:
-				return new NowPlayingFragment(mOnClickListener);
+				return new NowPlayingFragment(mOnMovieClickListener);
 			case 4:
-				return new UpcomingFragment(mOnClickListener);
+				return new UpcomingFragment(mOnMovieClickListener);
 			default:
-				return new UpcomingFragment(mOnClickListener);
+				return new UpcomingFragment(mOnMovieClickListener);
 		}
 //		return DiscoverFragment.newInstance(position + 1);
 	}

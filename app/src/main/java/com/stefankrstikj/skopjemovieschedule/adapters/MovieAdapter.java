@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
     private static final String TAG = "MovieAdapter";
 
     private List<Movie> mDataset;
-    OnClickListener mListener;
+    OnMovieClickListener mListener;
 
     public class MovieHolder extends RecyclerView.ViewHolder{
 
@@ -38,12 +38,12 @@ public class MovieAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onClick(mDataset.get(getAdapterPosition()), moviePoster, getAdapterPosition());
+                    mListener.onMovieClick(mDataset.get(getAdapterPosition()), moviePoster, getAdapterPosition());
                 }
             });
         }
 
-        void setText(Movie movie, final OnClickListener listener){
+        void setText(Movie movie, final OnMovieClickListener listener){
             movieTitle.setText(movie.getMovieDisplayTitle());
             Picasso.get()
                     .load(movie.getPosterURL())
@@ -52,7 +52,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public MovieAdapter(OnClickListener listener) {
+    public MovieAdapter(OnMovieClickListener listener) {
         this.mDataset = new ArrayList<>();
         this.mListener = listener;
     }
