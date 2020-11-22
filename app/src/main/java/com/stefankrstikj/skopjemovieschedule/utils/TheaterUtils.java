@@ -148,7 +148,7 @@ public class TheaterUtils {
                 String lat = location.getString("lat");
                 String lon = location.getString("lng");
 
-                String id = mapLocationObject.getString("id");
+                String id = mapLocationObject.getString("place_id");
                 String name = mapLocationObject.getString("name");
                 if(name.contains("Sex") || !mapLocationObject.has("user_ratings_total"))
                     continue;
