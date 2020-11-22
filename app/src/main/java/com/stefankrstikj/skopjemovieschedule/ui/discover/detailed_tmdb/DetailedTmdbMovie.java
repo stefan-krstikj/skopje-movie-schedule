@@ -70,7 +70,7 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		textViewActors = findViewById(R.id.textView_Actors);
 		textViewRuntime = findViewById(R.id.textView_runtime);
 		textViewMovieSchedule = findViewById(R.id.textView_movie_schedule_text);
-		imageViewbackdropPath = findViewById(R.id.imageView_backdrop_path);
+//		imageViewbackdropPath = findViewById(R.id.imageView_details_movie);
 	}
 
 	private void initViewModel() {
@@ -88,12 +88,13 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		textViewRuntime.setText(mTmdbMovieDetailed.getRuntime() + " min");
 		textViewYear.setText(mTmdbMovieDetailed.getReleaseDate().substring(0, 4));
 		textViewPlot.setText(mTmdbMovieDetailed.getOverview());
-		textViewGenre.setText(mTmdbMovieDetailed.getGenres().toString().replace("[", "").replace("]", ""));
+		if(mTmdbMovieDetailed.getGenres() != null)
+			textViewGenre.setText(mTmdbMovieDetailed.getGenres().toString().replace("[", "").replace("]", ""));
 //		textViewDirector.setText(mTmdbMovieDetailed.getDirector());
 //		textViewActors.setText(mTmdbMovieDetailed.getActors());
 //		textViewRuntime.setText(mTmdbMovieDetailed.get());
-		Picasso.get()
-				.load(URLList.URLTmdbBackdrop + mTmdbMovieDetailed.getBackdropPath())
-				.into(imageViewbackdropPath);
+//		Picasso.get()
+//				.load(URLList.URLTmdbBackdrop + mTmdbMovieDetailed.getBackdropPath())
+//				.into(imageViewbackdropPath);
 	}
 }
