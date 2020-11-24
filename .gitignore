@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 .idea
+#/app/google-services.json
+#/app/src/main/java/com/stefankrstikj/skopjemovieschedule/api/APIKeys.java
