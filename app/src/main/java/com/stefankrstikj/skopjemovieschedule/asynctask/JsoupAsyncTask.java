@@ -4,15 +4,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieScheduleRepository;
+import com.stefankrstikj.skopjemovieschedule.models.Movie;
+import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
+
 import java.util.List;
 
-import com.stefankrstikj.skopjemovieschedule.models.Movie;
-import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
-import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
-import com.stefankrstikj.skopjemovieschedule.database.MovieScheduleRepository;
 
-
-// todo: change to Void, Void, Pair
 public abstract class JsoupAsyncTask extends AsyncTask<Void, Void, Pair<List<Movie>, List<MovieSchedule>>>{
     private static String TAG = "JsoupCineplexxAsyncTask";
     private MovieRepository mMovieRepository;

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import com.stefankrstikj.skopjemovieschedule.asynctask.TheatersAsyncTask;
-import com.stefankrstikj.skopjemovieschedule.database.MapLocationRepository;
+import com.stefankrstikj.skopjemovieschedule.database.maplocation.MapLocationRepository;
 import com.stefankrstikj.skopjemovieschedule.models.MapLocation;
 
 public class MapsViewModel extends ViewModel {

@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
-// todo: DELETE THIS TABLE
 @Entity(tableName = "tmdb_genre")
 public class TmdbMovieGenre implements Serializable {
 	@PrimaryKey

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/movies_blue_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/movies_blue_background">
+
+            <ImageView
+                android:id="@+id/imageView_cast_poster"
+                android:layout_width="@dimen/cast_poster_width"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:transitionName="imageMain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/profile_picture_template" />
+
+            <TextView
+                android:id="@+id/textView_cast_name"
+                style="@style/TextCategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="16dp"
+                android:text="Leonardo DiCaprio"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_cast_poster"
+                app:layout_constraintStart_toEndOf="@+id/imageView_cast_poster"
+                app:layout_constraintTop_toTopOf="@+id/imageView_cast_poster" />
+
+            <TextView
+                android:id="@+id/textView_cast_character"
+                style="@style/TextCategorySubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Rick Dalton"
+                app:layout_constraintStart_toStartOf="@+id/textView_cast_name"
+                app:layout_constraintTop_toBottomOf="@+id/textView_cast_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

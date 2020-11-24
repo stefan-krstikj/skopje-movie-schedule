@@ -9,8 +9,8 @@ import com.stefankrstikj.skopjemovieschedule.asynctask.cineplexx.JsoupCineplexxC
 import com.stefankrstikj.skopjemovieschedule.asynctask.cineplexx.JsoupCineplexxInTheatersAsynctask;
 import com.stefankrstikj.skopjemovieschedule.asynctask.milenium.JsoupMileniumAsyncTask;
 import com.stefankrstikj.skopjemovieschedule.models.Movie;
-import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
-import com.stefankrstikj.skopjemovieschedule.database.MovieScheduleRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieScheduleRepository;
 
 public class MoviesViewModel extends ViewModel {
     private static String TAG = "MoviesViewModel";

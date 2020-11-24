@@ -12,10 +12,10 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.google.android.material.tabs.TabLayout
+            style="@style/TabLayoutTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TabLayoutTheme"
-            >
+            android:theme="@style/TabLayoutTheme">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:id="@+id/toolbar_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/movies_blue_800_dark"
+                android:background="@color/movies_blue_dark"
                 app:contentInsetStart="0dp">
 
                 <TextView

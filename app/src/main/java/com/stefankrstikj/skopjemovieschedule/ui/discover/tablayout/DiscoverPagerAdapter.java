@@ -1,44 +1,36 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverFragment;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.DetailedTmdbMovie;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class DiscoverPagerAdapter extends FragmentPagerAdapter {
+public class DiscoverPagerAdapter extends FragmentStatePagerAdapter {
 	private static String TAG = "DiscoverPagerAdapter";
 	@StringRes
 	private static final int[] TAB_TITLES = new int[]{R.string.discover_tab_text_1, R.string.discover_tab_text_2, R.string.discover_tab_text_3, R.string.discover_tab_text_4, R.string.discover_tab_text_5};
 	private final Context mContext;
-	private OnMoviePosterClickListener mOnMoviePosterClickListener;
+	private OnMovieClickListener mOnMovieClickListener;
 
-	public DiscoverPagerAdapter(Context context, OnMoviePosterClickListener onMoviePosterClickListener, FragmentManager fm) {
+	public DiscoverPagerAdapter(Context context, OnMovieClickListener onMovieClickListener, FragmentManager fm) {
 		super(fm);
 		mContext = context;
-		mOnMoviePosterClickListener = onMoviePosterClickListener;
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
+	@NotNull
 	@Override
 	public Fragment getItem(int position) {
 		// getItem is called to instantiate the fragment for the given page.
@@ -46,17 +38,17 @@ public class DiscoverPagerAdapter extends FragmentPagerAdapter {
 		System.out.println("POSITION: " + position);
 		switch(position){
 			case 0:
-				return new TrendingFragment(mOnMoviePosterClickListener);
+				return new TrendingFragment(mOnMovieClickListener);
 			case 1:
-				return new PopularFragment(mOnMoviePosterClickListener);
+				return new PopularFragment(mOnMovieClickListener);
 			case 2:
-				return new TopRatedFragment(mOnMoviePosterClickListener);
+				return new TopRatedFragment(mOnMovieClickListener);
 			case 3:
-				return new NowPlayingFragment(mOnMoviePosterClickListener);
+				return new NowPlayingFragment(mOnMovieClickListener);
 			case 4:
-				return new UpcomingFragment(mOnMoviePosterClickListener);
+				return new UpcomingFragment(mOnMovieClickListener);
 			default:
-				return new UpcomingFragment(mOnMoviePosterClickListener);
+				return new UpcomingFragment(mOnMovieClickListener);
 		}
 //		return DiscoverFragment.newInstance(position + 1);
 	}

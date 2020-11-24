@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.stefankrstikj.skopjemovieschedule.R;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed_tmdb.tablayout.DetailsPagerAdapter;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModel;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailedTmdbMovieViewModelFactory;
+import com.stefankrstikj.skopjemovieschedule.ui.discover.detailed.movie.DetailsPagerAdapter;
 import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
 import com.stefankrstikj.skopjemovieschedule.utils.URLList;
 
@@ -48,7 +50,8 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 		this.mTmdbMovieDetailed = (TmdbMovieDetailed) getIntent().getSerializableExtra("movie");
 		this.mMoviePoster = this.getIntent().getParcelableExtra("image");
 
-		DetailsPagerAdapter sectionsPagerAdapter = new DetailsPagerAdapter(this, getSupportFragmentManager());
+		// todo
+		DetailsPagerAdapter sectionsPagerAdapter = new DetailsPagerAdapter(mDetailedTmdbMovieViewModel, this, getSupportFragmentManager(), null ,null);
 		viewPager = findViewById(R.id.detailed_tmdb_view_pager);
 		viewPager.setAdapter(sectionsPagerAdapter);
 //		TabLayout tabs = findViewById(R.id.tabs);
@@ -74,12 +77,13 @@ public class DetailedTmdbMovie extends AppCompatActivity {
 	}
 
 	private void initViewModel() {
-		DetailedTmdbMovieViewModelFactory factory = InjectorUtils.provideDetailedTmdbMovieViewModelFactory(this);
+		DetailedTmdbMovieViewModelFactory factory = InjectorUtils.provideDetailedTmdbMovieViewModelFactory(this, mTmdbMovieDetailed);
 		mDetailedTmdbMovieViewModel = ViewModelProviders.of(this, factory).get(DetailedTmdbMovieViewModel.class);
-		mDetailedTmdbMovieViewModel.getTmdbMovieCastForMovie(mTmdbMovieDetailed.getId())
-				.observe(this, tmdbMovieCast -> {
-
-				});
+		// todo
+//		mDetailedTmdbMovieViewModel.getTmdbMovieCastForMovie(mTmdbMovieDetailed.getId())
+//				.observe(this, tmdbMovieCast -> {
+//
+//				});
 	}
 
 	private void initData() {

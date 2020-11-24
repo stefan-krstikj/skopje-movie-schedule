@@ -2,10 +2,6 @@ package com.stefankrstikj.skopjemovieschedule.ui.discover.tablayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,52 +9,67 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.stefankrstikj.skopjemovieschedule.R;
-import com.stefankrstikj.skopjemovieschedule.adapters.TmdbMovieAdapter;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModel;
-import com.stefankrstikj.skopjemovieschedule.ui.discover.DiscoverViewModelFactory;
-import com.stefankrstikj.skopjemovieschedule.ui.movies.OnMoviePosterClickListener;
-import com.stefankrstikj.skopjemovieschedule.utils.InjectorUtils;
+import com.stefankrstikj.skopjemovieschedule.listeners.OnMovieClickListener;
 
-public class TopRatedFragment extends Fragment {
+public class TopRatedFragment extends AbstractDiscoverTab {
 
-	private DiscoverViewModel mViewModel;
-	private TmdbMovieAdapter adapter;
-	private static String TAG = "UpcomingFragment";
-	private OnMoviePosterClickListener mOnMoviePosterClickListener;
+	private static String TAG = "TopRatedFragment";
+	private static String mResultType = "Top Rated";
 
-	public TopRatedFragment(OnMoviePosterClickListener onMoviePosterClickListener) {
-		mOnMoviePosterClickListener = onMoviePosterClickListener;
+//	private OnMoviePosterClickListener mOnMoviePosterClickListener;
+//	private ShimmerFrameLayout mShimmerFrameLayout;
+//	private RecyclerView mRecyclerView;
+//	private TmdbMovieAdapter mAdapter;
+//	private DiscoverViewModel mViewModel;
+//	private SwipeRefreshLayout mSwipeRefreshLayout;
 
+	public TopRatedFragment(OnMovieClickListener onMovieClickListener) {
+		mOnMovieClickListener = onMovieClickListener;
 	}
 
-	@Nullable
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View root = inflater.inflate(R.layout.fragment_discover_tab_layout, container, false);
-
+	public View onCreateView(
+			@NonNull LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View root = inflater.inflate(R.layout.fragment_movies_list_template, container, false);
 		return root;
 	}
 
-	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		initListView();
+		initViews();
+		initRecyclerView();
 		initData();
+		initSwipe();
 	}
 
-	private void initListView(){
-		RecyclerView recyclerView = getView().findViewById(R.id.discover_tab_recycler_view);
-		recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-		adapter = new TmdbMovieAdapter(mOnMoviePosterClickListener);
-		recyclerView.setAdapter(adapter);
+
+	@Override
+	void initViews() {
+		mShimmerFrameLayout = getView().findViewById(R.id.movie_list_shimmer);
+		mSwipeRefreshLayout = getView().findViewById(R.id.swipe_movie_list);
+		mRecyclerView = getView().findViewById(R.id.recyclerView_movie_list);
 	}
 
-	private void initData(){
-
-		DiscoverViewModelFactory factory = InjectorUtils.provideDiscoverViewModelFactory(getContext());
-		mViewModel = ViewModelProviders.of(this, factory).get(DiscoverViewModel.class);
+	@Override
+	void initDataSource() {
+		mViewModel.fetchTopRatedMovies();
 		mViewModel.getAllTopRatedMovies().observe(getViewLifecycleOwner(), data -> {
-			adapter.updateDataset(data);
+			mAdapter.updateDataset(this, data);
 		});
 	}
+
+	public void fetchNewData() {
+		mAdapter.deleteDataset();
+		mViewModel.clearAll(mResultType);
+		mViewModel.fetchTopRatedMovies();
+	}
+
+	@Override
+	public void dataRefreshed() {
+		mSwipeRefreshLayout.setRefreshing(false);
+		mShimmerFrameLayout.stopShimmer();
+		mShimmerFrameLayout.setVisibility(View.GONE);
+		mRecyclerView.setVisibility(View.VISIBLE);
+	}
+
 }

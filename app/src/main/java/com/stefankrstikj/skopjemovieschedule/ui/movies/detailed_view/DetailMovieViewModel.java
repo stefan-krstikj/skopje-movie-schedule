@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import com.stefankrstikj.skopjemovieschedule.database.MovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieRepository;
 import com.stefankrstikj.skopjemovieschedule.models.MovieSchedule;
-import com.stefankrstikj.skopjemovieschedule.database.MovieScheduleRepository;
+import com.stefankrstikj.skopjemovieschedule.database.movie.MovieScheduleRepository;
 
 public class DetailMovieViewModel extends ViewModel {
 

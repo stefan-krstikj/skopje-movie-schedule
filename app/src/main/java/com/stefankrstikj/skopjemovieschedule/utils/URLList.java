@@ -9,6 +9,13 @@ public final class URLList {
     public static String REQUEST_URL_MAPLOCATIONS = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
     public static String REQUEST_URL_MAPLOCATION_DETAILS = "https://maps.googleapis.com/maps/api/place/details/json?";
 
-    public static final String URLTmdbPoster = "https://image.tmdb.org/t/p/w185/";
+    public static final String URLTmdbPoster = "https://image.tmdb.org/t/p/w154/";
     public static final String URLTmdbBackdrop = "https://image.tmdb.org/t/p/w780";
+    public static final String URLTmdbCastProfilePath = "https://image.tmdb.org/t/p/w92";
+
+    public static final String TMDBBaseUrl = "https://api.themoviedb.org/3/";
+
+    public static final String URLYouTubeThumbnailBaseUrl = "https://img.youtube.com/vi/";
+    public static final String URLYouTubeThumbnailSuffix = "/0.jpg";
+    public static final String URLYouTubeVideo = "https://www.youtube.com/watch?v=";
 }

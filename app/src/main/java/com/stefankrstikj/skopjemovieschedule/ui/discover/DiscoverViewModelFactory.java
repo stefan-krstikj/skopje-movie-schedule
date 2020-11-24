@@ -4,28 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.api.tmdb.TmdbApiClient;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.cast.TmdbCastRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
 
 public class DiscoverViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 	private TmdbMovieRepository mTmdbMovieRepository;
 	private TmdbCastRepository mTmdbCastRepository;
-	private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
-	private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
+	private TmdbApiClient mApiClient;
 
-	public DiscoverViewModelFactory(TmdbMovieRepository tmdbMovieRepository, TmdbCastRepository tmdbCastRepository, TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository, TmdbMovieGenreRepository tmdbMovieGenreRepository) {
+	public DiscoverViewModelFactory(TmdbMovieRepository tmdbMovieRepository, TmdbApiClient tmdbApiClient) {
 		mTmdbMovieRepository = tmdbMovieRepository;
-		mTmdbCastRepository = tmdbCastRepository;
-		mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
-		mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
+		mApiClient = tmdbApiClient;
 	}
 
 	@NonNull
 	@Override
 	public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-		DiscoverViewModel discoverViewModel = new DiscoverViewModel(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository, mTmdbMovieGenreRepository);
+		DiscoverViewModel discoverViewModel = new DiscoverViewModel(mTmdbMovieRepository, mApiClient);
 		return (T) discoverViewModel;
 	}
 }

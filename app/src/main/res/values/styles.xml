@@ -4,7 +4,7 @@
 
     <style name="Base.Theme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/movies_blue_800</item>
-        <item name="colorPrimaryDark">@color/movies_blue_800_dark</item>
+        <item name="colorPrimaryDark">@color/movies_blue_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:titleTextColor">@android:color/white</item>
         <item name="subtitleTextColor">@android:color/white</item>
@@ -24,13 +24,12 @@
 
     <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorAccent</item>
-        <item name="android:background">@color/movies_blue_800_dark</item>
+        <item name="android:background">@color/movies_blue_dark</item>
         <item name="android:textColorSecondary">@android:color/white</item>
     </style>
 
     <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@color/movies_blue_800_dark</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="tabBackground">@color/movies_blue_dark</item>
         <item name="tabTextColor">@android:color/white</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
@@ -86,6 +85,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.SkopjeMovieSchedule.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SkopjeMovieSchedule.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MovieCardViewPoster" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@android:color/transparent</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="android:clipToPadding">true</item>
+        <item name="cardElevation">2dp</item>
+    </style>
 
     <!--    <style name="Base.DarkTheme.SkopjeMovieSchedule" parent="Theme.AppCompat.Light.NoActionBar">-->
     <!--        <item name="colorPrimary">#002f93</item>-->

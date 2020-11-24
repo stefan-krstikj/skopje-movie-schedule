@@ -96,7 +96,7 @@ public class MapLocationAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.theater_list_layout, parent, false);
+                .inflate(R.layout.list_layout_theater, parent, false);
         return new MapLocationHolder(v);
     }
 

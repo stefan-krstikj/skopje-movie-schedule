@@ -1,16 +1,10 @@
 package com.stefankrstikj.skopjemovieschedule.ui.discover;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.stefankrstikj.skopjemovieschedule.api.tmdb.TmdbApiClient;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbCastRepository;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieGenreRepository;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRecommendationRepository;
-import com.stefankrstikj.skopjemovieschedule.database.TmdbMovieRepository;
+import com.stefankrstikj.skopjemovieschedule.database.tmdb.movie.TmdbMovieRepository;
 import com.stefankrstikj.skopjemovieschedule.models.TmdbMovieDetailed;
 
 import java.util.List;
@@ -18,21 +12,11 @@ import java.util.List;
 public class DiscoverViewModel extends ViewModel  {
     private static String TAG = "DiscoverViewModel";
     private TmdbMovieRepository mTmdbMovieRepository;
-    private TmdbCastRepository mTmdbCastRepository;
-    private TmdbMovieRecommendationRepository mTmdbMovieRecommendationRepository;
-    private TmdbMovieGenreRepository mTmdbMovieGenreRepository;
-    private MutableLiveData<List<TmdbMovieDetailed>> mData;
+    TmdbApiClient mApiClient;
 
-
-    public DiscoverViewModel(TmdbMovieRepository tmdbMovieRepository,
-                             TmdbCastRepository tmdbCastRepository,
-                             TmdbMovieRecommendationRepository tmdbMovieRecommendationRepository,
-                             TmdbMovieGenreRepository tmdbMovieGenreRepository) {
+    public DiscoverViewModel(TmdbMovieRepository tmdbMovieRepository, TmdbApiClient tmdbApiClient) {
         mTmdbMovieRepository = tmdbMovieRepository;
-        mTmdbCastRepository = tmdbCastRepository;
-        mTmdbMovieRecommendationRepository = tmdbMovieRecommendationRepository;
-        mTmdbMovieGenreRepository = tmdbMovieGenreRepository;
-        fetchMovieDiscovery();
+        mApiClient = tmdbApiClient;
     }
 
     public LiveData<List<TmdbMovieDetailed>> getAllTrendingMovies() {
@@ -55,14 +39,39 @@ public class DiscoverViewModel extends ViewModel  {
         return this.mTmdbMovieRepository.getAllNowPlayingMovies();
     }
 
-    private void fetchMovieDiscovery(){
-        Log.v(TAG, "Fetching Movie discovery obs");
-        TmdbApiClient api = new TmdbApiClient(mTmdbMovieRepository, mTmdbCastRepository, mTmdbMovieRecommendationRepository, mTmdbMovieGenreRepository);
-//        api.getAllGenres();
-        api.getTrendingMovies();
-        api.getUpcomingMovies();
-        api.getAllTopRatedMovies();
-        api.getAllPopularMovies();
-        api.getAllNowPlayingMovies();
+    public void clearAll(String resultType){
+        mTmdbMovieRepository.clear(resultType);
+    }
+
+    public void fetchTrendingMovies(){
+        mApiClient.getTrendingMovies();
+    }
+
+    public void fetchUpcomingMovies(){
+        mApiClient.getUpcomingMovies();
+    }
+
+    public void fetchTopRatedMovies(){
+        mApiClient.getAllTopRatedMovies();
+    }
+
+    public void fetchPopularMovies(){
+        mApiClient.getAllPopularMovies();
+    }
+
+    public void fetchNowPlayingMovies(){
+        mApiClient.getAllNowPlayingMovies();
+    }
+
+    public void fetchDetailsForPerson(Integer id){
+        mApiClient.getDetailsForPerson(id);
+    }
+
+    public void fetchAllMovies(){
+        mApiClient.getTrendingMovies();
+        mApiClient.getUpcomingMovies();
+        mApiClient.getAllTopRatedMovies();
+        mApiClient.getAllPopularMovies();
+        mApiClient.getAllNowPlayingMovies();
     }
 }

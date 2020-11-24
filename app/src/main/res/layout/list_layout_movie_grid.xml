@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+
+        android:theme="@style/MovieCardTheme">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_movie_list_grid_movie_poster"
+            style="@style/MovieCardViewPoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView_movie_list_grid_movie_poster"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:transitionName="imageMain"
+                tools:srcCompat="@drawable/ad_astra_movie_poster" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <TextView
+            android:id="@+id/textView_movie_list_grid_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:text="The Revenent"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:transitionName="textMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cardView_movie_list_grid_movie_poster"
+            app:layout_constraintStart_toStartOf="@+id/cardView_movie_list_grid_movie_poster"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_movie_list_grid_movie_poster" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
