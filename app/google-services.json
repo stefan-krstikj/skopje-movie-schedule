@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "427185980459",
+    "firebase_url": "https://skopje-movie-schedule.firebaseio.com",
+    "project_id": "skopje-movie-schedule",
+    "storage_bucket": "skopje-movie-schedule.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427185980459:android:0fe29b586b9b0c1950166e",
+        "android_client_info": {
+          "package_name": "com.stefankrstikj.skopjemovieschedule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427185980459-4f092b275t1mbuffcqnphsq2sotjc6qf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stefankrstikj.skopjemovieschedule",
+            "certificate_hash": "5ce0a88ec84bba1f832cffa4394dc357031ce027"
+          }
+        },
+        {
+          "client_id": "427185980459-inft95tq5kbek3f75mpape7ftaer7m3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "API_KEY_HERE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427185980459-inft95tq5kbek3f75mpape7ftaer7m3h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
