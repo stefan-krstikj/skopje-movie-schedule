@@ -5,7 +5,7 @@ Note: This is a WIP, and as such there is a lot of code that needs refactoring a
 ## Demo
 
 <p align="center">
-  <img src="https://github.com/stefan-krstikj/skopje-movie-schedule/demo/skopje-movie-schedule.gif" alt="Demo of Skopje Movie Schedule">
+  <img src="https://github.com/stefan-krstikj/skopje-movie-schedule/blob/master/demo/skopje-movie-schedule.gif?raw=true" alt="Demo of Skopje Movie Schedule">
 </p>
 
 ## Setup
